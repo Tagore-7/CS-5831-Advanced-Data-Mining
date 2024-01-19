@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Functions</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./Functions_files/github-like.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Functions</h1>
+</header>
+<h1 id="functions">Functions</h1>
+<p>Materials adapted from <em><a href="https://runestone.academy/runestone/static/thinkcspy/index.html">How
+to Think Like a Computer Scientist</a></em> and <a href="https://www.inferentialthinking.com/">Data 8 - Inferential
+Thinking</a></p>
+<p>This page is paired with the Jupyter Notebook:
+Intro-Python-part4.ipynb</p>
+<p>In Python, a <strong>function</strong> is a named sequence of
+statements that belong together. Their primary purpose is to help us
+organize programs into chunks that match how we think about the solution
+to the problem.</p>
+<p>The syntax for a <strong>function definition</strong> is:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> name( parameters ):</span>
+<span id="cb1-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    statements</span></code></pre></div>
+<p>You can make up any names you want for the functions you create,
+except that you can’t use a name that is a Python keyword, and the names
+must follow the rules for legal identifiers that were given previously.
+The parameters specify what information, if any, you have to provide in
+order to use the new function. Another way to say this is that the
+parameters specify what the function needs to do its work.</p>
+<p>There can be any number of statements inside the function, but they
+have to be indented from the <code>def</code>. In the examples in this
+book, we will use the standard indentation of four spaces. Function
+definitions are the second of several <strong>compound
+statements</strong> we will see, all of which have the same pattern:</p>
+<ol type="1">
+<li>A header line which begins with a keyword and ends with a
+colon.</li>
+<li>A <strong>body</strong> consisting of one or more Python statements,
+each indented the same amount – <em>4 spaces is the Python standard</em>
+– from the header line.</li>
+</ol>
+<p>In a function definition, the keyword in the header is
+<code>def</code>, which is followed by the name of the function and some
+<em>parameters</em> enclosed in parentheses. The parameter list may be
+empty, or it may contain any number of parameters separated from one
+another by commas. In either case, the parentheses are required.</p>
+<p>We need to say a bit more about the parameters. In the definition,
+the parameter list is more specifically known as the <strong>formal
+parameters</strong>. This list of names describes those things that the
+function will need to receive from the user of the function. When you
+use a function, you provide values to the formal parameters.</p>
+<p>The figure below shows this relationship. A function needs certain
+information to do its work. These values, often called
+<strong>arguments</strong> or <strong>actual parameters</strong>, are
+passed to the function by the user.</p>
+<figure>
+<img src="./Functions_files/blackboxproc.png" alt="black-box diagram">
+<figcaption aria-hidden="true">black-box diagram</figcaption>
+</figure>
+<p>This type of diagram is often called a <strong>black-box
+diagram</strong> because it only states the requirements from the
+perspective of the user. The user must know the name of the function and
+what arguments need to be passed. The details of how the function works
+are hidden inside the “black-box”.</p>
+<h2 id="our-first-function">Our First Function</h2>
+<p>The definition of the <code>print_double</code> function below simply
+doubles a number.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Our first function definition</span></span>
+<span id="cb2-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_double(x):</span>
+<span id="cb2-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Print the double x """</span></span>
+<span id="cb2-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">2</span><span class="op">*</span>x)</span></code></pre></div>
+<p>We start any function definition by writing <code>def</code>. Here is
+a breakdown of the other parts (the syntax) of this small function:</p>
+<figure>
+<img src="./Functions_files/function_definition.jpg" alt="Function definition">
+<figcaption aria-hidden="true">Function definition</figcaption>
+</figure>
+<p>When we run the cell above, no particular number is doubled, and the
+code inside the body of <code>print_double</code> is not yet evaluated.
+In this respect, our function is analogous to a <em>recipe</em>. Each
+time we follow the instructions in a recipe, we need to start with
+ingredients. Each time we want to use our function to double a number,
+we need to specify a number.</p>
+<p>Defining a new function does not make the function run. To do that we
+need a <strong>function call</strong>. This is also known as a
+<strong>function invocation</strong>. We’ve already seen how to call
+some built-in functions like <code>print</code>, <code>range</code> and
+<code>int</code>. Function calls contain the name of the function to be
+executed followed by a list of values in parentheses, called
+<em>arguments</em>, which are assigned to the parameters in the function
+definition.</p>
+<p>Once we’ve defined a function, we can call it as often as we like and
+its statements will be executed each time we call it. We can call
+<code>print_double</code> in exactly the same way we have called other
+functions. Each time we do that, the code in the body is executed, with
+the value of the argument given the name <code>x</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb3-1" aria-hidden="true" tabindex="-1"></a>print_double(<span class="dv">17</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb4-1" aria-hidden="true" tabindex="-1"></a>print_double(<span class="op">-</span><span class="fl">0.6</span><span class="op">/</span><span class="dv">4</span>)</span></code></pre></div>
+<p><strong>Warning</strong><br>
+Even if a function call needs no arguments, the parentheses
+<code>( )</code> after the function name are <em>required</em>. This can
+lead to a difficult bug: A function name without the parenthesis is a
+legal expression <em>referring</em> to the function; for example,
+<code>print</code>, but they do not <em>call</em> the associated
+functions.</p>
+<h2 id="functions-that-return-values">Functions that Return Values</h2>
+<p>Most functions require arguments, values that control how the
+function does its job. For example, if you want to find the absolute
+value of a number, you have to indicate what the number is. Python has a
+built-in function for computing the absolute value:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">abs</span>(<span class="dv">5</span>))</span>
+<span id="cb5-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div>
+<p>In this example, the arguments to the <code>abs</code> function are 5
+and -5.</p>
+<p>Some functions take more than one argument. For example the math
+module contains a function called <code>pow</code> which takes two
+arguments, the base and the exponent.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb6-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.<span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb6-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.<span class="bu">pow</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span></code></pre></div>
+<p><strong>Note</strong><br>
+Of course, we have already seen that raising a base to an exponent can
+be done with the ** operator.</p>
+<p>Another built-in function that takes more than one argument is
+<code>max</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">max</span>(<span class="dv">7</span>, <span class="dv">11</span>))</span>
+<span id="cb7-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">max</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">17</span>, <span class="dv">2</span>, <span class="dv">12</span>))</span>
+<span id="cb7-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">max</span>(<span class="dv">3</span> <span class="op">*</span> <span class="dv">11</span>, <span class="dv">5</span> <span class="op">**</span> <span class="dv">3</span>, <span class="dv">512</span> <span class="op">-</span> <span class="dv">9</span>, <span class="dv">1024</span> <span class="op">**</span> <span class="dv">0</span>))</span></code></pre></div>
+<p><code>max</code> can be sent any number of arguments, separated by
+commas, and will return the maximum value sent. The arguments can be
+either simple values or expressions. In the last example, 503 is
+returned, since it is larger than 33, 125, and 1. Note that
+<code>max</code> also works on lists of values.</p>
+<p>Furthermore, functions like <code>range</code>, <code>int</code>,
+<code>abs</code> all return values that can be used to build more
+complex expressions.</p>
+<p>Functions that return values are sometimes called <strong>fruitful
+functions</strong>. In many other languages, a chunk that doesn’t return
+a value is called a <strong>procedure</strong>, but we will stick here
+with the Python way of also calling it a function, or if we want to
+stress it, a <em>non-fruitful</em> function.</p>
+<p>Fruitful functions still allow the user to provide information
+(arguments). However there is now an additional piece of data that is
+returned from the function.</p>
+<figure>
+<img src="./Functions_files/blackboxfun.png" alt="fruitful function">
+<figcaption aria-hidden="true">fruitful function</figcaption>
+</figure>
+<p>How do we write our own fruitful function? Let’s start by creating a
+very simple mathematical function that we will call <code>square</code>.
+The square function will take one number as a parameter and return the
+result of squaring that number. Here is the black-box diagram with the
+Python code following.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb8-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb8-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb8-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-5" aria-hidden="true" tabindex="-1"></a>toSquare <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb8-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-6" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> square(toSquare)</span>
+<span id="cb8-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The result of"</span>, toSquare, <span class="st">"squared is"</span>, result)</span></code></pre></div>
+<p>The <strong>return</strong> statement is followed by an expression
+which is evaluated. Its result is returned to the caller as the “fruit”
+of calling this function. Because the return statement can contain any
+Python expression we could have avoided creating the <strong>temporary
+variable</strong> <code>y</code> and simply used
+<code>return x*x</code>. Try modifying the square function above to see
+that this works just the same. On the other hand, using
+<strong>temporary variables</strong> like <code>y</code> in the program
+above makes debugging easier. These temporary variables are examples of
+<strong>local variables</strong>, pursued further in the next
+section.</p>
+<p>Notice something important here. The name of the variable we pass as
+an argument — <code>toSquare</code> — has nothing to do with the name of
+the formal parameter — <code>x</code>. It is as if
+<code>x = toSquare</code> is executed when <code>square</code> is
+called. It doesn’t matter what the value was named in the caller. In
+<code>square</code>, it’s name is <code>x</code>.</p>
+<p><strong>Note</strong><br>
+The call to a function <em>terminates</em> after the execution of a
+return statement. This is fairly obvious if the return statement is the
+last statement in the function, but we will see later where it makes
+sense to have a return statement even when other statements follow, and
+the further statements are <em>not</em> executed.</p>
+<h3 id="exercise-1">Exercise 1</h3>
+<p>What is wrong with the following code?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> addEm(x, y, z):</span>
+<span id="cb9-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb9-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'the answer is'</span>, x <span class="op">+</span> y <span class="op">+</span> z)</span></code></pre></div>
+<ul>
+<li>A. You should never use a print statement in a function
+definition.</li>
+<li>B. You should not have any statements in a function after the return
+statement. Once the function gets to the return statement it will
+immediately stop executing the function.</li>
+<li>C. You must calculate the value of x+y+z before you return it.</li>
+<li>D. A function cannot return a number.</li>
+</ul>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>What will the following function return?</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> addEm(x, y, z):</span>
+<span id="cb10-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">+</span> y <span class="op">+</span> z)</span></code></pre></div>
+<ul>
+<li>A. None</li>
+<li>B. The value of x + y + z</li>
+<li>C. The string ‘x + y + z’</li>
+</ul>
+<h2 id="unit-testing">Unit Testing</h2>
+<p>When we write functions that return values, we intend to use them
+over and over again. However, we want to be certain that they return the
+correct result. To be more certain these functions work correctly we
+write unit tests.</p>
+<p>To write a <strong>unit test</strong>, we must know the correct
+result when calling the function with a specific input.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb11-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''raise x to the second power'''</span></span>
+<span id="cb11-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> x</span>
+<span id="cb11-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> unittest</span>
+<span id="cb11-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestNotebook(unittest.TestCase):</span>
+<span id="cb11-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_square(<span class="va">self</span>):</span>
+<span id="cb11-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(square(<span class="dv">10</span>), <span class="dv">100</span>)</span>
+<span id="cb11-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb11-13" aria-hidden="true" tabindex="-1"></a>unittest.main(argv<span class="op">=</span>[<span class="st">''</span>], verbosity<span class="op">=</span><span class="dv">2</span>, exit<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p><code>assertEqual</code> (from the <code>unittest</code> module) is a
+function that allows us to perform a unit test. It takes two parameters.
+The first is a call to the function we want to test (<code>square</code>
+in this example) with a particular input (10 in this example). The
+second parameter is the correct result that should be produced (100 in
+this example). <code>test.testEqual</code> compares what the function
+returns with the correct result and displays whether the unit test
+passes or fails.</p>
+<h3 id="choosing-good-unit-tests">Choosing Good Unit Tests</h3>
+<p>When we write unit tests, we should consider significantly different
+valid inputs to the function.</p>
+<p>For example, the input to the <code>square</code> function could be
+either a positive or negative value. These two different kinds of inputs
+give us two <strong>equivalence classes</strong> of inputs. We then
+choose an input from each of these classes. <strong>It is important to
+have at least one test for each equivalence class of
+inputs.</strong></p>
+<p>Semantic errors are often caused by improperly handling the
+boundaries between equivalence classes. The boundary for this problem is
+zero. <strong>It is important to have a test at each
+boundary.</strong></p>
+<h2 id="variables-and-parameters-are-local">Variables and Parameters are
+Local</h2>
+<p>An assignment statement in a function creates a <strong>local
+variable</strong> for the variable on the left hand side of the
+assignment operator. It is called local because this variable only
+exists inside the function and you cannot use it outside. For example,
+consider again the <code>square</code> function:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb12-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb12-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb12-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb12-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb12-5" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> square(<span class="dv">10</span>)</span>
+<span id="cb12-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span></code></pre></div>
+<p>The variable <code>y</code> only exists while the function is being
+executed — we call this its <strong>lifetime</strong>. When the
+execution of the function terminates (returns), the local variables are
+destroyed.</p>
+<p>Formal parameters are also local and act like local variables. For
+example, the lifetime of <code>x</code> begins when <code>square</code>
+is called, and its lifetime ends when the function completes its
+execution.</p>
+<p>So it is not possible for a function to set some local variable to a
+value, complete its execution, and then when it is called again next
+time, recover the local variable. Each call of the function creates new
+local variables, and their lifetimes expire when the function returns to
+the caller.</p>
+<p>On the other hand, it is legal for a function to access a global
+variable. However, this is considered <strong>bad form</strong> by
+nearly all programmers and should be avoided. Look at the following,
+nonsensical variation of the square function.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> badsquare(x):</span>
+<span id="cb13-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x <span class="op">**</span> power</span>
+<span id="cb13-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb13-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-5" aria-hidden="true" tabindex="-1"></a>power <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb13-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-6" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> badsquare(<span class="dv">10</span>)</span>
+<span id="cb13-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<p>Although the <code>badsquare</code> function works, it is silly and
+poorly written. We have done it here to illustrate an important rule
+about how variables are looked up in Python. First, Python looks at the
+variables that are defined as local variables in the function. We call
+this the <strong>local scope</strong>. If the variable name is not found
+in the local scope, then Python looks at the global variables, or
+<strong>global scope</strong>. This is exactly the case illustrated in
+the code above. <code>power</code> is not found locally in
+<code>badsquare</code> but it does exist globally. The appropriate way
+to write this function would be to pass power as a parameter. For
+practice, you should rewrite the badsquare example to have a second
+parameter called power.</p>
+<p>There is another variation on this theme of local versus global
+variables. Assignment statements in the local function cannot change
+variables defined outside the function, without further (discouraged)
+special syntax. Consider the following example:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> powerof(x, p):</span>
+<span id="cb14-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-2" aria-hidden="true" tabindex="-1"></a>    power <span class="op">=</span> p   <span class="co"># Another dumb mistake</span></span>
+<span id="cb14-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x <span class="op">**</span> power</span>
+<span id="cb14-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb14-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-6" aria-hidden="true" tabindex="-1"></a>power <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb14-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> powerof(<span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb14-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<p>The value of <code>power</code> in the local scope was different than
+the global scope. That is because in this example <code>power</code> was
+used on the left hand side of the assignment statement
+<code>power = p</code>. When a variable name is used on the left hand
+side of an assignment statement Python creates a local variable. When a
+local variable has the same name as a global variable we say that the
+local shadows the global. A <strong>shadow</strong> means that the
+global variable cannot be accessed by Python because the local variable
+will be found first. This is another good reason not to use global
+variables. As you can see, it makes your code confusing and difficult to
+understand.</p>
+<p>To cement all of these ideas even further lets look at one final
+example. Inside the <code>square</code> function we are going to make an
+assignment to the parameter <code>x</code> There’s no good reason to do
+this other than to emphasize the fact that the parameter <code>x</code>
+is a local variable. Although <code>x</code> is 0 in the local variables
+for <code>square</code>, the <code>x</code> in the global scope remains
+2. This is confusing to many beginning programmers who think that an
+assignment to a formal parameter will cause a change to the value of the
+variable that was used as the actual parameter, especially when the two
+share the same name. But this example demonstrates that that is clearly
+not how Python operates.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb15-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb15-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">0</span>       <span class="co"># assign a new value to the parameter x</span></span>
+<span id="cb15-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb15-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb15-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> square(x)</span>
+<span id="cb15-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z)</span></code></pre></div>
+<h2 id="functions-can-call-other-functions">Functions can Call Other
+Functions</h2>
+<p>It is important to understand that each of the functions we write can
+be used and called from other functions we write. This is one of the
+most important ways that computer scientists take a large problem and
+break it down into a group of smaller problems. This process of breaking
+a problem into smaller subproblems is called <strong>functional
+decomposition</strong>.</p>
+<p>Here’s a simple example of functional decomposition using two
+functions. The first function called <code>square</code> simply computes
+the square of a given number. The second function called
+<code>sum_of_squares</code> makes use of square to compute the sum of
+three numbers that have been squared.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb16-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb16-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb16-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sum_of_squares(x, y, z):</span>
+<span id="cb16-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> square(x)</span>
+<span id="cb16-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> square(y)</span>
+<span id="cb16-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> square(z)</span>
+<span id="cb16-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">+</span> c</span>
+<span id="cb16-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-12" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="op">-</span><span class="dv">5</span></span>
+<span id="cb16-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-13" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb16-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-14" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb16-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-15" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> sum_of_squares(a, b, c)</span>
+<span id="cb16-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<p>Even though this is a pretty simple idea, in practice this example
+illustrates many very important Python concepts, including local and
+global variables along with parameter passing. The body of square is not
+executed until it is called from the <code>sum_of_squares</code>
+function for the first time on line 6. Also notice that when
+<code>square</code> is called there are two groups of local variables,
+one for <code>square</code> and one for <code>sum_of_squares</code>. As
+you step through you will notice that <code>x</code>, and <code>y</code>
+are local variables in both functions and may even have different
+values. This illustrates that even though they are named the same, they
+are in fact, very different.</p>
+<h2 id="flow-of-execution-summary">Flow of Execution Summary</h2>
+<p>When you are working with functions it is really important to know
+the order in which statements are executed. This is called the
+<strong>flow of execution</strong> and we’ve already talked about it a
+number of times in this section.</p>
+<p>Execution always begins at the first statement of the program.
+Statements are executed one at a time, in order, from top to bottom.
+Function definitions do not alter the flow of execution of the program,
+but remember that statements inside the function are not executed until
+the function is called. Function calls are like a detour in the flow of
+execution. Instead of going to the next statement, the flow jumps to the
+first line of the called function, executes all the statements there,
+and then comes back to pick up where it left off.</p>
+<p>That sounds simple enough, until you remember that one function can
+call another. While in the middle of one function, the program might
+have to execute the statements in another function. But while executing
+that new function, the program might have to execute yet another
+function!</p>
+<p>Fortunately, Python is adept at keeping track of where it is, so each
+time a function completes, the program picks up where it left off in the
+function that called it. When it gets to the end of the program, it
+terminates.</p>
+<p>What’s the moral of this sordid tale? When you read a program, don’t
+read from top to bottom. Instead, follow the flow of execution. This
+means that you will read the <code>def</code> statements as you are
+scanning from top to bottom, but you should skip the body of the
+function until you reach a point where that function is called.</p>
+<h3 id="exercise-3">Exercise 3</h3>
+<p>Consider the following Python code. Note that line numbers are
+included on the left.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">pow</span>(b, p):</span>
+<span id="cb17-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> b <span class="op">**</span> p</span>
+<span id="cb17-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb17-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb17-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> <span class="bu">pow</span>(x, <span class="dv">2</span>)</span>
+<span id="cb17-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb17-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-9" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb17-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-10" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> square(n)</span>
+<span id="cb17-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<p>Which of the following best reflects the order in which these lines
+of code are processed in Python?</p>
+<ul>
+<li>A. 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11</li>
+<li>B. 1, 2, 3, 5, 6, 7, 9, 10, 11</li>
+<li>C. 9, 10, 11, 1, 2, 3, 5, 6, 7</li>
+<li>D. 9, 10, 5, 6, 1, 2, 3, 6, 7, 10, 11</li>
+<li>E. 1, 5, 9, 10, 5, 6, 1, 2, 3, 6, 7, 10, 11</li>
+</ul>
+<h3 id="exercise-4">Exercise 4</h3>
+<p>Consider the following Python code.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">pow</span>(b, p):</span>
+<span id="cb18-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> b <span class="op">**</span> p</span>
+<span id="cb18-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb18-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
+<span id="cb18-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> <span class="bu">pow</span>(x, <span class="dv">2</span>)</span>
+<span id="cb18-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb18-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-9" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb18-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-10" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> square(n)</span>
+<span id="cb18-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<p>What does this function print?</p>
+<ul>
+<li>A. 25</li>
+<li>B. 5</li>
+<li>C. 125</li>
+<li>D. 32</li>
+</ul>
+<h2 id="program-development">Program Development</h2>
+<p>At this point, you should be able to look at complete functions and
+tell what they do. Also, if you have been doing the exercises, you have
+written some small functions. As you write larger functions, you might
+start to have more difficulty, especially with runtime and semantic
+errors.</p>
+<p>To deal with increasingly complex programs, we are going to suggest a
+technique called <strong>incremental development</strong>. The goal of
+incremental development is to avoid long debugging sessions by adding
+and testing only a small amount of code at a time.</p>
+<p>As an example, suppose you want to find the distance between two
+points, given by the coordinates (<span class="math inline"><em>x</em><sub>1</sub></span>, <span class="math inline"><em>y</em><sub>1</sub></span>) and (<span class="math inline"><em>x</em><sub>2</sub></span>, <span class="math inline"><em>y</em><sub>2</sub></span>). By the Pythagorean
+theorem, the distance is:</p>
+<p><span class="math display">$$ distance = \sqrt{ (x_2 - x_1)^2 + (y_2
+- y_1)^2  } $$</span></p>
+<p>The first step is to consider what a <code>distance</code> function
+should look like in Python. In other words, what are the inputs
+(parameters) and what is the output (return value)?</p>
+<p>In this case, the two points are the inputs, which we can represent
+using four parameters. The return value is the distance, which is a
+floating-point value.</p>
+<p>Already we can write an outline of the function that captures our
+thinking so far.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb19-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.0</span></span></code></pre></div>
+<p>Obviously, this version of the function doesn’t compute distances; it
+always returns zero. But it is syntactically correct, and it will run,
+which means that we can test it before we make it more complicated.</p>
+<p>We import the test module to enable us to write a unit test for the
+function.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> unittest</span>
+<span id="cb20-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb20-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb20-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestNotebook(unittest.TestCase):</span>
+<span id="cb20-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance(<span class="va">self</span>):</span>
+<span id="cb20-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(distance(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">0</span>)</span>
+<span id="cb20-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb20-10" aria-hidden="true" tabindex="-1"></a>unittest.main(argv<span class="op">=</span>[<span class="st">''</span>], verbosity<span class="op">=</span><span class="dv">2</span>, exit<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>The <code>assertEqual</code> function from the test module calls the
+distance function with sample inputs: (1,2, 1,2). The first 1,2 are the
+coordinates of the first point and the second 1,2 are the coordinates of
+the second point. What is the distance between these two points? Zero.
+<code>assertEqual</code> compares what is returned by the distance
+function and the 0 (the correct answer).</p>
+<p><strong>Extend the program</strong><br>
+write another unit test. Use (1,2, 4,6) as the parameters to the
+distance function. How far apart are these two points? Use that value
+(instead of 0) as the correct answer for this unit test.</p>
+<p>Use (0, 0, 1, 1) as the parameters to the distance function. How far
+apart are these two points? Use that value as the correct answer for
+this unit test.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> unittest</span>
+<span id="cb21-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb21-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb21-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestNotebook(unittest.TestCase):</span>
+<span id="cb21-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance1(<span class="va">self</span>):</span>
+<span id="cb21-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(distance(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">0</span>)</span>
+<span id="cb21-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance2(<span class="va">self</span>):</span>
+<span id="cb21-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(distance(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="dv">5</span>)</span>
+<span id="cb21-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance3(<span class="va">self</span>):</span>
+<span id="cb21-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(distance(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="fl">1.41</span>)</span>
+<span id="cb21-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb21-16" aria-hidden="true" tabindex="-1"></a>unittest.main(argv<span class="op">=</span>[<span class="st">''</span>], verbosity<span class="op">=</span><span class="dv">2</span>, exit<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>The first test passes but the others fail since the distance function
+does not yet contain all the necessary steps.</p>
+<p><strong>When testing a function, it is essential to know the right
+answer.</strong></p>
+<p>For the second test the horizontal distance equals 3 and the vertical
+distance equals 4; that way, the result is 5 (the hypotenuse of a 3-4-5
+triangle). For the third test, we have a 1-1-sqrt(2) triangle.</p>
+<p>At this point we have confirmed that the function is syntactically
+correct, and we can start adding lines of code. After each incremental
+change, we test the function again. If an error occurs at any point, we
+know where it must be — in the last line we added.</p>
+<p>A logical first step in the computation is to find the differences
+<span class="math inline"><em>x</em><sub>2</sub></span> - <span class="math inline"><em>x</em><sub>1</sub></span> and <span class="math inline"><em>y</em><sub>2</sub></span> - <span class="math inline"><em>y</em><sub>1</sub></span>. We will store those
+values in temporary variables named <code>dx</code> and
+<code>dy</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb22-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb22-2" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> x2 <span class="op">-</span> x1</span>
+<span id="cb22-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb22-3" aria-hidden="true" tabindex="-1"></a>    dy <span class="op">=</span> y2 <span class="op">-</span> y1</span>
+<span id="cb22-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.0</span></span></code></pre></div>
+<p>Next we compute the sum of squares of <code>dx</code> and
+<code>dy</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb23-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb23-2" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> x2 <span class="op">-</span> x1</span>
+<span id="cb23-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    dy <span class="op">=</span> y2 <span class="op">-</span> y1</span>
+<span id="cb23-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb23-4" aria-hidden="true" tabindex="-1"></a>    dsquared <span class="op">=</span> dx<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> dy<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb23-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.0</span></span></code></pre></div>
+<p>Again, we could run the program at this stage and check the value of
+<code>dsquared</code> (which should be 25).</p>
+<p>Finally, using the fractional exponent <code>0.5</code> to find the
+square root, we compute and return the result.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb24-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-2" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> x2 <span class="op">-</span> x1</span>
+<span id="cb24-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-3" aria-hidden="true" tabindex="-1"></a>    dy <span class="op">=</span> y2 <span class="op">-</span> y1</span>
+<span id="cb24-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    dsquared <span class="op">=</span> dx<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> dy<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb24-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-5" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> dsquared<span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb24-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb24-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb24-8" aria-hidden="true" tabindex="-1"></a>unittest.main(argv<span class="op">=</span>[<span class="st">''</span>], verbosity<span class="op">=</span><span class="dv">2</span>, exit<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p><strong>Fix the Error … </strong></p>
+<p>Two of the tests pass but the last one fails. Is there still an error
+in the function?</p>
+<p>Frequently we discover errors in the functions that we are writing.
+However, it is possible that there is an error in a test. Here the error
+is in the precision of the correct answer.</p>
+<p>The third test fails because by the precision of the result. We can
+fix this by changing the third test to be “almost equal”</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestNotebook(unittest.TestCase):</span>
+<span id="cb25-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance1(<span class="va">self</span>):</span>
+<span id="cb25-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(distance(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">0</span>)</span>
+<span id="cb25-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance2(<span class="va">self</span>):</span>
+<span id="cb25-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(distance(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="dv">5</span>)</span>
+<span id="cb25-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_distance3(<span class="va">self</span>):</span>
+<span id="cb25-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertAlmostEqual(distance(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="fl">1.4142135</span>, <span class="dv">5</span>)</span>
+<span id="cb25-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb25-12" aria-hidden="true" tabindex="-1"></a>unittest.main(argv<span class="op">=</span>[<span class="st">''</span>], verbosity<span class="op">=</span><span class="dv">2</span>, exit<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>Now all four the tests pass! Wonderful! However, you may still need
+to perform additional tests.</p>
+<p>When you start out, you might add only a line or two of code at a
+time. As you gain more experience, you might find yourself writing and
+debugging bigger conceptual chunks. As you improve your programming
+skills you should find yourself managing bigger and bigger chunks: this
+is very similar to the way we learned to read letters, syllables, words,
+phrases, sentences, paragraphs, etc., or the way we learn to chunk music
+— from indvidual notes to chords, bars, phrases, and so on.</p>
+<p>The key aspects of the process are:</p>
+<ul>
+<li>Make sure you know what you are trying to accomplish. Then you can
+write appropriate unit tests.</li>
+<li>Start with a working skeleton program and make small incremental
+changes. At any point, if there is an error, you will know exactly where
+it is.</li>
+<li>Use temporary variables to hold intermediate values so that you can
+easily inspect and check them.</li>
+<li>Once the program is working, you might want to consolidate multiple
+statements into compound expressions, but only do this if it does not
+make the program more difficult to read.</li>
+</ul>
+<h2 id="composition">Composition</h2>
+<p>As we have already seen, you can call one function from within
+another. This ability to build functions by using other functions is
+called <strong>composition</strong>.</p>
+<p>As an example, we’ll write a function that takes two points, the
+center of the circle and a point on the perimeter, and computes the area
+of the circle.</p>
+<p>Assume that the center point is stored in the variables
+<code>xc</code> and <code>yc</code>, and the perimeter point is in
+<code>xp</code> and <code>yp</code>. The first step is to find the
+radius of the circle, which is the distance between the two points.
+Fortunately, we’ve just written a function, <code>distance</code>, that
+does just that, so now all we have to do is use it:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb26-1" aria-hidden="true" tabindex="-1"></a>radius <span class="op">=</span> distance(xc, yc, xp, yp)</span></code></pre></div>
+<p>The second step is to find the area of a circle with that radius and
+return it. Again we will use one of our earlier functions:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb27-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> area(radius)</span>
+<span id="cb27-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> result</span></code></pre></div>
+<p>Wrapping that up in a function, we get:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(x1, y1, x2, y2):</span>
+<span id="cb28-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-2" aria-hidden="true" tabindex="-1"></a>        dx <span class="op">=</span> x2 <span class="op">-</span> x1</span>
+<span id="cb28-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-3" aria-hidden="true" tabindex="-1"></a>        dy <span class="op">=</span> y2 <span class="op">-</span> y1</span>
+<span id="cb28-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-4" aria-hidden="true" tabindex="-1"></a>        dsquared <span class="op">=</span> dx<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> dy<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb28-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-5" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> dsquared<span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb28-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb28-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area(radius):</span>
+<span id="cb28-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-9" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="fl">3.14159</span> <span class="op">*</span> radius<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb28-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> b</span>
+<span id="cb28-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area2(xc, yc, xp, yp):</span>
+<span id="cb28-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-13" aria-hidden="true" tabindex="-1"></a>    radius <span class="op">=</span> distance(xc, yc, xp, yp)</span>
+<span id="cb28-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-14" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> area(radius)</span>
+<span id="cb28-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb28-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(area2(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p>There can only be one function with a given name within a module.</p>
+<p>Note that we could have written the composition without storing the
+intermediate results.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area2(xc, yc, xp, yp):</span>
+<span id="cb29-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/4-Functions.html#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> area(distance(xc, yc, xp, yp))</span></code></pre></div>
+
+
+</body></html>

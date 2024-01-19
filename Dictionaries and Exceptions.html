@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Dictionaries and Exceptions</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./Dictionaries and Exceptions_files/github-like.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Dictionaries and Exceptions</h1>
+</header>
+<h1 id="dictionaries-and-exceptions">Dictionaries and Exceptions</h1>
+<p>Materials adapted from <em><a href="https://runestone.academy/runestone/static/thinkcspy/index.html">How
+to Think Like a Computer Scientist</a></em></p>
+<p>This page is paired with the Jupyter Notebook:
+Intro-Python-part8.ipynb</p>
+<p>All of the compound data types we have studied in detail so far —
+strings, lists, and tuples — are sequential collections. This means that
+the items in the collection are ordered from left to right and they use
+integers as indices to access the values they contain.</p>
+<p><strong>Dictionaries</strong> are a different kind of collection.
+They are Python’s built-in <strong>mapping type</strong>. A map is an
+unordered, associative collection. The association, or mapping, is from
+a <strong>key</strong>, which can be any immutable type, to a
+<strong>value</strong>, which can be any Python data object.</p>
+<p>As an example, we will create a dictionary to translate English words
+into Spanish. For this dictionary, the keys are strings and the values
+will also be strings.</p>
+<p>One way to create a dictionary is to start with the empty dictionary
+and add <strong>key-value pairs</strong>. The empty dictionary is
+denoted <code>{}</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb1-1" aria-hidden="true" tabindex="-1"></a>eng2sp <span class="op">=</span> {}</span>
+<span id="cb1-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb1-2" aria-hidden="true" tabindex="-1"></a>eng2sp[<span class="st">'one'</span>] <span class="op">=</span> <span class="st">'uno'</span></span>
+<span id="cb1-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb1-3" aria-hidden="true" tabindex="-1"></a>eng2sp[<span class="st">'two'</span>] <span class="op">=</span> <span class="st">'dos'</span></span>
+<span id="cb1-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb1-4" aria-hidden="true" tabindex="-1"></a>eng2sp[<span class="st">'three'</span>] <span class="op">=</span> <span class="st">'tres'</span></span></code></pre></div>
+<p>The first assignment creates an empty dictionary named
+<code>eng2sp</code>. The other assignments add new key-value pairs to
+the dictionary. The left hand side gives the dictionary and the key
+being associated. The right hand side gives the value being associated
+with that key. We can print the current value of the dictionary in the
+usual way. The key-value pairs of the dictionary are separated by
+commas. Each pair contains a key and a value separated by a colon.</p>
+<p>The order of the pairs may not be what you expected. Python uses
+complex algorithms, designed for very fast access, to determine where
+the key-value pairs are stored in a dictionary. For our purposes we can
+think of this ordering as unpredictable.</p>
+<p>Another way to create a dictionary is to provide a list of key-value
+pairs using the same syntax as the previous output.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb2-1" aria-hidden="true" tabindex="-1"></a>eng2sp <span class="op">=</span> {<span class="st">'three'</span>: <span class="st">'tres'</span>, <span class="st">'one'</span>: <span class="st">'uno'</span>, <span class="st">'two'</span>: <span class="st">'dos'</span>}</span>
+<span id="cb2-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eng2sp)</span></code></pre></div>
+<p>It doesn’t matter what order we write the pairs. The values in a
+dictionary are accessed with keys, not with indices, so there is no need
+to care about ordering.</p>
+<p>Here is how we use a key to look up the corresponding value.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb3-1" aria-hidden="true" tabindex="-1"></a>eng2sp <span class="op">=</span> {<span class="st">'three'</span>: <span class="st">'tres'</span>, <span class="st">'one'</span>: <span class="st">'uno'</span>, <span class="st">'two'</span>: <span class="st">'dos'</span>}</span>
+<span id="cb3-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb3-3" aria-hidden="true" tabindex="-1"></a>value <span class="op">=</span> eng2sp[<span class="st">'two'</span>]</span>
+<span id="cb3-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(value)</span></code></pre></div>
+<p>The key <code>'two'</code> yields the value <code>'dos'</code>.</p>
+<h2 id="dictionary-operations">Dictionary Operations</h2>
+<p>The <code>del</code> statement removes a key-value pair from a
+dictionary. For example, the following dictionary contains the names of
+various fruits and the number of each fruit in stock. If someone buys
+all of the pears, we can remove the entry from the dictionary.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb4-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb4-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb4-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> inventory[<span class="st">'pears'</span>]</span></code></pre></div>
+<p>Dictionaries are also mutable. As we’ve seen before with lists, this
+means that the dictionary can be modified by referencing an association
+on the left hand side of the assignment statement. In the previous
+example, instead of deleting the entry for <code>pears</code>, we could
+have set the inventory to <code>0</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb5-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb5-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb5-3" aria-hidden="true" tabindex="-1"></a>inventory[<span class="st">'pears'</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<p>Similarly, a new shipment of 200 bananas arriving could be handled
+like this.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb6-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}    </span>
+<span id="cb6-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb6-2" aria-hidden="true" tabindex="-1"></a>inventory[<span class="st">'bananas'</span>] <span class="op">=</span> inventory[<span class="st">'bananas'</span>] <span class="op">+</span> <span class="dv">200</span></span>
+<span id="cb6-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb6-4" aria-hidden="true" tabindex="-1"></a>numItems <span class="op">=</span> <span class="bu">len</span>(inventory)</span></code></pre></div>
+<p>Notice that there are now 512 bananas—the dictionary has been
+modified. Note also that the <code>len</code> function also works on
+dictionaries. It returns the number of key-value pairs:</p>
+<h3 id="exercise-1">Exercise 1</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb7-1" aria-hidden="true" tabindex="-1"></a>mydict <span class="op">=</span> {<span class="st">"cat"</span>:<span class="dv">12</span>, <span class="st">"dog"</span>:<span class="dv">6</span>, <span class="st">"elephant"</span>:<span class="dv">23</span>}</span>
+<span id="cb7-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb7-2" aria-hidden="true" tabindex="-1"></a>mydict[<span class="st">"mouse"</span>] <span class="op">=</span> mydict[<span class="st">"cat"</span>] <span class="op">+</span> mydict[<span class="st">"dog"</span>]</span>
+<span id="cb7-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mydict[<span class="st">"mouse"</span>])</span></code></pre></div>
+<ul>
+<li>A. 12</li>
+<li>B. 0</li>
+<li>C. 18</li>
+<li>D. Error, there is no entry with mouse as a key.</li>
+</ul>
+<h2 id="dictionary-methods">Dictionary Methods</h2>
+<p>Dictionaries have a number of useful built-in methods. The following
+table provides a summary and more details can be found in the <a href="http://docs.python.org/py3k/library/stdtypes.html#mapping-types-dict">Python
+Documentation</a>.</p>
+<table>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 43%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>keys</td>
+<td>none</td>
+<td>Returns a view of the keys in the dictionary</td>
+</tr>
+<tr class="even">
+<td>values</td>
+<td>none</td>
+<td>Returns a view of the values in the dictionary</td>
+</tr>
+<tr class="odd">
+<td>items</td>
+<td>none</td>
+<td>Returns a view of the key-value pairs in the dictionary</td>
+</tr>
+<tr class="even">
+<td>get</td>
+<td>key</td>
+<td>Returns the value associated with key; None otherwise</td>
+</tr>
+<tr class="odd">
+<td>get</td>
+<td>key,alt</td>
+<td>Returns the value associated with key; alt otherwise</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>keys</code> method returns what Python 3 calls a
+<strong>view</strong> of its underlying keys. We can iterate over the
+view or turn the view into a list by using the <code>list</code>
+conversion function.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb8-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> akey <span class="kw">in</span> inventory.keys():     <span class="co"># the order in which we get the keys is not defined</span></span>
+<span id="cb8-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(<span class="st">"Got key"</span>, akey, <span class="st">"which maps to value"</span>, inventory[akey])</span>
+<span id="cb8-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-6" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">list</span>(inventory.keys())</span>
+<span id="cb8-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ks)</span></code></pre></div>
+<p>It is so common to iterate over the keys in a dictionary that you can
+omit the <code>keys</code> method call in the <code>for</code> loop —
+iterating over a dictionary implicitly iterates over its keys.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb9-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb9-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> inventory:</span>
+<span id="cb9-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb9-4" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(<span class="st">"Got key"</span>, k)</span></code></pre></div>
+<p>As we saw earlier with strings and lists, dictionary methods use dot
+notation, which specifies the name of the method to the right of the dot
+and the name of the object on which to apply the method immediately to
+the left of the dot. The empty parentheses in the case of
+<code>keys</code> indicate that this method takes no parameters.</p>
+<p>The <code>values</code> and <code>items</code> methods are similar to
+<code>keys</code>. They return view objects which can be turned into
+lists or iterated over directly. Note that the items are shown as tuples
+containing the key and the associated value.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb10-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(inventory.values()))</span>
+<span id="cb10-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(inventory.items()))</span>
+<span id="cb10-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k,v) <span class="kw">in</span> inventory.items():</span>
+<span id="cb10-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Got"</span>, k, <span class="st">"that maps to"</span>, v)</span>
+<span id="cb10-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> inventory:</span>
+<span id="cb10-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Got"</span>, k, <span class="st">"that maps to"</span>, inventory[k])</span></code></pre></div>
+<p>Note that tuples are often useful for getting both the key and the
+value at the same time while you are looping. The two loops do the same
+thing.</p>
+<p>The <code>in</code> and <code>not in</code> operators can test if a
+key is in the dictionary:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb11-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'apples'</span> <span class="kw">in</span> inventory)</span>
+<span id="cb11-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'cherries'</span> <span class="kw">in</span> inventory)</span>
+<span id="cb11-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'bananas'</span> <span class="kw">in</span> inventory:</span>
+<span id="cb11-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(inventory[<span class="st">'bananas'</span>])</span>
+<span id="cb11-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"We have no bananas"</span>)</span></code></pre></div>
+<p>This operator can be very useful since looking up a non-existent key
+in a dictionary causes a runtime error.</p>
+<p>The <code>get</code> method allows us to access the value associated
+with a key, similar to the <code>[ ]</code> operator. The important
+difference is that <code>get</code> will not cause a runtime error if
+the key is not present. It will instead return None. There exists a
+variation of <code>get</code> that allows a second parameter that serves
+as an alternative return value in the case where the key is not present.
+This can be seen in the final example below. In this case, since
+“cherries” is not a key, return 0 (instead of None).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb12-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="op">=</span> {<span class="st">'apples'</span>: <span class="dv">430</span>, <span class="st">'bananas'</span>: <span class="dv">312</span>, <span class="st">'oranges'</span>: <span class="dv">525</span>, <span class="st">'pears'</span>: <span class="dv">217</span>}</span>
+<span id="cb12-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inventory.get(<span class="st">"apples"</span>))</span>
+<span id="cb12-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inventory.get(<span class="st">"cherries"</span>))</span>
+<span id="cb12-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inventory.get(<span class="st">"cherries"</span>, <span class="dv">0</span>))</span></code></pre></div>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb13-1" aria-hidden="true" tabindex="-1"></a>mydict <span class="op">=</span> {<span class="st">"cat"</span>:<span class="dv">12</span>, <span class="st">"dog"</span>:<span class="dv">6</span>, <span class="st">"elephant"</span>:<span class="dv">23</span>, <span class="st">"bear"</span>:<span class="dv">20</span>}</span>
+<span id="cb13-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb13-2" aria-hidden="true" tabindex="-1"></a>keylist <span class="op">=</span> <span class="bu">list</span>(mydict.keys())</span>
+<span id="cb13-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb13-3" aria-hidden="true" tabindex="-1"></a>keylist.sort()</span>
+<span id="cb13-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(keylist[<span class="dv">3</span>])</span></code></pre></div>
+<ul>
+<li>A. cat</li>
+<li>B. dog</li>
+<li>C. elephant</li>
+<li>D. bear</li>
+</ul>
+<h3 id="exercise-3">Exercise 3</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb14-1" aria-hidden="true" tabindex="-1"></a>mydict <span class="op">=</span> {<span class="st">"cat"</span>:<span class="dv">12</span>, <span class="st">"dog"</span>:<span class="dv">6</span>, <span class="st">"elephant"</span>:<span class="dv">23</span>, <span class="st">"bear"</span>:<span class="dv">20</span>}</span>
+<span id="cb14-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb14-2" aria-hidden="true" tabindex="-1"></a>answer <span class="op">=</span> mydict.get(<span class="st">"cat"</span>) <span class="op">//</span> mydict.get(<span class="st">"dog"</span>)</span>
+<span id="cb14-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(answer)</span></code></pre></div>
+<ul>
+<li>A. 2</li>
+<li>B. 0.5</li>
+<li>C. bear</li>
+<li>D. Error, divide is not a valid operation on dictionaries</li>
+</ul>
+<h3 id="exercise-4">Exercise 4</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb15-1" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb15-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb15-2" aria-hidden="true" tabindex="-1"></a>mydict <span class="op">=</span> {<span class="st">"cat"</span>:<span class="dv">12</span>, <span class="st">"dog"</span>:<span class="dv">6</span>, <span class="st">"elephant"</span>:<span class="dv">23</span>, <span class="st">"bear"</span>:<span class="dv">20</span>}</span>
+<span id="cb15-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> akey <span class="kw">in</span> mydict:</span>
+<span id="cb15-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb15-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> <span class="bu">len</span>(akey) <span class="op">&gt;</span> <span class="dv">3</span>:</span>
+<span id="cb15-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb15-5" aria-hidden="true" tabindex="-1"></a>      total <span class="op">=</span> total <span class="op">+</span> mydict[akey]</span>
+<span id="cb15-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(total)</span></code></pre></div>
+<ul>
+<li>A. 18</li>
+<li>B. 43</li>
+<li>C. 0</li>
+<li>D. 61</li>
+</ul>
+<h2 id="aliasing-and-copying">Aliasing and Copying</h2>
+<p>Because dictionaries are mutable, you need to be aware of aliasing
+(as we saw with lists). Whenever two variables refer to the same
+dictionary object, changes to one affect the other. For example,
+<code>opposites</code> is a dictionary that contains pairs of
+opposites.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-1" aria-hidden="true" tabindex="-1"></a>opposites <span class="op">=</span> {<span class="st">'up'</span>: <span class="st">'down'</span>, <span class="st">'right'</span>: <span class="st">'wrong'</span>, <span class="st">'true'</span>: <span class="st">'false'</span>}</span>
+<span id="cb16-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-2" aria-hidden="true" tabindex="-1"></a>alias <span class="op">=</span> opposites</span>
+<span id="cb16-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alias <span class="kw">is</span> opposites)</span>
+<span id="cb16-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-6" aria-hidden="true" tabindex="-1"></a>alias[<span class="st">'right'</span>] <span class="op">=</span> <span class="st">'left'</span></span>
+<span id="cb16-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(opposites[<span class="st">'right'</span>])</span></code></pre></div>
+<p>As you can see from the <code>is</code> operator, <code>alias</code>
+and <code>opposites</code> refer to the same object.</p>
+<p>If you want to modify a dictionary and keep a copy of the original,
+use the dictionary <code>copy</code> method. Since <em>acopy</em> is a
+copy of the dictionary, changes to it will not effect the original.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb17-1" aria-hidden="true" tabindex="-1"></a>acopy <span class="op">=</span> opposites.copy()</span>
+<span id="cb17-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb17-2" aria-hidden="true" tabindex="-1"></a>acopy[<span class="st">'right'</span>] <span class="op">=</span> <span class="st">'left'</span>    <span class="co"># does not change opposites</span></span></code></pre></div>
+<h3 id="exercise-5">Exercise 5</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb18-1" aria-hidden="true" tabindex="-1"></a>mydict <span class="op">=</span> {<span class="st">"cat"</span>:<span class="dv">12</span>, <span class="st">"dog"</span>:<span class="dv">6</span>, <span class="st">"elephant"</span>:<span class="dv">23</span>, <span class="st">"bear"</span>:<span class="dv">20</span>}</span>
+<span id="cb18-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb18-2" aria-hidden="true" tabindex="-1"></a>yourdict <span class="op">=</span> mydict</span>
+<span id="cb18-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb18-3" aria-hidden="true" tabindex="-1"></a>yourdict[<span class="st">"elephant"</span>] <span class="op">=</span> <span class="dv">999</span></span>
+<span id="cb18-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mydict[<span class="st">"elephant"</span>])</span></code></pre></div>
+<ul>
+<li>A. 23</li>
+<li>B. None</li>
+<li>C. 999</li>
+<li>D. Error, there are two different keys named elephant.</li>
+</ul>
+<h1 id="exceptions">Exceptions</h1>
+<p>An <em>exception</em> is a signal that a condition has occurred that
+can’t be easily handled using the normal flow-of-control of a Python
+program. <em>Exceptions</em> are often defined as being “errors” but
+this is not always the case. All errors in Python are dealt with using
+<em>exceptions</em>, but not all <em>exceptions</em> are errors.</p>
+<h2 id="exception-handling-flow-of-control">Exception Handling
+Flow-of-control</h2>
+<p>To explain what an <em>exception</em> does, let’s review the normal
+“flow of control” in a Python program. In normal operation Python
+executes statements sequentially, one after the other. For three
+constructs, if-statements, loops and function invocations, this
+sequential execution is interrupted.</p>
+<ul>
+<li>For <em>if-statements</em>, only one of several statement blocks is
+executed and then flow-of-control jumps to the first statement after the
+if-statement.</li>
+<li>For <em>loops</em>, when the end of the loop is reached,
+flow-of-control jumps back to the start of the loop and a test is used
+to determine if the loop needs to execute again. If the loop is
+finished, flow-of-control jumps to the first statement after the
+loop.</li>
+<li>For <em>function invocations</em>, flow-of-control jumps to the
+first statement in the called function, the function is executed, and
+the flow-of-control jumps back to the next statement after the function
+call.</li>
+</ul>
+<p>Do you see the pattern? If the flow-of-control is not purely
+sequential, it always executes the first statement immediately following
+the altered flow-of-control. That is why we can say that Python
+flow-of-control is sequential. But there are cases where this sequential
+flow-of-control does not work well. An example will best explain
+this.</p>
+<p>Let’s suppose that a program contains complex logic that is
+appropriately subdivided into functions. The program is running and it
+currently is executing function D, which was called by function C, which
+was called by function B, which was called by function A, which was
+called from the main function. This is illustrated by the following
+simplistic code example:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main()</span>
+<span id="cb19-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  A()</span>
+<span id="cb19-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> A():</span>
+<span id="cb19-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  B()</span>
+<span id="cb19-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> B():</span>
+<span id="cb19-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  C()</span>
+<span id="cb19-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> C():</span>
+<span id="cb19-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-11" aria-hidden="true" tabindex="-1"></a>  D()</span>
+<span id="cb19-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D()</span>
+<span id="cb19-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># processing</span></span></code></pre></div>
+<p>Function D determines that the current processing won’t work for some
+reason and needs to send a message to the main function to try something
+different. However, all that function D can do using normal
+flow-of-control is to return a value to function C. So function D
+returns a special value to function C that means “try something else”.
+Function C has to recognize this value, quit its processing, and return
+the special value to function B. And so forth and so on. It would be
+very helpful if function D could communicate directly with the main
+function (or functions A and B) without sending a special value through
+the intermediate calling functions. Well, that is exactly what an
+<em>exception</em> does. An <em>exception</em> is a message to any
+function currently on the executing program’s “run-time-stack”. (The
+“run-time-stack” is what keeps track of the active function calls while
+a program is executing.)</p>
+<p>In Python, your create an <em>exception</em> message using the
+<code>raise</code> command. The simplest format for a <code>raise</code>
+command is the keyword <code>raise</code> followed by the name of an
+exception. For example:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">raise</span> ExceptionName</span></code></pre></div>
+<p>So what happens to an <em>exception</em> message after it is created?
+The normal flow-of-control of a Python program is interrupted and Python
+starts looking for any code in its run-time-stack that is interested in
+dealing with the message. It always searches from its current location
+at the bottom of the run-time-stack, up the stack, in the order the
+functions were originally called. A <code>try: except:</code> block is
+used to say “hey, I can deal with that message.” The first
+<code>try: except:</code> block that Python finds on its search back up
+the run-time-stack will be executed. If there is no
+<code>try: except:</code> block found, the program “crashes” and prints
+its run-time-stack to the console.</p>
+<p>Let’s take a look at several code examples to illustrate this
+process. If function D had a <code>try: except:</code> block around the
+code that <code>raised</code> a <code>MyException</code> message, then
+the flow-of-control would be passed to the local <code>except</code>
+block. That is, function D would handle it’s own issues.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main()</span>
+<span id="cb21-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  A()</span>
+<span id="cb21-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> A():</span>
+<span id="cb21-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  B()</span>
+<span id="cb21-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> B():</span>
+<span id="cb21-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-8" aria-hidden="true" tabindex="-1"></a>  C()</span>
+<span id="cb21-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> C():</span>
+<span id="cb21-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-11" aria-hidden="true" tabindex="-1"></a>  D()</span>
+<span id="cb21-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D()</span>
+<span id="cb21-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
+<span id="cb21-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># processing code</span></span>
+<span id="cb21-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> something_special_happened:</span>
+<span id="cb21-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">raise</span> MyException</span>
+<span id="cb21-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> MyException:</span>
+<span id="cb21-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># execute if the MyException message happened</span></span></code></pre></div>
+<p>But perhaps function C is better able to handle the issue, so you
+could put the <code>try: except:</code> block in function C:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main()</span>
+<span id="cb22-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  A()</span>
+<span id="cb22-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> A():</span>
+<span id="cb22-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  B()</span>
+<span id="cb22-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> B():</span>
+<span id="cb22-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-8" aria-hidden="true" tabindex="-1"></a>  C()</span>
+<span id="cb22-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> C():</span>
+<span id="cb22-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
+<span id="cb22-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-12" aria-hidden="true" tabindex="-1"></a>    D()</span>
+<span id="cb22-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> MyException:</span>
+<span id="cb22-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># execute if the MyException message happened</span></span>
+<span id="cb22-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D()</span>
+<span id="cb22-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># processing code</span></span>
+<span id="cb22-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> something_special_happened:</span>
+<span id="cb22-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> MyException</span></code></pre></div>
+<p>But perhaps the main function is better able to handle the issue, so
+you could put the <code>try: except:</code> block in the main
+function:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main()</span>
+<span id="cb23-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
+<span id="cb23-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    A()</span>
+<span id="cb23-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> MyException:</span>
+<span id="cb23-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># execute if the MyException message happened</span></span>
+<span id="cb23-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> A():</span>
+<span id="cb23-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-8" aria-hidden="true" tabindex="-1"></a>  B()</span>
+<span id="cb23-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> B():</span>
+<span id="cb23-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-11" aria-hidden="true" tabindex="-1"></a>  C()</span>
+<span id="cb23-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> C():</span>
+<span id="cb23-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-14" aria-hidden="true" tabindex="-1"></a>  D()</span>
+<span id="cb23-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D()</span>
+<span id="cb23-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># processing code</span></span>
+<span id="cb23-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> something_special_happened:</span>
+<span id="cb23-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb23-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> MyException</span></code></pre></div>
+<h2 id="summary-of-exceptions">Summary of Exceptions</h2>
+<p>Let’s summarize our discussion. An <em>exception</em> is a message
+that something “out-of-the-ordinary” has happened and the normal
+flow-of-control needs to be abandoned. When an <em>exception</em> is
+<code>raised</code>, Python searches its run-time-stack for a
+<code>try: except:</code> block that can appropriately deal with the
+condition. The first <code>try: except:</code> block that knows how to
+deal with the issue is executed and then flow-of-control is returned to
+its normal sequential execution. If no appropriate
+<code>try: except:</code> block is found, the program “crashes” and
+prints its run-time-stack to the console.</p>
+<p>As our final example, here is a program that crashes because no valid
+<code>try: except:</code> block was found to process the
+<code>MyException</code> message. Notice that the
+<code>try: except:</code> block in the main function only knows how to
+deal with <code>ZeroDivisonError</code> messages, not
+<code>MyException</code> messages.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main()</span>
+<span id="cb24-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
+<span id="cb24-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-3" aria-hidden="true" tabindex="-1"></a>    A()</span>
+<span id="cb24-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> ZeroDivisonError:</span>
+<span id="cb24-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># execute if a ZeroDivisonError message happened</span></span>
+<span id="cb24-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> A():</span>
+<span id="cb24-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-8" aria-hidden="true" tabindex="-1"></a>  B()</span>
+<span id="cb24-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> B():</span>
+<span id="cb24-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-11" aria-hidden="true" tabindex="-1"></a>  C()</span>
+<span id="cb24-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> C():</span>
+<span id="cb24-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-14" aria-hidden="true" tabindex="-1"></a>  D()</span>
+<span id="cb24-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> D()</span>
+<span id="cb24-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># processing code</span></span>
+<span id="cb24-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> something_special_happened:</span>
+<span id="cb24-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> MyException</span></code></pre></div>
+<h2 id="standard-exceptions">Standard Exceptions</h2>
+<p>Most of the standard <em>exceptions</em> built into Python are listed
+below. They are organized into related groups based on the types of
+issues they deal with.</p>
+<table>
+<colgroup>
+<col style="width: 61%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Language Exceptions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>StandardError</td>
+<td>Base class for all built-in exceptions except StopIteration and
+SystemExit.</td>
+</tr>
+<tr class="even">
+<td>ImportError</td>
+<td>Raised when an import statement fails.</td>
+</tr>
+<tr class="odd">
+<td>SyntaxError</td>
+<td>Raised when there is an error in Python syntax.</td>
+</tr>
+<tr class="even">
+<td>IndentationError</td>
+<td>Raised when indentation is not specified properly.</td>
+</tr>
+<tr class="odd">
+<td>NameError</td>
+<td>Raised when an identifier is not found in the local or global
+namespace.</td>
+</tr>
+<tr class="even">
+<td>UnboundLocalError</td>
+<td>Raised when trying to access a local variable in a function or
+method but no value has been assigned to it.</td>
+</tr>
+<tr class="odd">
+<td>TypeError</td>
+<td>Raised when an operation or function is attempted that is invalid
+for the specified data type.</td>
+</tr>
+<tr class="even">
+<td>LookupError</td>
+<td>Base class for all lookup errors.</td>
+</tr>
+<tr class="odd">
+<td>IndexError</td>
+<td>Raised when an index is not found in a sequence.</td>
+</tr>
+<tr class="even">
+<td>KeyError</td>
+<td>Raised when the specified key is not found in the dictionary.</td>
+</tr>
+<tr class="odd">
+<td>ValueError</td>
+<td>Raised when the built-in function for a data type has the valid type
+of arguments, but the arguments have invalid values specified.</td>
+</tr>
+<tr class="even">
+<td>RuntimeError</td>
+<td>Raised when a generated error does not fall into any category.</td>
+</tr>
+<tr class="odd">
+<td>MemoryError</td>
+<td>Raised when a operation runs out of memory.</td>
+</tr>
+<tr class="even">
+<td>RecursionError</td>
+<td>Raised when the maximum recursion depth has been exceeded.</td>
+</tr>
+<tr class="odd">
+<td>SystemError</td>
+<td>Raised when the interpreter finds an internal problem, but when this
+error is encountered the Python interpreter does not exit.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 62%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Math Exceptions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ArithmeticError</td>
+<td>Base class for all errors that occur for numeric calculation. You
+know a math error occurred, but you don’t know the specific error.</td>
+</tr>
+<tr class="even">
+<td>OverflowError</td>
+<td>Raised when a calculation exceeds maximum limit for a numeric
+type.</td>
+</tr>
+<tr class="odd">
+<td>FloatingPointError</td>
+<td>Raised when a floating point calculation fails.</td>
+</tr>
+<tr class="even">
+<td>ZeroDivisonError</td>
+<td>Raised when division or modulo by zero takes place for all numeric
+types.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 61%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>I/O Exceptions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FileNotFoundError</td>
+<td>Raised when a file or directory is requested but doesn’t exist.</td>
+</tr>
+<tr class="even">
+<td>IOError</td>
+<td>Raised when an input/ output operation fails, such as the print
+statement or the open() function</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>when trying to open a file that does not exist. Also raised for
+operating system-related errors.</td>
+</tr>
+<tr class="even">
+<td>PermissionError</td>
+<td>Raised when trying to run an operation without the adequate access
+rights.</td>
+</tr>
+<tr class="odd">
+<td>EOFError</td>
+<td>Raised when there is no input from either the raw_input() or input()
+function and the end of file is reached.</td>
+</tr>
+<tr class="even">
+<td>KeyboardInterrupt</td>
+<td>Raised when the user interrupts program execution, usually by
+pressing Ctrl+c.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 61%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Other Exceptions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exception</td>
+<td>Base class for all exceptions. This catches most exception
+messages.</td>
+</tr>
+<tr class="even">
+<td>StopIteration</td>
+<td>Raised when the next() method of an iterator does not point to any
+object.</td>
+</tr>
+<tr class="odd">
+<td>AssertionError</td>
+<td>Raised in case of failure of the Assert statement.</td>
+</tr>
+<tr class="even">
+<td>SystemExit</td>
+<td>Raised when Python interpreter is quit by using the sys.exit()
+function.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>If not handled in the code, it causes the interpreter to exit.</td>
+</tr>
+<tr class="even">
+<td>OSError</td>
+<td>Raises for operating system related errors.</td>
+</tr>
+<tr class="odd">
+<td>EnvironmentError</td>
+<td>Base class for all exceptions that occur outside the Python
+environment.</td>
+</tr>
+<tr class="even">
+<td>AttributeError</td>
+<td>Raised in case of failure of an attribute reference or
+assignment.</td>
+</tr>
+<tr class="odd">
+<td>NotImplementedError</td>
+<td>Raised when an abstract method that needs to be implemented in an
+inherited class is not actually implemented.</td>
+</tr>
+</tbody>
+</table>
+<p>All exceptions are objects. The classes that define the objects are
+organized in a hierarchy, which is shown below. This is important
+because the parent class of a set of related exceptions will catch all
+exception messages for itself and its child exceptions. For example, an
+<code>ArithmeticError</code> exception will catch itself and all
+<code>FloatingPointError</code>, <code>OverflowError</code>, and
+<code>ZeroDivisionError</code> exceptions.</p>
+<h2 id="principles-for-using-exceptions">Principles for using
+Exceptions</h2>
+<p>There are many bad examples of <em>exception</em> use on the
+Internet. The purpose of an <em>exception</em> is to modify the
+flow-of-control, not to catch simple errors. If your
+<code>try: except:</code> block is in the same function that
+<code>raises</code> the exception, you are probably mis-using
+exceptions.</p>
+<p><strong>Principle 1</strong><br>
+If a condition can be handled using the normal flow-of-control, don’t
+use an exception!</p>
+<p><em>Example 1</em></p>
+<p><strong>DON’T DO THIS</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb25-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  average <span class="op">=</span> <span class="bu">sum</span>(a_list) <span class="op">/</span> <span class="bu">len</span>(a_list)</span>
+<span id="cb25-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ZeroDivisionError</span>:</span>
+<span id="cb25-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  average <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<p>Instead, you can just as easily test for no items in the list doing
+this:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(a_list) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb26-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  average <span class="op">=</span> <span class="bu">sum</span>(a_list) <span class="op">/</span> <span class="bu">len</span>(a_list)</span>
+<span id="cb26-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb26-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  average <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<p><em>Example 2</em></p>
+<p><strong>DON’T DO THIS</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb27-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> my_list[index]</span>
+<span id="cb27-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">IndexError</span>:</span>
+<span id="cb27-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<p>Instead, you can just as easily test for a valid index doing
+this:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;=</span> index <span class="op">&lt;</span> <span class="bu">len</span>(my_list):</span>
+<span id="cb28-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> my_list[index]</span>
+<span id="cb28-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb28-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<p><em>Example 3</em></p>
+<p><strong>DON’T DO THIS</strong></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb29-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> my_dictionary[key]</span>
+<span id="cb29-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">KeyError</span>:</span>
+<span id="cb29-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<p>Instead, you can just as easily test to see if the key is valid doing
+this:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> key <span class="kw">in</span> my_dictionary.keys():</span>
+<span id="cb30-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> my_dictionary[key]</span>
+<span id="cb30-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb30-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  value <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<p><strong>Principle 2</strong><br>
+If you call a function that potentially raises exceptions, and you can
+do something appropriate to deal with the exception, then surround the
+code that contains the function call with a <code>try: except:</code>
+block.</p>
+<p><em>Example</em><br>
+Suppose you have a function that reads a file to set the state of an
+application when it starts up. You should catch any errors related to
+reading the file and set the state of the application to default values
+if they can’t be set from the file.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb31-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  load_state(<span class="st">'previous_state.txt'</span>)</span>
+<span id="cb31-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">OSError</span>:</span>
+<span id="cb31-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/8-Dictionaries.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  set_state_to_defaults()</span></code></pre></div>
+<p><strong>Principle 3</strong><br>
+If you call a function that potentially raises exceptions, and you can’t
+do anything meaningful about the conditions that are raised, then don’t
+catch the exception message(s).</p>
+
+
+</body></html>

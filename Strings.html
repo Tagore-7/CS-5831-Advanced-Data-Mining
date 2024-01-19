@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Strings</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./Strings_files/github-like.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Strings</h1>
+</header>
+<h1 id="strings">Strings</h1>
+<p>Materials adapted from <em><a href="https://runestone.academy/runestone/static/thinkcspy/index.html">How
+to Think Like a Computer Scientist</a></em></p>
+<p>This page is paired with the Jupyter Notebook:
+Intro-Python-part6.ipynb</p>
+<p>So far we have seen built-in types like: <code>int</code>,
+<code>float</code>, <code>bool</code>, <code>str</code> and we’ve seen
+lists. <code>int</code>, <code>float</code>, and <code>bool</code> are
+considered to be simple or primitive data types because their values are
+not composed of any smaller parts. They cannot be broken down. On the
+other hand, strings and lists are different from the others because they
+are made up of smaller pieces. In the case of strings, they are made up
+of smaller strings each containing one <strong>character</strong>.</p>
+<p>Types that are comprised of smaller pieces are called
+<strong>collection data types</strong>. Depending on what we are doing,
+we may want to treat a collection data type as a single entity (the
+whole), or we may want to access its parts. This ambiguity is
+useful.</p>
+<p>Strings can be defined as sequential collections of characters. This
+means that the individual characters that make up the string are assumed
+to be in a particular order from left to right.</p>
+<p>A string that contains no characters, often referred to as the
+<strong>empty string</strong>, is still considered to be a string. It is
+simply a sequence of zero characters and is represented by ’’ or “” (two
+single or two double quotes with nothing in between).</p>
+<h2 id="operation-on-strings">Operation on Strings</h2>
+<p>In general, you cannot perform mathematical operations on strings,
+even if the strings look like numbers. The following are illegal
+(assuming that <code>message</code> has type string):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb1-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">"Hello"</span> <span class="op">/</span> <span class="dv">123</span></span>
+<span id="cb1-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb1-3" aria-hidden="true" tabindex="-1"></a>message <span class="op">*</span> <span class="st">"Hello"</span></span>
+<span id="cb1-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">"15"</span> <span class="op">+</span> <span class="dv">2</span></span></code></pre></div>
+<p>Interestingly, the <code>+</code> operator does work with strings,
+but for strings, the<code>+</code> operator represents
+<strong>concatenation</strong>, not addition. Concatenation means
+joining the two operands by linking them end-to-end. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb2-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"banana"</span></span>
+<span id="cb2-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb2-2" aria-hidden="true" tabindex="-1"></a>bakedGood <span class="op">=</span> <span class="st">" nut bread"</span></span>
+<span id="cb2-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit <span class="op">+</span> bakedGood)</span></code></pre></div>
+<p>The output of this program is <code>"banana nut bread"</code>. The
+space before the word <code>"nut"</code> is part of the string and is
+necessary to produce the space between the concatenated strings. Take
+out the space and run it again.</p>
+<p>The <code>*</code> operator also works on strings. It performs
+repetition. For example, <code>'Fun'*3</code> is
+<code>'FunFunFun'</code>. One of the operands has to be a string and the
+other has to be an integer.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Go"</span> <span class="op">*</span> <span class="dv">6</span>)</span>
+<span id="cb3-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-3" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Packers"</span></span>
+<span id="cb3-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(name <span class="op">*</span> <span class="dv">3</span>)</span>
+<span id="cb3-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(name <span class="op">+</span> <span class="st">"Go"</span> <span class="op">*</span> <span class="dv">3</span>)</span>
+<span id="cb3-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((name <span class="op">+</span> <span class="st">"Go"</span>) <span class="op">*</span> <span class="dv">3</span>)</span></code></pre></div>
+<p>This interpretation of <code>+</code> and <code>*</code> makes sense
+by analogy with addition and multiplication. Just as <code>4*3</code> is
+equivalent to <code>4+4+4</code>, we expect <code>"Go"*3</code> to be
+the same as <code>"Go"+"Go"+"Go"</code>, and it is. Note also in the
+last example that the order of operations for <code>*</code> and
+<code>+</code> is the same as it was for arithmetic. The repetition is
+done before the concatenation. If you want to cause the concatenation to
+be done first, you will need to use parenthesis.</p>
+<h3 id="exercise-1">Exercise 1</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb4-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"python"</span></span>
+<span id="cb4-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb4-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="st">"rocks"</span></span>
+<span id="cb4-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s <span class="op">+</span> t)</span></code></pre></div>
+<ul>
+<li>A. python rocks</li>
+<li>B. python</li>
+<li>C. pythonrocks</li>
+<li>D. Error, you can not add two strings together.</li>
+</ul>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb5-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"python"</span></span>
+<span id="cb5-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb5-2" aria-hidden="true" tabindex="-1"></a>excl <span class="op">=</span> <span class="st">"!"</span></span>
+<span id="cb5-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s<span class="op">+</span>excl<span class="op">*</span><span class="dv">3</span>)</span></code></pre></div>
+<ul>
+<li>A. python!!!</li>
+<li>B. python!python!python!</li>
+<li>C. pythonpythonpython!</li>
+<li>D. Error, you cannot perform concatenation and repetition at the
+same time.</li>
+</ul>
+<h2 id="index-operator-working-with-the-characters-of-a-string">Index
+Operator: Working with the Characters of a String</h2>
+<p>The <strong>indexing operator</strong> (Python uses square brackets
+to enclose the index) selects a single character from a string. The
+characters are accessed by their position or index value. For example,
+in the string shown below, the 14 characters are indexed left to right
+from position 0 to position 13.</p>
+<figure>
+<img src="./Strings_files/indexvalues.png" alt="index values">
+<figcaption aria-hidden="true">index values</figcaption>
+</figure>
+<p>It is also the case that the positions are named from right to left
+using negative numbers where -1 is the rightmost index and so on. Note
+that the character at index 6 (or -8) is the blank character.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb6-1" aria-hidden="true" tabindex="-1"></a>school <span class="op">=</span> <span class="st">"Luther College"</span></span>
+<span id="cb6-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb6-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> school[<span class="dv">2</span>]</span>
+<span id="cb6-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m)</span>
+<span id="cb6-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb6-5" aria-hidden="true" tabindex="-1"></a>lastchar <span class="op">=</span> school[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb6-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lastchar)</span></code></pre></div>
+<p>The expression <code>school[2]</code> selects the character at index
+2 from <code>school</code>, and creates a new string containing just
+this one character. The variable <code>m</code> refers to the
+result.</p>
+<p>Remember that computer scientists often start counting from zero. The
+letter at index zero of <code>"Luther College"</code> is <code>L</code>.
+So at position <code>[2]</code> we have the letter <code>t</code>.</p>
+<p>If you want the zero-eth letter of a string, you just put 0, or any
+expression with the value 0, in the brackets. Give it a try.</p>
+<p>The expression in brackets is called an <strong>index</strong>. An
+index specifies a member of an ordered collection. In this case the
+collection of characters in the string. The index <em>indicates</em>
+which character you want. It can be any integer expression so long as it
+evaluates to a valid index value.</p>
+<p>Note that indexing returns a <em>string</em> — Python has no special
+type for a single character. It is just a string of length 1.</p>
+<h3 id="exercise-3">Exercise 3</h3>
+<p>What is printed by the following statements?</p>
+<ul>
+<li>A. t</li>
+<li>B. h</li>
+<li>C. c</li>
+<li>D. Error, you can not use the [] operator with a string.</li>
+</ul>
+<h3 id="exercise-4">Exercise 4</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb7-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"python rocks"</span></span>
+<span id="cb7-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[<span class="dv">2</span>] <span class="op">+</span> s[<span class="op">-</span><span class="dv">5</span>])</span></code></pre></div>
+<ul>
+<li>A. tr</li>
+<li>B. ps</li>
+<li>C. nn</li>
+<li>D. Error, you can not use the [] operator with the + operator.</li>
+</ul>
+<h2 id="string-methods">String Methods</h2>
+<p>We previously saw that each turtle instance has its own attributes
+and a number of methods that can be applied to the instance. For
+example, we wrote <code>tess.right(90)</code> when we wanted the turtle
+object <code>tess</code> to perform the <code>right</code> method to
+turn to the right 90 degrees. The “dot notation” is the way we connect
+the name of an object to the name of a method it can perform.</p>
+<p>Strings are also objects. Each string instance has its own attributes
+and methods. The most important attribute of the string is the
+collection of characters. There are a wide variety of methods. Try the
+following program.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb8-1" aria-hidden="true" tabindex="-1"></a>ss <span class="op">=</span> <span class="st">"Hello, World"</span></span>
+<span id="cb8-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ss.upper())</span>
+<span id="cb8-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb8-4" aria-hidden="true" tabindex="-1"></a>tt <span class="op">=</span> ss.lower()</span>
+<span id="cb8-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tt)</span></code></pre></div>
+<p>In this example, <code>upper</code> is a method that can be invoked
+on any string object to create a new string in which all the characters
+are in uppercase. <code>lower</code> works in a similar fashion changing
+all characters in the string to lowercase. (The original string
+<code>ss</code> remains unchanged. A new string <code>tt</code> is
+created.)</p>
+<p>In addition to <code>upper</code> and <code>lower</code>, the
+following table provides a summary of some other useful string
+methods.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 44%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>upper</td>
+<td>none</td>
+<td>Returns a string in all uppercase</td>
+</tr>
+<tr class="even">
+<td>lower</td>
+<td>none</td>
+<td>Returns a string in all lowercase</td>
+</tr>
+<tr class="odd">
+<td>capitalize</td>
+<td>none</td>
+<td>Returns a string with first character capitalized, the rest
+lower</td>
+</tr>
+<tr class="even">
+<td>strip</td>
+<td>none</td>
+<td>Returns a string with the leading and trailing whitespace
+removed</td>
+</tr>
+<tr class="odd">
+<td>lstrip</td>
+<td>none</td>
+<td>Returns a string with the leading whitespace removed</td>
+</tr>
+<tr class="even">
+<td>rstrip</td>
+<td>none</td>
+<td>Returns a string with the trailing whitespace removed</td>
+</tr>
+<tr class="odd">
+<td>count</td>
+<td>item</td>
+<td>Returns the number of occurrences of item</td>
+</tr>
+<tr class="even">
+<td>replace</td>
+<td>old, new</td>
+<td>Replaces all occurrences of old substring with new</td>
+</tr>
+<tr class="odd">
+<td>center</td>
+<td>width</td>
+<td>Returns a string centered in a field of width spaces</td>
+</tr>
+<tr class="even">
+<td>ljust</td>
+<td>width</td>
+<td>Returns a string left justified in a field of width spaces</td>
+</tr>
+<tr class="odd">
+<td>rjust</td>
+<td>width</td>
+<td>Returns a string right justified in a field of width spaces</td>
+</tr>
+<tr class="even">
+<td>find</td>
+<td>item</td>
+<td>Returns the leftmost index where the substring item is found, or -1
+if not found</td>
+</tr>
+<tr class="odd">
+<td>rfind</td>
+<td>item</td>
+<td>Returns the rightmost index where the substring item is found, or -1
+if not found</td>
+</tr>
+<tr class="even">
+<td>index</td>
+<td>item</td>
+<td>Like find except causes a runtime error if item is not found</td>
+</tr>
+<tr class="odd">
+<td>rindex</td>
+<td>item</td>
+<td>Like rfind except causes a runtime error if item is not found</td>
+</tr>
+<tr class="even">
+<td>format</td>
+<td>substitutions</td>
+<td>Involved! See <a href="https://docs.python.org/3/library/stdtypes.html#string-methods">documentation</a></td>
+</tr>
+</tbody>
+</table>
+<p>You should experiment with these methods so that you understand what
+they do. Note once again that the methods that return strings do not
+change the original. You can also consult the <a href="https://docs.python.org/3/library/stdtypes.html#string-methods">Python
+documentation for strings</a>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-1" aria-hidden="true" tabindex="-1"></a>ss <span class="op">=</span> <span class="st">"    Hello, World    "</span></span>
+<span id="cb9-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-3" aria-hidden="true" tabindex="-1"></a>els <span class="op">=</span> ss.count(<span class="st">"l"</span>)</span>
+<span id="cb9-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(els)</span>
+<span id="cb9-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"***"</span> <span class="op">+</span> ss.strip() <span class="op">+</span> <span class="st">"***"</span>)</span>
+<span id="cb9-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"***"</span> <span class="op">+</span> ss.lstrip() <span class="op">+</span> <span class="st">"***"</span>)</span>
+<span id="cb9-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"***"</span> <span class="op">+</span> ss.rstrip() <span class="op">+</span> <span class="st">"***"</span>)</span>
+<span id="cb9-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-10" aria-hidden="true" tabindex="-1"></a>news <span class="op">=</span> ss.replace(<span class="st">"o"</span>, <span class="st">"***"</span>)</span>
+<span id="cb9-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(news)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-1" aria-hidden="true" tabindex="-1"></a>food <span class="op">=</span> <span class="st">"banana bread"</span></span>
+<span id="cb10-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.capitalize())</span>
+<span id="cb10-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*"</span> <span class="op">+</span> food.center(<span class="dv">25</span>) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb10-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*"</span> <span class="op">+</span> food.ljust(<span class="dv">25</span>) <span class="op">+</span> <span class="st">"*"</span>)     <span class="co"># stars added to show bounds</span></span>
+<span id="cb10-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"*"</span> <span class="op">+</span> food.rjust(<span class="dv">25</span>) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb10-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.find(<span class="st">"e"</span>))</span>
+<span id="cb10-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.find(<span class="st">"na"</span>))</span>
+<span id="cb10-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.find(<span class="st">"b"</span>))</span>
+<span id="cb10-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.rfind(<span class="st">"e"</span>))</span>
+<span id="cb10-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.rfind(<span class="st">"na"</span>))</span>
+<span id="cb10-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(food.rfind(<span class="st">"b"</span>))</span></code></pre></div>
+<h3 id="exercise-5">Exercise 5</h3>
+<p>What is printed by the following statements?</p>
+<ul>
+<li>A. 0</li>
+<li>B. 2</li>
+<li>C. 3</li>
+</ul>
+<h3 id="exercise-6">Exercise 6</h3>
+<p>What is printed by the following statements?</p>
+<ul>
+<li>A. yyyyy</li>
+<li>B. 55555</li>
+<li>C. n</li>
+<li>D. Error, you can not combine all those things together.</li>
+</ul>
+<h3 id="string-format-method">String Format Method</h3>
+<p>In grade school quizzes a common convention is to use fill-in-the
+blanks. For instance,</p>
+<pre><code>Hello _____!</code></pre>
+<p>and you can fill in the name of the person greeted, and combine given
+text with a chosen insertion. <em>We use this as an analogy:</em> Python
+has a similar construction, better called fill-in-the-braces. The string
+method <code>format</code>, makes substitutions into places in a string
+enclosed in braces. Run this code:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb12-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Your name: '</span>)</span>
+<span id="cb12-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb12-2" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> <span class="st">'Hello </span><span class="sc">{}</span><span class="st">!'</span>.<span class="bu">format</span>(person)</span>
+<span id="cb12-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span></code></pre></div>
+<p>There are several new ideas here!</p>
+<p>The string for the <code>format</code> method has a special form,
+with braces embedded. Such a string is called a <em>format string</em>.
+Places where braces are embedded are replaced by the value of an
+expression taken from the parameter list for the <code>format</code>
+method. There are many variations on the syntax between the braces. In
+this case we use the syntax where the first (and only) location in the
+string with braces has a substitution made from the first (and only)
+parameter.</p>
+<p>In the code above, this new string is assigned to the identifier
+<code>greeting</code>, and then the string is printed.</p>
+<p>The identifier <code>greeting</code> was introduced to break the
+operations into a clearer sequence of steps. However, since the value of
+<code>greeting</code> is only referenced once, it can be eliminated with
+the more concise version:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb13-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Enter your name: '</span>)</span>
+<span id="cb13-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hello </span><span class="sc">{}</span><span class="st">!'</span>.<span class="bu">format</span>(person))</span></code></pre></div>
+<p>There can be multiple substitutions, with data of any type. Next we
+use floats. Try original price $2.50 with a 7% discount:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb14-1" aria-hidden="true" tabindex="-1"></a>origPrice <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Enter the original price: $'</span>))</span>
+<span id="cb14-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb14-2" aria-hidden="true" tabindex="-1"></a>discount <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Enter discount percentage: '</span>))</span>
+<span id="cb14-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb14-3" aria-hidden="true" tabindex="-1"></a>newPrice <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> discount<span class="op">/</span><span class="dv">100</span>)<span class="op">*</span>origPrice</span>
+<span id="cb14-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb14-4" aria-hidden="true" tabindex="-1"></a>calculation <span class="op">=</span> <span class="st">'$</span><span class="sc">{}</span><span class="st"> discounted by </span><span class="sc">{}% i</span><span class="st">s $</span><span class="sc">{}</span><span class="st">.'</span>.<span class="bu">format</span>(origPrice, discount, newPrice)</span>
+<span id="cb14-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(calculation)</span></code></pre></div>
+<p>The parameters are inserted into the braces in order.</p>
+<p>If you used the data suggested, this result is not satisfying. Prices
+should appear with exactly two places beyond the decimal point, but that
+is not the default way to display floats.</p>
+<p>Format strings can give further information inside the braces showing
+how to specially format data. In particular floats can be shown with a
+specific number of decimal places. For two decimal places, put
+<code>:.2f</code> inside the braces for the monetary values:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb15-1" aria-hidden="true" tabindex="-1"></a>origPrice <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Enter the original price: $'</span>))</span>
+<span id="cb15-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb15-2" aria-hidden="true" tabindex="-1"></a>discount <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Enter discount percentage: '</span>))</span>
+<span id="cb15-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb15-3" aria-hidden="true" tabindex="-1"></a>newPrice <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> discount<span class="op">/</span><span class="dv">100</span>)<span class="op">*</span>origPrice</span>
+<span id="cb15-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb15-4" aria-hidden="true" tabindex="-1"></a>calculation <span class="op">=</span> <span class="st">'$</span><span class="sc">{:.2f}</span><span class="st"> discounted by </span><span class="sc">{}% i</span><span class="st">s $</span><span class="sc">{:.2f}</span><span class="st">.'</span>.<span class="bu">format</span>(origPrice, discount, newPrice)</span>
+<span id="cb15-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(calculation)</span></code></pre></div>
+<p>The 2 in the format modifier can be replaced by another integer to
+round to that specified number of digits.</p>
+<p>This kind of format string depends directly on the order of the
+parameters to the format method. There are other approaches that we will
+skip here, explicitly numbering substitutions and taking substitutions
+from a dictionary.</p>
+<h3 id="exercise-7">Exercise 7</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb16-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb16-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb16-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sum of </span><span class="sc">{}</span><span class="st"> and </span><span class="sc">{}</span><span class="st"> is </span><span class="sc">{}</span><span class="st">; product: </span><span class="sc">{}</span><span class="st">.'</span>.<span class="bu">format</span>( x, y, x<span class="op">+</span>y, x<span class="op">*</span>y))</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>Nothing - it causes an error</li>
+</ol></li>
+<li>B. sum of {} and {} is {}; product: {}. 2 6 8 12</li>
+<li>C. sum of 2 and 6 is 8; product: 12.</li>
+<li>D. sum of {2} and {6} is {8}; product: {12}.</li>
+</ul>
+<h2 id="length">Length</h2>
+<p>The <code>len</code> function, when applied to a string, returns the
+number of characters in a string.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb17-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"Banana"</span></span>
+<span id="cb17-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(fruit))</span></code></pre></div>
+<p>To get the last letter of a string, you might be tempted to try
+something like this:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb18-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"Banana"</span></span>
+<span id="cb18-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb18-2" aria-hidden="true" tabindex="-1"></a>sz <span class="op">=</span> <span class="bu">len</span>(fruit)</span>
+<span id="cb18-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb18-3" aria-hidden="true" tabindex="-1"></a>last <span class="op">=</span> fruit[sz]       <span class="co"># ERROR!</span></span>
+<span id="cb18-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(last)</span></code></pre></div>
+<p>That won’t work. It causes the runtime error
+<code>IndexError: string index out of range</code>. The reason is that
+there is no letter at index position 6 in <code>"Banana"</code>. Since
+we started counting at zero, the six indexes are numbered 0 to 5. To get
+the last character, we have to subtract 1 from the length. Give it a try
+in the example above.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb19-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"Banana"</span></span>
+<span id="cb19-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb19-2" aria-hidden="true" tabindex="-1"></a>sz <span class="op">=</span> <span class="bu">len</span>(fruit)</span>
+<span id="cb19-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb19-3" aria-hidden="true" tabindex="-1"></a>lastch <span class="op">=</span> fruit[sz<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb19-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lastch)</span></code></pre></div>
+<p>Alternatively in Python, we can use <strong>negative
+indices</strong>, which count backward from the end of the string. The
+expression <code>fruit[-1]</code> yields the last letter,
+<code>fruit[-2]</code> yields the second to last, and so on. Try it!
+Most other languages do <em>not</em> allow the negative indices, but
+they are a handy feature of Python!</p>
+<h3 id="exercise-8">Exercise 8</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb20-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"python rocks"</span></span>
+<span id="cb20-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s[<span class="bu">len</span>(s)<span class="op">-</span><span class="dv">5</span>])</span></code></pre></div>
+<ul>
+<li>A. o</li>
+<li>B. r</li>
+<li>C. s</li>
+<li>D. Error, len(s) is 12 and there is no index 12.</li>
+</ul>
+<h2 id="the-slice-operator">The Slice Operator</h2>
+<p>A substring of a string is called a <strong>slice</strong>. Selecting
+a slice is similar to selecting a character:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb21-1" aria-hidden="true" tabindex="-1"></a>singers <span class="op">=</span> <span class="st">"Peter, Paul, and Mary"</span></span>
+<span id="cb21-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(singers[<span class="dv">0</span>:<span class="dv">5</span>])</span>
+<span id="cb21-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(singers[<span class="dv">7</span>:<span class="dv">11</span>])</span>
+<span id="cb21-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(singers[<span class="dv">17</span>:<span class="dv">21</span>])</span></code></pre></div>
+<p>The <code>slice</code> operator <code>[n:m]</code> returns the part
+of the string from the n’th character to the m’th character, including
+the first but excluding the last. In other words, start with the
+character at index n and go up to but do not include the character at
+index m. This behavior may seem counter-intuitive but if you recall the
+<code>range</code> function, it did not include its end point
+either.</p>
+<p>If you omit the first index (before the colon), the slice starts at
+the beginning of the string. If you omit the second index, the slice
+goes to the end of the string.</p>
+<p>There is no Index Out Of Range exception for a slice. A slice is
+forgiving and shifts any offending index to something legal.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb22-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"banana"</span></span>
+<span id="cb22-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit[:<span class="dv">3</span>])</span>
+<span id="cb22-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit[<span class="dv">3</span>:])</span>
+<span id="cb22-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit[<span class="dv">3</span>:<span class="op">-</span><span class="dv">10</span>])</span>
+<span id="cb22-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit[<span class="dv">3</span>:<span class="dv">99</span>])</span></code></pre></div>
+<p>What do you think <code>fruit[:]</code> means?</p>
+<h2 id="string-comparison">String Comparison</h2>
+<p>The comparison operators also work on strings. To see if two strings
+are equal you simply write a boolean expression using the equality
+operator.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb23-1" aria-hidden="true" tabindex="-1"></a>word <span class="op">=</span> <span class="st">"banana"</span></span>
+<span id="cb23-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> word <span class="op">==</span> <span class="st">"banana"</span>:</span>
+<span id="cb23-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Yes, we have bananas!"</span>)</span>
+<span id="cb23-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb23-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Yes, we have NO bananas!"</span>)</span></code></pre></div>
+<p>Other comparison operations are useful for putting words in <a href="http://en.wikipedia.org/wiki/Lexicographic_order">lexicographical
+order</a>. This is similar to the alphabetical order you would use with
+a dictionary, except that all the uppercase letters come before all the
+lowercase letters.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-1" aria-hidden="true" tabindex="-1"></a>word <span class="op">=</span> <span class="st">"zebra"</span></span>
+<span id="cb24-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> word <span class="op">&lt;</span> <span class="st">"banana"</span>:</span>
+<span id="cb24-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Your word, "</span> <span class="op">+</span> word <span class="op">+</span> <span class="st">", comes before banana."</span>)</span>
+<span id="cb24-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> word <span class="op">&gt;</span> <span class="st">"banana"</span>:</span>
+<span id="cb24-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Your word, "</span> <span class="op">+</span> word <span class="op">+</span> <span class="st">", comes after banana."</span>)</span>
+<span id="cb24-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb24-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Yes, we have no bananas!"</span>)</span></code></pre></div>
+<p>It is probably clear to you that the word <code>apple</code> would be
+less than (come before) the word <code>banana</code>. After all,
+<code>a</code> is before <code>b</code> in the alphabet. But what if we
+consider the words <code>apple</code> and <code>Apple</code>? Are they
+the same?</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="op">&lt;</span> <span class="st">"banana"</span>)</span>
+<span id="cb25-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="op">==</span> <span class="st">"Apple"</span>)</span>
+<span id="cb25-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="op">&lt;</span> <span class="st">"Apple"</span>)</span></code></pre></div>
+<p>It turns out, as you recall from our discussion of variable names,
+that uppercase and lowercase letters are considered to be different from
+one another. The way the computer knows they are different is that each
+character is assigned a unique integer value. “A” is 65, “B” is 66, and
+“5” is 53. The way you can find out the so-called <strong>ordinal
+value</strong> for a given character is to use a character function
+called <code>ord</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">ord</span>(<span class="st">"A"</span>))</span>
+<span id="cb26-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">ord</span>(<span class="st">"B"</span>))</span>
+<span id="cb26-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">ord</span>(<span class="st">"5"</span>))</span>
+<span id="cb26-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">ord</span>(<span class="st">"a"</span>))</span>
+<span id="cb26-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="op">&gt;</span> <span class="st">"Apple"</span>)</span></code></pre></div>
+<p>When you compare characters or strings to one another, Python
+converts the characters into their equivalent ordinal values and
+compares the integers from left to right. As you can see from the
+example above, “a” is greater than “A” so “apple” is greater than
+“Apple”.</p>
+<p>Humans commonly ignore capitalization when comparing two words.
+However, computers do not. A common way to address this issue is to
+convert strings to a standard format, such as all lowercase, before
+performing the comparison.</p>
+<p>There is also a similar function called <code>chr</code> that
+converts integers into their character equivalent.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">chr</span>(<span class="dv">65</span>))</span>
+<span id="cb27-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">chr</span>(<span class="dv">66</span>))</span>
+<span id="cb27-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">chr</span>(<span class="dv">49</span>))</span>
+<span id="cb27-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">chr</span>(<span class="dv">53</span>))</span>
+<span id="cb27-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The character for 32 is"</span>, <span class="bu">chr</span>(<span class="dv">32</span>), <span class="st">"!!!"</span>)</span>
+<span id="cb27-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">ord</span>(<span class="st">" "</span>))</span></code></pre></div>
+<p>One thing to note in the last two examples is the fact that the space
+character has an ordinal value (32). Even though you don’t see it, it is
+an actual character. We sometimes call it a <em>nonprinting</em>
+character.</p>
+<h2 id="strings-are-immutable">Strings are Immutable</h2>
+<p>One final thing that makes strings different from some other Python
+collection types is that you are not allowed to modify the individual
+characters in the collection. It is tempting to use the <code>[]</code>
+operator on the left side of an assignment, with the intention of
+changing a character in a string. For example, in the following code, we
+would like to change the first letter of <code>greeting</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb28-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> <span class="st">"Hello, world!"</span></span>
+<span id="cb28-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb28-2" aria-hidden="true" tabindex="-1"></a>greeting[<span class="dv">0</span>] <span class="op">=</span> <span class="st">'J'</span>            <span class="co"># ERROR!</span></span>
+<span id="cb28-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span></code></pre></div>
+<p>Instead of producing the output <code>Jello, world!</code>, this code
+produces the runtime error
+<code>TypeError: 'str' object does not support item assignment</code>.</p>
+<p>Strings are <strong>immutable</strong>, which means you cannot change
+an existing string. The best you can do is create a new string that is a
+variation on the original.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb29-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> <span class="st">"Hello, world!"</span></span>
+<span id="cb29-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb29-2" aria-hidden="true" tabindex="-1"></a>newGreeting <span class="op">=</span> <span class="st">'J'</span> <span class="op">+</span> greeting[<span class="dv">1</span>:]</span>
+<span id="cb29-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newGreeting)</span>
+<span id="cb29-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)      </span></code></pre></div>
+<p>The solution here is to concatenate a new first letter onto a slice
+of <code>greeting</code>. This operation has no effect on the original
+string.</p>
+<h2 id="traversal-and-the-for-loop-by-item">Traversal and the
+<code>for</code> Loop: By Item</h2>
+<p>A lot of computations involve processing a collection one item at a
+time. For strings this means that we would like to process one character
+at a time. Often we start at the beginning, select each character in
+turn, do something to it, and continue until the end. This pattern of
+processing is called a <strong>traversal</strong>.</p>
+<p>We have previously seen that the <code>for</code> statement can
+iterate over the items of a sequence (a list of names in the case
+below).</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> aname <span class="kw">in</span> [<span class="st">"Joe"</span>, <span class="st">"Amy"</span>, <span class="st">"Brad"</span>, <span class="st">"Angelina"</span>, <span class="st">"Zuki"</span>, <span class="st">"Thandi"</span>, <span class="st">"Paris"</span>]:</span>
+<span id="cb30-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb30-2" aria-hidden="true" tabindex="-1"></a>    invitation <span class="op">=</span> <span class="st">"Hi "</span> <span class="op">+</span> aname <span class="op">+</span> <span class="st">".  Please come to my party on Saturday!"</span></span>
+<span id="cb30-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(invitation)</span></code></pre></div>
+<p>Recall that the loop variable takes on each value in the sequence of
+names. The body is performed once for each name. The same was true for
+the sequence of integers created by the <code>range</code> function.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> avalue <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb31-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(avalue)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> achar <span class="kw">in</span> <span class="st">"Go Spot Go"</span>:</span>
+<span id="cb32-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(achar)</span></code></pre></div>
+<p>The loop variable <code>achar</code> is automatically reassigned each
+character in the string “Go Spot Go”. We will refer to this type of
+sequence iteration as <strong>iteration by item</strong>. Note that it
+is only possible to process the characters one at a time from left to
+right.</p>
+<h3 id="exercise-9">Exercise 9</h3>
+<p>How many times is the word HELLO printed by the following
+statements?</p>
+<pre><code>s = "python rocks"
+for ch in s:
+    print("HELLO")</code></pre>
+<ul>
+<li>A. 10</li>
+<li>B. 11</li>
+<li>C. 12</li>
+<li>D. Error, the for statement needs to use the range function.</li>
+</ul>
+<h2 id="traversal-and-the-for-loop-by-index">Traversal and the
+<code>for</code> Loop: By Index</h2>
+<p>It is also possible to use the <code>range</code> function to
+systematically generate the indices of the characters. The
+<code>for</code> loop can then be used to iterate over these positions.
+These positions can be used together with the indexing operator to
+access the individual characters in the string.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb34-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"apple"</span></span>
+<span id="cb34-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb34-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb34-3" aria-hidden="true" tabindex="-1"></a>    currentChar <span class="op">=</span> fruit[idx]</span>
+<span id="cb34-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(currentChar)</span></code></pre></div>
+<p>The index positions in “apple” are 0,1,2,3 and 4. This is exactly the
+same sequence of integers returned by <code>range(5)</code>. The first
+time through the for loop, <code>idx</code> will be 0 and the “a” will
+be printed. Then, <code>idx</code> will be reassigned to 1 and “p” will
+be displayed. This will repeat for all the range values up to but not
+including 5. Since “e” has index 4, this will be exactly right to show
+all of the characters.</p>
+<p>In order to make the iteration more general, we can use the
+<code>len</code> function to provide the bound for <code>range</code>.
+This is a very common pattern for traversing any sequence by position.
+Make sure you understand why the range function behaves correctly when
+using <code>len</code> of the string as its parameter value.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb35-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"apple"</span></span>
+<span id="cb35-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(fruit)):</span>
+<span id="cb35-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fruit[idx])</span></code></pre></div>
+<p>You may also note that iteration by position allows the programmer to
+control the direction of the traversal by changing the sequence of index
+values. Recall that we can create ranges that count down as well as up
+so the following code will print the characters from right to left.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb36-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"apple"</span></span>
+<span id="cb36-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(fruit)<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb36-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fruit[idx])</span></code></pre></div>
+<h2 id="traversal-and-the-while-loop">Traversal and the
+<code>while</code> Loop</h2>
+<p>The <code>while</code> loop can also control the generation of the
+index values. Remember that the programmer is responsible for setting up
+the initial condition, making sure that the condition is correct, and
+making sure that something changes inside the body to guarantee that the
+condition will eventually fail.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb37-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> <span class="st">"apple"</span></span>
+<span id="cb37-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb37-3" aria-hidden="true" tabindex="-1"></a>position <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb37-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> position <span class="op">&lt;</span> <span class="bu">len</span>(fruit):</span>
+<span id="cb37-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fruit[position])</span>
+<span id="cb37-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb37-6" aria-hidden="true" tabindex="-1"></a>    position <span class="op">=</span> position <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<p>The loop condition is <code>position &lt; len(fruit)</code>, so when
+<code>position</code> is equal to the length of the string, the
+condition is false, and the body of the loop is not executed. The last
+character accessed is the one with the index <code>len(fruit)-1</code>,
+which is the last character in the string.</p>
+<h2 id="the-in-and-not-in-operators">The <code>in</code> and
+<code>not in</code> operators</h2>
+<p>The <code>in</code> operator tests if one string is a substring of
+another:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'p'</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span>
+<span id="cb38-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'i'</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span>
+<span id="cb38-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'ap'</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span>
+<span id="cb38-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pa'</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span></code></pre></div>
+<p>Note that a string is a substring of itself, and the empty string is
+a substring of any other string. (Also note that computer scientists
+like to think about these edge cases quite carefully!)</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'a'</span> <span class="kw">in</span> <span class="st">'a'</span>)</span>
+<span id="cb39-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'apple'</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span>
+<span id="cb39-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">''</span> <span class="kw">in</span> <span class="st">'a'</span>)</span>
+<span id="cb39-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">''</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span></code></pre></div>
+<p>The <code>not in</code> operator returns the logical opposite result
+of <code>in</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'x'</span> <span class="kw">not</span> <span class="kw">in</span> <span class="st">'apple'</span>)</span></code></pre></div>
+<h2 id="the-accumulator-pattern-with-strings">The Accumulator Pattern
+with Strings</h2>
+<p>Combining the <code>in</code> operator with string concatenation
+using <code>+</code> and the accumulator pattern, we can write a
+function that removes all the vowels from a string. The idea is to start
+with a string and iterate over each character, checking to see if the
+character is a vowel. As we process the characters, we will build up a
+new string consisting of only the nonvowel characters. To do this, we
+use the accumulator pattern.</p>
+<p>Remember that the accumulator pattern allows us to keep a “running
+total”. With strings, we are not accumulating a numeric total. Instead
+we are accumulating characters onto a string.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> removeVowels(s):</span>
+<span id="cb41-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-2" aria-hidden="true" tabindex="-1"></a>    vowels <span class="op">=</span> <span class="st">"aeiouAEIOU"</span></span>
+<span id="cb41-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-3" aria-hidden="true" tabindex="-1"></a>    sWithoutVowels <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb41-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> eachChar <span class="kw">in</span> s:</span>
+<span id="cb41-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> eachChar <span class="kw">not</span> <span class="kw">in</span> vowels:</span>
+<span id="cb41-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-6" aria-hidden="true" tabindex="-1"></a>            sWithoutVowels <span class="op">=</span> sWithoutVowels <span class="op">+</span> eachChar</span>
+<span id="cb41-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sWithoutVowels</span>
+<span id="cb41-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(removeVowels(<span class="st">"compsci"</span>))</span>
+<span id="cb41-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(removeVowels(<span class="st">"aAbEefIijOopUus"</span>))</span></code></pre></div>
+<p>Line 5 uses the <code>not in</code> operator to check whether the
+current character is not in the string <code>vowels</code>. The
+alternative to using this operator would be to write a very large
+<code>if</code> statement that checks each of the individual vowel
+characters. Note we would need to use logical <code>and</code> to be
+sure that the character is not any of the vowels.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> eachChar <span class="op">!=</span> <span class="st">'a'</span>  <span class="kw">and</span> eachChar <span class="op">!=</span> <span class="st">'e'</span>  <span class="kw">and</span> eachChar <span class="op">!=</span> <span class="st">'i'</span>  <span class="kw">and</span></span>
+<span id="cb42-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb42-2" aria-hidden="true" tabindex="-1"></a>   eachChar <span class="op">!=</span> <span class="st">'o'</span>  <span class="kw">and</span> eachChar <span class="op">!=</span> <span class="st">'u'</span>  <span class="kw">and</span> eachChar <span class="op">!=</span> <span class="st">'A'</span>  <span class="kw">and</span></span>
+<span id="cb42-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb42-3" aria-hidden="true" tabindex="-1"></a>   eachChar <span class="op">!=</span> <span class="st">'E'</span>  <span class="kw">and</span> eachChar <span class="op">!=</span> <span class="st">'I'</span>  <span class="kw">and</span> eachChar <span class="op">!=</span> <span class="st">'O'</span>  <span class="kw">and</span></span>
+<span id="cb42-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb42-4" aria-hidden="true" tabindex="-1"></a>   eachChar <span class="op">!=</span> <span class="st">'U'</span>:      </span>
+<span id="cb42-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb42-5" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb42-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb42-6" aria-hidden="true" tabindex="-1"></a>     sWithoutVowels <span class="op">=</span> sWithoutVowels <span class="op">+</span> eachChar</span></code></pre></div>
+<p>Look carefully at line 6 in the above program
+(<code>sWithoutVowels = sWithoutVowels + eachChar</code>). We will do
+this for every character that is not a vowel. This should look very
+familiar. As we were describing earlier, it is an example of the
+accumulator pattern, this time using a string to “accumulate” the final
+result. In words it says that the new value of
+<code>sWithoutVowels</code> will be the old value of
+<code>sWithoutVowels</code> concatenated with the value of
+<code>eachChar</code>. We are building the result string character by
+character.</p>
+<p>Take a close look also at the initialization of
+<code>sWithoutVowels</code>. We start with an empty string and then
+begin adding new characters to the end.</p>
+<h3 id="exercise-10">Exercise 10</h3>
+<p>What is printed by the following statements:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb43-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"ball"</span></span>
+<span id="cb43-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb43-2" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb43-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> s:</span>
+<span id="cb43-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb43-4" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> item.upper() <span class="op">+</span> r</span>
+<span id="cb43-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(r)</span></code></pre></div>
+<ul>
+<li>A. Ball</li>
+<li>B. BALL</li>
+<li>C. LLAB</li>
+</ul>
+<h2 id="looping-and-counting">Looping and Counting</h2>
+<p>We will finish this section with a few more examples that show
+variations on the theme of iteration through the characters of a string.
+We will implement a few of the methods that we described earlier to show
+how they can be done.</p>
+<p>The following program counts the number of times a particular letter,
+<code>aChar</code>, appears in a string. It is another example of the
+accumulator pattern that we have seen in previous chapters.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count(text, aChar):</span>
+<span id="cb44-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-2" aria-hidden="true" tabindex="-1"></a>    lettercount <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb44-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> text:</span>
+<span id="cb44-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> c <span class="op">==</span> aChar:</span>
+<span id="cb44-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-5" aria-hidden="true" tabindex="-1"></a>            lettercount <span class="op">=</span> lettercount <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb44-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lettercount</span>
+<span id="cb44-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(count(<span class="st">"banana"</span>,<span class="st">"a"</span>))</span></code></pre></div>
+<p>The function <code>count</code> takes a string as its parameter. The
+<code>for</code> statement iterates through each character in the string
+and checks to see if the character is equal to the value of
+<code>aChar</code>. If so, the counting variable,
+<code>lettercount</code>, is incremented by one. When all characters
+have been processed, the <code>lettercount</code> is returned.</p>
+<h2 id="a-find-function">A <code>find</code> function</h2>
+<p>Here is an implementation for a restricted <code>find</code> method,
+where the target is a single character.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find(astring, achar):</span>
+<span id="cb45-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb45-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Find and return the index of achar in astring.</span></span>
+<span id="cb45-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Return -1 if achar does not occur in astring.</span></span>
+<span id="cb45-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb45-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-6" aria-hidden="true" tabindex="-1"></a>    ix <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb45-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-7" aria-hidden="true" tabindex="-1"></a>    found <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb45-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> ix <span class="op">&lt;</span> <span class="bu">len</span>(astring) <span class="kw">and</span> <span class="kw">not</span> found:</span>
+<span id="cb45-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> astring[ix] <span class="op">==</span> achar:</span>
+<span id="cb45-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-10" aria-hidden="true" tabindex="-1"></a>            found <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb45-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb45-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-12" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> ix <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb45-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> found:</span>
+<span id="cb45-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ix</span>
+<span id="cb45-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb45-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb45-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find(<span class="st">"Compsci"</span>, <span class="st">"p"</span>))</span>
+<span id="cb45-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find(<span class="st">"Compsci"</span>, <span class="st">"C"</span>))</span>
+<span id="cb45-20"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find(<span class="st">"Compsci"</span>, <span class="st">"i"</span>))</span>
+<span id="cb45-21"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find(<span class="st">"Compsci"</span>, <span class="st">"x"</span>))</span></code></pre></div>
+<p>In a sense, <code>find</code> is the opposite of the indexing
+operator. Instead of taking an index and extracting the corresponding
+character, it takes a character and finds the index where that character
+appears for the first time. If the character is not found, the function
+returns <code>-1</code>.</p>
+<p>The <code>while</code> loop in this example uses a slightly more
+complex condition than we have seen in previous programs. Here there are
+two parts to the condition. We want to keep going if there are more
+characters to look through and we want to keep going if we have not
+found what we are looking for. The variable <code>found</code> is a
+boolean variable that keeps track of whether we have found the character
+we are searching for. It is initialized to <em>False</em>. If we find
+the character, we reassign <code>found</code> to <em>True</em>.</p>
+<p>The other part of the condition is the same as we used previously to
+traverse the characters of the string. Since we have now combined these
+two parts with a logical <code>and</code>, it is necessary for them both
+to be <em>True</em> to continue iterating. If one part fails, the
+condition fails and the iteration stops.</p>
+<p>When the iteration stops, we must ask a question to find out the
+individual condition that caused the termination, and then return the
+proper value. This is a pattern for dealing with while loops with
+compound conditions.</p>
+<p><em>Note</em> This pattern of computation is sometimes called a
+eureka traversal because as soon as we find what we are looking for, we
+can cry Eureka! and stop looking. The way we stop looking is by setting
+<code>found</code> to True which causes the condition to fail.</p>
+<h2 id="optional-parameters">Optional parameters</h2>
+<p>To find the locations of the second or third occurrence of a
+character in a string, we can modify the <code>find</code> function,
+adding a third parameter for the starting position in the search
+string:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find2(astring, achar, start):</span>
+<span id="cb46-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb46-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Find and return the index of achar in astring.</span></span>
+<span id="cb46-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Return -1 if achar does not occur in astring.</span></span>
+<span id="cb46-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb46-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-6" aria-hidden="true" tabindex="-1"></a>    ix <span class="op">=</span> start</span>
+<span id="cb46-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-7" aria-hidden="true" tabindex="-1"></a>    found <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb46-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> ix <span class="op">&lt;</span> <span class="bu">len</span>(astring) <span class="kw">and</span> <span class="kw">not</span> found:</span>
+<span id="cb46-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> astring[ix] <span class="op">==</span> achar:</span>
+<span id="cb46-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-10" aria-hidden="true" tabindex="-1"></a>            found <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb46-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb46-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-12" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> ix <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb46-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> found:</span>
+<span id="cb46-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ix</span>
+<span id="cb46-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb46-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb46-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find2(<span class="st">'banana'</span>, <span class="st">'a'</span>, <span class="dv">2</span>))</span></code></pre></div>
+<p>The call <code>find2('banana', 'a', 2)</code> now returns
+<code>3</code>, the index of the first occurrence of ‘a’ in ‘banana’
+after index 2. What does <code>find2('banana', 'n', 3)</code> return? If
+you said, 4, there is a good chance you understand how
+<code>find2</code> works. Try it.</p>
+<p>Better still, we can combine <code>find</code> and <code>find2</code>
+using an <strong>optional parameter</strong>.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find3(astring, achar, start<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb47-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb47-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Find and return the index of achar in astring.</span></span>
+<span id="cb47-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Return -1 if achar does not occur in astring.</span></span>
+<span id="cb47-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb47-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    ix <span class="op">=</span> start</span>
+<span id="cb47-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-7" aria-hidden="true" tabindex="-1"></a>    found <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb47-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> ix <span class="op">&lt;</span> <span class="bu">len</span>(astring) <span class="kw">and</span> <span class="kw">not</span> found:</span>
+<span id="cb47-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> astring[ix] <span class="op">==</span> achar:</span>
+<span id="cb47-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-10" aria-hidden="true" tabindex="-1"></a>            found <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb47-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb47-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-12" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> ix <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb47-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> found:</span>
+<span id="cb47-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ix</span>
+<span id="cb47-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb47-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb47-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find3(<span class="st">'banana'</span>, <span class="st">'a'</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find4(astring, achar, start<span class="op">=</span><span class="dv">0</span>, end<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb48-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb48-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Find and return the index of achar in astring.</span></span>
+<span id="cb48-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Return -1 if achar does not occur in astring.</span></span>
+<span id="cb48-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb48-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-6" aria-hidden="true" tabindex="-1"></a>    ix <span class="op">=</span> start</span>
+<span id="cb48-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> end <span class="op">==</span> <span class="va">None</span>:</span>
+<span id="cb48-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-8" aria-hidden="true" tabindex="-1"></a>        end <span class="op">=</span> <span class="bu">len</span>(astring)</span>
+<span id="cb48-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-10" aria-hidden="true" tabindex="-1"></a>    found <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb48-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> ix <span class="op">&lt;</span> end <span class="kw">and</span> <span class="kw">not</span> found:</span>
+<span id="cb48-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> astring[ix] <span class="op">==</span> achar:</span>
+<span id="cb48-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-13" aria-hidden="true" tabindex="-1"></a>            found <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb48-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb48-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-15" aria-hidden="true" tabindex="-1"></a>            ix <span class="op">=</span> ix <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb48-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> found:</span>
+<span id="cb48-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ix</span>
+<span id="cb48-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb48-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb48-20"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-21"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-21" aria-hidden="true" tabindex="-1"></a>ss <span class="op">=</span> <span class="st">"Python strings have some interesting methods."</span></span>
+<span id="cb48-22"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-23"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find4(ss, <span class="st">'s'</span>))</span>
+<span id="cb48-24"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find4(ss, <span class="st">'s'</span>, <span class="dv">7</span>))</span>
+<span id="cb48-25"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find4(ss, <span class="st">'s'</span>, <span class="dv">8</span>))</span>
+<span id="cb48-26"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find4(ss, <span class="st">'s'</span>, <span class="dv">8</span>, <span class="dv">13</span>))</span>
+<span id="cb48-27"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb48-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(find4(ss, <span class="st">'.'</span>))</span></code></pre></div>
+<p>The optional value for <code>end</code> is interesting. We give it a
+default value <code>None</code> if the caller does not supply any
+argument. In the body of the function we test what <code>end</code> is
+and if the caller did not supply any argument, we reassign
+<code>end</code> to be the length of the string. If the caller has
+supplied an argument for <code>end</code>, however, the caller’s value
+will be used in the loop.</p>
+<p>The semantics of <code>start</code> and <code>end</code> in this
+function are precisely the same as they are in the <code>range</code>
+function.</p>
+<h3 id="exercise-11">Exercise 11</h3>
+<p>Write a function that mirrors its string argument, generating a
+string containing the original string and the string backwards.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> unittest </span>
+<span id="cb49-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reverse(mystr):</span>
+<span id="cb49-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">reversed</span> <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb49-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fill in the rest </span></span>
+<span id="cb49-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">reversed</span></span>
+<span id="cb49-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mirror(mystr):</span>
+<span id="cb49-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mystr <span class="op">+</span> reverse(mystr)</span>
+<span id="cb49-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestNotebook(unittest.TestCase):</span>
+<span id="cb49-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb49-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_mirror(<span class="va">self</span>):</span>
+<span id="cb49-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(mirror(<span class="st">'good'</span>), <span class="st">'gooddoog'</span>)</span>
+<span id="cb49-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_mirror2(<span class="va">self</span>):</span>
+<span id="cb49-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(mirror(<span class="st">'Python'</span>), <span class="st">'PythonnohtyP'</span>)</span>
+<span id="cb49-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb49-20"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_mirror3(<span class="va">self</span>):</span>
+<span id="cb49-21"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-21" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(mirror(<span class="st">'a'</span>), <span class="st">'aa'</span>)</span>
+<span id="cb49-22"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb49-23"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_mirror4(<span class="va">self</span>):</span>
+<span id="cb49-24"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.assertEqual(mirror(<span class="st">''</span>), <span class="st">''</span>)</span>
+<span id="cb49-25"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-26"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/6-Strings.html#cb49-26" aria-hidden="true" tabindex="-1"></a>unittest.main(argv<span class="op">=</span>[<span class="st">''</span>], verbosity<span class="op">=</span><span class="dv">2</span>, exit<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+
+
+</body></html>

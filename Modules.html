@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Modules</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./Modules_files/github-like.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Modules</h1>
+</header>
+<h1 id="modules">Modules</h1>
+<p>Materials adapted from <em><a href="https://runestone.academy/runestone/static/thinkcspy/index.html">How
+to Think Like a Computer Scientist</a></em></p>
+<p>This page is paired with the Jupyter Notebook:
+Intro-Python-part3.ipynb</p>
+<p>A <strong>module</strong> is a file containing Python definitions and
+statements intended for use in other Python programs. There are many
+Python modules that come with Python as part of the <strong>standard
+library</strong>. Once we import the module, we can use things that are
+defined inside.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Needs to be run once to download and load the "ColabTurtle" module</span></span>
+<span id="cb1-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install ColabTurtle</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ColabTurtle</span>
+<span id="cb2-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb2-2" aria-hidden="true" tabindex="-1"></a>alex <span class="op">=</span> ColabTurtle.Turtle</span>
+<span id="cb2-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb2-3" aria-hidden="true" tabindex="-1"></a>alex.initializeTurtle()</span>
+<span id="cb2-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb2-4" aria-hidden="true" tabindex="-1"></a>alex.forward(<span class="dv">100</span>)</span>
+<span id="cb2-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb2-5" aria-hidden="true" tabindex="-1"></a>alex.right(<span class="dv">90</span>)</span>
+<span id="cb2-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb2-6" aria-hidden="true" tabindex="-1"></a>alex.forward(<span class="dv">100</span>)</span></code></pre></div>
+<p>Here we are using <code>Turtle</code>, which is defined inside the
+turtle module.</p>
+<p>But what if no one had told us about turtle? How would we know that
+it exists. How would we know what it can do for us? The answer is to ask
+for help and the best place to get help about the Python programming
+environment is to consult with the Python Documentation.</p>
+<p>The <a href="https://docs.python.org/3/index.html">Python
+Documentation</a> site for Python version 3 (the home page is shown
+below) is an extremely useful reference for all aspects of Python. The
+site contains a listing of all the standard modules that are available
+with Python (see <a href="https://docs.python.org/3/py-modindex.html">Global Module
+Index</a> ).You will also see that there is a <a href="https://docs.python.org/3/reference/index.html">Language
+Reference</a> and a <a href="https://docs.python.org/3/tutorial/index.html">Tutorial</a>
+(mostly aimed at people who are already familiar with another
+programming language), as well as installation instructions, how-tos,
+and frequently asked questions. We encourage you to become familiar with
+this site and to use it often.</p>
+<p>If you have not done so already, take a look at the Global Module
+Index. Here you will see an alphabetical listing of all the modules that
+are available as part of the standard library. Find the turtle module
+(this is similar but not exactly the same as the ColabTurtle module -
+ColabTurtle is designed to run in Colab).</p>
+<p>You can see that all the turtle functionality that we have talked
+about is there. However, there is so much more. Take some time to read
+through and familiarize yourself with some of the other things that
+turtles can do.</p>
+<p>Before we move on to exploring other modules, we should say a bit
+more about what modules are and how we typically use them. One of the
+most important things to realize about modules is the fact that they are
+data objects, just like any other data in Python. Module objects simply
+contain other Python elements.</p>
+<p>The first thing we need to do when we wish to use a module is perform
+an <code>import</code>. In the example above, the statement
+<code>import ColabTurtle</code> creates a new name, <code>alex</code>,
+and makes it refer to a <code>module object</code>.</p>
+<p>In order to use something contained in a module, we use the
+<code>dot</code> notation, providing the module name and the specific
+item joined together with a “dot”. For example, to use the function
+<code>forward</code>, we say <code>alex.forward()</code>.</p>
+<p>We will now turn our attention to a few other modules that you might
+find useful.</p>
+<h2 id="the-math-module">The <code>math</code> Module</h2>
+<p>The <code>math</code> module contains the kinds of mathematical
+functions you would typically find on your calculator and some
+mathematical constants like <code>pi</code> and <code>e</code>. As we
+noted above, when we <code>import math</code>, we create a reference to
+a module object that contains these elements.</p>
+<figure>
+<img src="./Modules_files/mathmod.png" alt="math Module">
+<figcaption aria-hidden="true">math Module</figcaption>
+</figure>
+<p>Here are some items from the math module in action. If you want more
+information, you can check out the <a href="https://docs.python.org/3/library/math.html#module-math">Math
+Module</a> Python Documentation.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb3-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.pi)</span>
+<span id="cb3-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.e)</span>
+<span id="cb3-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.sqrt(<span class="fl">2.0</span>))</span>
+<span id="cb3-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.sin(math.radians(<span class="dv">90</span>)))   <span class="co"># sin of 90 degrees</span></span></code></pre></div>
+<p>Mathematical functions do not need to be constructed. They simply
+perform a task. They are all housed together in a module called math.
+Once we have imported the math module, anything defined there can be
+used in our program. Notice that we always use the name of the module
+followed by a dot followed by the specific item from the module
+(math.sqrt). You can think of this as lastname.firstname where the
+lastname is the module family and the firstname is the individual entry
+in the module.</p>
+<p>If you have not done so already, take a look at the documentation for
+the math module.</p>
+<h2 id="the-random-module">The <code>random</code> Module</h2>
+<p>We often want to use <strong>random numbers</strong> in programs.
+Here are a few typical uses:</p>
+<ul>
+<li>To play a game of chance where the computer needs to throw some
+dice, pick a number, or flip a coin,</li>
+<li>To shuffle a deck of playing cards randomly,</li>
+<li>To randomly allow a new enemy spaceship to appear and shoot at
+you,</li>
+<li>To simulate possible rainfall when we make a computerized model for
+estimating the environmental impact of building a dam,</li>
+<li>For encrypting your banking session on the Internet.</li>
+</ul>
+<p>Python provides a module <code>random</code> that helps with tasks
+like this. You can take a look at it in the <a href="https://docs.python.org/3/library/random.html#module-random">documentation</a>.
+Here are the key things we can do with it.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb4-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-3" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> random.random()</span>
+<span id="cb4-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prob)</span>
+<span id="cb4-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-6" aria-hidden="true" tabindex="-1"></a>diceThrow <span class="op">=</span> random.randrange(<span class="dv">1</span>, <span class="dv">7</span>)       <span class="co"># return an int, one of 1,2,3,4,5,6</span></span>
+<span id="cb4-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diceThrow)</span></code></pre></div>
+<p>Re-run the code a number of times. Note that the values change each
+time. These are random numbers.</p>
+<p>The <code>randrange</code> function generates an integer between its
+lower and upper argument, using the same semantics as <code>range</code>
+— so the lower bound is included, but the upper bound is excluded. All
+the values have an equal probability of occurring (i.e.&nbsp;the results are
+<em>uniformly</em> distributed).</p>
+<p>The <code>random()</code> function returns a floating point number in
+the range [0.0, 1.0) — the square bracket means “closed interval on the
+left” and the round parenthesis means “open interval on the right”. In
+other words, 0.0 is possible, but all returned numbers will be strictly
+less than 1.0. It is usual to <em>scale</em> the results after calling
+this method, to get them into a range suitable for your application.</p>
+<p>In the case shown here, we’ve converted the result of the method call
+to a number in the range [0.0, 5.0). Once more, these are uniformly
+distributed numbers — numbers close to 0 are just as likely to occur as
+numbers close to 0.5, or numbers close to 1.0. If you continue to press
+the run button you will see random values between 0.0 and up to but not
+including 5.0.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb5-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb5-3" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> random.random()</span>
+<span id="cb5-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb5-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> prob <span class="op">*</span> <span class="dv">5</span></span>
+<span id="cb5-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<p>It is important to note that random number generators are based on a
+<strong>deterministic</strong> algorithm — repeatable and predictable.
+So they’re called <strong>pseudo-random</strong> generators — they are
+not genuinely random. They start with a <em>seed</em> value. Each time
+you ask for another random number, you’ll get one based on the current
+seed attribute, and the state of the seed (which is one of the
+attributes of the generator) will be updated. The good news is that each
+time you run your program, the seed value is likely to be different
+meaning that even though the random numbers are being created
+algorithmically, you will likely get random behavior each time you
+execute.</p>
+<p><em>Note: we will be using AI/ML methods, we may take advantage of
+the <code>seed</code> methods to debug our code</em></p>
+<h3 id="exercise-1">Exercise 1</h3>
+<p>Which of the following is the correct way to reference the value pi
+within the math module. Assume you have already imported the math
+module.</p>
+<ul>
+<li>A. math.pi</li>
+<li>B. math(pi)</li>
+<li>C. pi.math</li>
+<li>D. math-&gt;pi</li>
+</ul>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>The correct code to generate a random number between 1 and 100
+(inclusive) is:</p>
+<ul>
+<li>A. prob = random.randrange(1, 100)</li>
+<li>B. prob = random.randrange(1, 101)</li>
+<li>C. prob = random.randrange(0, 100)</li>
+<li>D. prob = random.randrange(0, 101)</li>
+</ul>
+<h2 id="creating-modules">Creating Modules</h2>
+<p>You’ve seen how to <em>use</em> modules like <code>random</code>,
+<code>math</code>, and <code>turtle</code>, but how would you
+<em>create</em> a module?</p>
+<p>Every time you use a Python script <code>filename.py</code> you’ve
+used a module!</p>
+<p>A Python module is just a Python source code file. Let’s consider the
+Python file shown below.</p>
+<p><em>coffee_shop.py</em></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb6-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">The coffee shop module contains functions and contains variables</span></span>
+<span id="cb6-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">important to implementing a coffee shop.</span></span>
+<span id="cb6-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb6-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set some variables</span></span>
+<span id="cb6-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-7" aria-hidden="true" tabindex="-1"></a>shop_name <span class="op">=</span> <span class="st">"CADeT Brew House"</span></span>
+<span id="cb6-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-8" aria-hidden="true" tabindex="-1"></a>coffee_sizes <span class="op">=</span> [<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>]</span>
+<span id="cb6-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb6-9" aria-hidden="true" tabindex="-1"></a>coffee_roasts <span class="op">=</span> [<span class="st">"hot chocolate"</span>, <span class="st">"light"</span>, <span class="st">"medium"</span>, <span class="st">"dark"</span>, <span class="st">"espresso"</span>]</span></code></pre></div>
+<p>This is a Python script named <code>coffee_shop.py</code> that
+contains three variables: <code>shop_name</code>,
+<code>coffee_sizes</code>, and <code>coffee_roasts</code>. The
+<code>shop_name</code> is a string, <code>coffee_sizes</code> is a list
+containing strings, and <code>coffee_roasts</code> is also a list
+containing strings.</p>
+<p>That’s so great! We’ve got the basics of a coffee shop. All you need
+is some roasted coffee and cups. You’re good to go.</p>
+<p>If you try to run that code though, it doesn’t do much that’s visible
+to a user…</p>
+<p>How can we use the <code>coffee_shop</code> module? We can import it
+and use it in other Python source code files. Let’s consider the Python
+file shown below.</p>
+<p><em>coffee_customer.py</em></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> coffee_shop</span>
+<span id="cb7-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the information we know from the module</span></span>
+<span id="cb7-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Welcome to"</span>, coffee_shop.shop_name)</span>
+<span id="cb7-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Available sizes:"</span>, coffee_shop.coffee_sizes)</span>
+<span id="cb7-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Available roasts:"</span>, coffee_shop.coffee_roasts)</span></code></pre></div>
+<p>This is a Python script named <code>coffee_customer.py</code> that
+imports our <code>coffee_shop</code> module, then prints out the
+information from that module.</p>
+<p>We use <strong>dot notation</strong> to grab the
+<code>shop_name</code>, <code>coffee_sizes</code>, and
+<code>coffee_roasts</code> variables from the <code>coffee_shop</code>
+module. Then we print them out as parts of nice messages.</p>
+<p>Variables aren’t the only thing we can place in modules though… We
+can put any valid Python code in them.</p>
+<p>Let’s improve our coffee shop!</p>
+<p><em>coffee_shop_new.py</em></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb8-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">The coffee shop module contains functions and contains variables</span></span>
+<span id="cb8-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">important to implementing a coffee shop.</span></span>
+<span id="cb8-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb8-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set some variables</span></span>
+<span id="cb8-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-7" aria-hidden="true" tabindex="-1"></a>shop_name <span class="op">=</span> <span class="st">"CADeT Brew House"</span></span>
+<span id="cb8-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-8" aria-hidden="true" tabindex="-1"></a>coffee_sizes <span class="op">=</span> [<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>]</span>
+<span id="cb8-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-9" aria-hidden="true" tabindex="-1"></a>coffee_roasts <span class="op">=</span> [<span class="st">"hot chocolate"</span>, <span class="st">"light"</span>, <span class="st">"medium"</span>, <span class="st">"dark"</span>, <span class="st">"espresso"</span>]</span>
+<span id="cb8-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> order_coffee(size, roast):</span>
+<span id="cb8-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Take an order from a user</span></span>
+<span id="cb8-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">    :param size: a string containing one of the coffee_sizes</span></span>
+<span id="cb8-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">    :param roast: a string containing one of the coffee_roasts</span></span>
+<span id="cb8-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: a message about the coffee order</span></span>
+<span id="cb8-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Here's your </span><span class="sc">{}</span><span class="st"> coffee roasted </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(size, roast)</span></code></pre></div>
+<p>The old file contents are present, but now there’s also an
+<code>order_coffee</code> function that takes two arguments,
+<code>size</code> and <code>roast</code>.</p>
+<p>Also - look at all the awesome comments in there!</p>
+<p><strong>Module Comments</strong><br>
+It is important to include header comments in your module that explain
+what the module does.</p>
+<p><strong>Function Comments</strong><br>
+Functions are the next section, but the comments used here demonstrate a
+common Python documentation style.</p>
+<h3 id="using-.py-file-in-colab">Using <code>.py</code> file in
+Colab</h3>
+<p><strong>Note</strong><br>
+If running Python on a local machine, the module files must be in the
+same directory on your computer for Python to know how to import them
+automatically. In Colab, you can add them to the local directory as
+follows. On the left side bar select the “file” icon.</p>
+<figure>
+<img src="./Modules_files/colab-files.png" alt="colab file directory">
+<figcaption aria-hidden="true">colab file directory</figcaption>
+</figure>
+<p>Here, you can select to upload the files mentioned:
+<code>coffee_shop.py</code>, <code>coffee_customer.py</code> and
+<code>coffee_shop_new.py</code>.</p>
+<figure>
+<img src="./Modules_files/colab-file-upload.png" alt="colab file upload">
+<figcaption aria-hidden="true">colab file upload</figcaption>
+</figure>
+<p><strong>Caution</strong><br>
+The uploaded files will get deleted when this runtime is recycled. But,
+this allows you to now import these modules into your colab
+notebook.</p>
+<h3 id="exercise-3"><a name="exer3"></a>Exercise 3</h3>
+<p>Let’s now try to use the module <code>coffee_shop_new</code>. First,
+make sure to load it into the local colab directory (see above).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the module with coffee_shop functionality</span></span>
+<span id="cb9-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> coffee_shop_new</span>
+<span id="cb9-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the information we know from the module</span></span>
+<span id="cb9-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Welcome to"</span>, coffee_shop.shop_name)</span>
+<span id="cb9-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Available sizes:"</span>, coffee_shop_new.coffee_sizes)</span>
+<span id="cb9-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Available roasts:"</span>, coffee_shop_new.coffee_roasts)</span>
+<span id="cb9-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get some inputs from the user</span></span>
+<span id="cb9-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-10" aria-hidden="true" tabindex="-1"></a>order_size <span class="op">=</span> <span class="bu">input</span>(<span class="st">"What size coffee do you want? "</span>)</span>
+<span id="cb9-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-11" aria-hidden="true" tabindex="-1"></a>order_roast <span class="op">=</span> <span class="bu">input</span>(<span class="st">"What roast do you want? "</span>)</span>
+<span id="cb9-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the order to the coffee shop module</span></span>
+<span id="cb9-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-14" aria-hidden="true" tabindex="-1"></a>shop_says <span class="op">=</span> coffee_shop_new.order_coffee(order_size, order_roast)</span>
+<span id="cb9-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out whatever it gave back to us</span></span>
+<span id="cb9-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(shop_says)</span></code></pre></div>
+<p>Now after printing data nicely, this asks the user for a size and a
+roast. These are the parameters required by our
+<code>order_coffee</code> function over in the
+<code>coffee_shop_new</code> module!</p>
+<p>Call the <code>order_coffee</code> function with <strong>dot
+notation</strong>, just like retrieving variable values. The function
+call is the line that says
+<code>shop_says = coffee_shop_new.order_coffee(order_size, order_roast)</code>.
+The function returns something, so we save that off in
+<code>shop_says</code>. The next line prints out whatever the shop
+said.</p>
+<p>Coffee shops do more than just coffee! Maybe you want some milk. We
+also have a function in <code>coffee_shop_new.py</code> for milk.</p>
+<p><em>coffee_shop_new.py</em></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb10-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">The coffee shop module contains functions and contains variables</span></span>
+<span id="cb10-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">important to implementing a coffee shop.</span></span>
+<span id="cb10-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb10-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set some variables</span></span>
+<span id="cb10-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-7" aria-hidden="true" tabindex="-1"></a>shop_name <span class="op">=</span> <span class="st">"CADeT Brew House"</span></span>
+<span id="cb10-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-8" aria-hidden="true" tabindex="-1"></a>coffee_sizes <span class="op">=</span> [<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>]</span>
+<span id="cb10-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-9" aria-hidden="true" tabindex="-1"></a>coffee_roasts <span class="op">=</span> [<span class="st">"hot chocolate"</span>, <span class="st">"light"</span>, <span class="st">"medium"</span>, <span class="st">"dark"</span>, <span class="st">"espresso"</span>]</span>
+<span id="cb10-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> order_coffee(size, roast):</span>
+<span id="cb10-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Take an order from a user</span></span>
+<span id="cb10-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">    :param size: a string containing one of the coffee_sizes</span></span>
+<span id="cb10-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">    :param roast: a string containing one of the coffee_roasts</span></span>
+<span id="cb10-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: a message about the coffee order</span></span>
+<span id="cb10-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Here's your </span><span class="sc">{}</span><span class="st"> coffee roasted </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(size, roast)</span>
+<span id="cb10-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_milk_please(fat_content):</span>
+<span id="cb10-21"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-22"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">    Pretend like we're adding some milk to a coffee</span></span>
+<span id="cb10-23"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">    :param fat_content: a string or integer containing the milkfat content</span></span>
+<span id="cb10-24"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: a message about having added the milk</span></span>
+<span id="cb10-25"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-26"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"I've added the </span><span class="sc">{}</span><span class="st">% milk"</span>.<span class="bu">format</span>(fat_content)</span></code></pre></div>
+<p>The new function is called <code>add_milk_please</code> and it takes
+one parameter - the <code>fat_content</code>. It returns a string
+explaining what happened.</p>
+<p>This is great. But the function isn’t going to do anything by itself.
+We have to call it. Check out the update to our script below.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the module with coffee_shop functionality</span></span>
+<span id="cb11-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> coffee_shop_new</span>
+<span id="cb11-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the information we know from the module</span></span>
+<span id="cb11-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Welcome to"</span>, coffee_shop_new.shop_name)</span>
+<span id="cb11-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Available sizes:"</span>, coffee_shop_new.coffee_sizes)</span>
+<span id="cb11-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Available roasts:"</span>, coffee_shop_new.coffee_roasts)</span>
+<span id="cb11-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get some inputs from the user</span></span>
+<span id="cb11-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-10" aria-hidden="true" tabindex="-1"></a>order_size <span class="op">=</span> <span class="bu">input</span>(<span class="st">"What size coffee do you want? "</span>)</span>
+<span id="cb11-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-11" aria-hidden="true" tabindex="-1"></a>order_roast <span class="op">=</span> <span class="bu">input</span>(<span class="st">"What roast do you want? "</span>)</span>
+<span id="cb11-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the order to the coffee shop module</span></span>
+<span id="cb11-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-14" aria-hidden="true" tabindex="-1"></a>shop_says <span class="op">=</span> coffee_shop_new.order_coffee(order_size, order_roast)</span>
+<span id="cb11-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out whatever it gave back to us</span></span>
+<span id="cb11-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(shop_says)</span>
+<span id="cb11-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># See if the user wants to add milk</span></span>
+<span id="cb11-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-19" aria-hidden="true" tabindex="-1"></a>add_milk_response <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Do you want to add milk (y/n)? "</span>)</span>
+<span id="cb11-20"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the response to lowercase, then check for a "yes" answer</span></span>
+<span id="cb11-21"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"y"</span> <span class="kw">in</span> add_milk_response.lower():</span>
+<span id="cb11-22"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-22" aria-hidden="true" tabindex="-1"></a>    milk_fat <span class="op">=</span> <span class="bu">input</span>(<span class="st">"What percent milk do you want added? "</span>)</span>
+<span id="cb11-23"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-23" aria-hidden="true" tabindex="-1"></a>    shop_says <span class="op">=</span> coffee_shop_new.add_milk_please(milk_fat)</span>
+<span id="cb11-24"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print out whatever it gave back to us</span></span>
+<span id="cb11-25"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/3-Modules.html#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(shop_says)</span></code></pre></div>
+<p>That got fancy! We were just ordering coffee but now the user can
+choose to add milk! Selection is in a couple chapters, but if you read
+that code like english you’ll see what’s going on.</p>
+<p>The call to <code>add_milk_please</code> happens right in there - it
+looks just like the other one:
+<code>shop_says = coffee_shop_new.add_milk_please(milk_fat)</code>.</p>
+<p>Let’s wrap this coffee shop visit up.</p>
+
+
+</body></html>

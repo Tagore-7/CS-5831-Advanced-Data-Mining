@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Lists</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./Lists_files/github-like.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Lists</h1>
+</header>
+<h1 id="lists">Lists</h1>
+<p>Materials adapted from <em><a href="https://runestone.academy/runestone/static/thinkcspy/index.html">How
+to Think Like a Computer Scientist</a></em></p>
+<p>This page is paired with the Jupyter Notebook:
+Intro-Python-part7.ipynb</p>
+<p>A <strong>list</strong> is a sequential collection of Python data
+values, where each value is identified by an index. The values that make
+up a list are called its <strong>elements</strong>. Lists are similar to
+strings, which are ordered collections of characters, except that the
+elements of a list can have any type and for any one list, the items can
+be of different types.</p>
+<h2 id="list-values">List Values</h2>
+<p>There are several ways to create a new list. The simplest is to
+enclose the elements in square brackets ( <code>[</code> and
+<code>]</code>).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb1-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>]</span>
+<span id="cb1-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb1-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">"spam"</span>, <span class="st">"bungee"</span>, <span class="st">"oreo"</span>]</span></code></pre></div>
+<p>The first example is a list of four integers. The second is a list of
+three strings. As we said above, the elements of a list don’t have to be
+the same type. The following list contains a string, a float, an
+integer, and another list.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb2-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">"hello"</span>, <span class="fl">2.0</span>, <span class="dv">5</span>, [<span class="dv">10</span>, <span class="dv">20</span>]]</span></code></pre></div>
+<p>A list within another list is said to be <strong>nested</strong> and
+the inner list is often called a <strong>sublist</strong>. Finally,
+there is a special list that contains no elements. It is called the
+empty list and is denoted <code>[]</code>.</p>
+<p>As you would expect, we can also assign list values to variables and
+pass lists as parameters to functions.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-1" aria-hidden="true" tabindex="-1"></a>vocabulary <span class="op">=</span> [<span class="st">"iteration"</span>, <span class="st">"selection"</span>, <span class="st">"control"</span>]</span>
+<span id="cb3-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-2" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">17</span>, <span class="dv">123</span>]</span>
+<span id="cb3-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-3" aria-hidden="true" tabindex="-1"></a>empty <span class="op">=</span> []</span>
+<span id="cb3-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-4" aria-hidden="true" tabindex="-1"></a>mixedlist <span class="op">=</span> [<span class="st">"hello"</span>, <span class="fl">2.0</span>, <span class="dv">5</span><span class="op">*</span><span class="dv">2</span>, [<span class="dv">10</span>, <span class="dv">20</span>]]</span>
+<span id="cb3-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers)</span>
+<span id="cb3-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mixedlist)</span>
+<span id="cb3-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-8" aria-hidden="true" tabindex="-1"></a>newlist <span class="op">=</span> [ numbers, vocabulary ]</span>
+<span id="cb3-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newlist)</span></code></pre></div>
+<h2 id="list-length">List Length</h2>
+<p>As with strings, the function <code>len</code> returns the length of
+a list (the number of items in the list). However, since lists can have
+items which are themselves lists, it important to note that
+<code>len</code> only returns the top-most length. In other words,
+sublists are considered to be a single item when counting the length of
+the list.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb4-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span>  [<span class="st">"hello"</span>, <span class="fl">2.0</span>, <span class="dv">5</span>, [<span class="dv">10</span>, <span class="dv">20</span>]]</span>
+<span id="cb4-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(alist))</span>
+<span id="cb4-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>([<span class="st">'spam!'</span>, <span class="dv">1</span>, [<span class="st">'Brie'</span>, <span class="st">'Roquefort'</span>, <span class="st">'Pol le Veq'</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]))</span></code></pre></div>
+<h3 id="exercise-1">Exercise 1</h3>
+<p>What is printed by the following statements?</p>
+<ol type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb5-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">67</span>, <span class="st">"cat"</span>, <span class="fl">3.14</span>, <span class="va">False</span>]</span>
+<span id="cb5-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(alist))</span></code></pre></div>
+<ul>
+<li>A. 4</li>
+<li>B. 5</li>
+</ul>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb6-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">67</span>, <span class="st">"cat"</span>, [<span class="dv">56</span>, <span class="dv">57</span>, <span class="st">"dog"</span>], [ ], <span class="fl">3.14</span>, <span class="va">False</span>]</span>
+<span id="cb6-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(alist))</span></code></pre></div>
+<ul>
+<li>A. 7</li>
+<li>B. 8</li>
+</ul>
+<h2 id="accessing-elements">Accessing Elements</h2>
+<p>The syntax for accessing the elements of a list is the same as the
+syntax for accessing the characters of a string. We use the index
+operator ( <code>[]</code> – not to be confused with an empty list). The
+expression inside the brackets specifies the index. Remember that the
+indices start at 0. Any integer expression can be used as an index and
+as with strings, negative index values will locate items from the right
+instead of from the left.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb7-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">17</span>, <span class="dv">123</span>, <span class="dv">87</span>, <span class="dv">34</span>, <span class="dv">66</span>, <span class="dv">8398</span>, <span class="dv">44</span>]</span>
+<span id="cb7-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers[<span class="dv">2</span>])</span>
+<span id="cb7-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers[<span class="dv">9</span> <span class="op">-</span> <span class="dv">8</span>])</span>
+<span id="cb7-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers[<span class="op">-</span><span class="dv">2</span>])</span>
+<span id="cb7-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers[<span class="bu">len</span>(numbers) <span class="op">-</span> <span class="dv">1</span>])</span></code></pre></div>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb8-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">67</span>, <span class="st">"cat"</span>, [<span class="dv">56</span>, <span class="dv">57</span>, <span class="st">"dog"</span>], [ ], <span class="fl">3.14</span>, <span class="va">False</span>]</span>
+<span id="cb8-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist[<span class="dv">5</span>]</span></code></pre></div>
+<ul>
+<li>A. []</li>
+<li>B. 3.14</li>
+<li>C. False</li>
+</ul>
+<h3 id="exercise-3">Exercise 3</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb9-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">67</span>, <span class="st">"cat"</span>, [<span class="dv">56</span>, <span class="dv">57</span>, <span class="st">"dog"</span>], [ ], <span class="fl">3.14</span>, <span class="va">False</span>]</span>
+<span id="cb9-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist[<span class="dv">2</span>][<span class="dv">0</span>])</span></code></pre></div>
+<ul>
+<li>A. 56</li>
+<li>B. c</li>
+<li>C. cat</li>
+<li>D. Error, you can not have two index values unless you are
+slicing.</li>
+</ul>
+<h2 id="list-membership">List Membership</h2>
+<p><code>in</code> and <code>not in</code> are boolean operators that
+test membership in a sequence. We used them previously with strings and
+they also work here.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb10-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>]</span>
+<span id="cb10-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apple"</span> <span class="kw">in</span> fruit)</span>
+<span id="cb10-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pear"</span> <span class="kw">in</span> fruit)</span></code></pre></div>
+<h2 id="concatenation-and-repetition">Concatenation and Repetition</h2>
+<p>Again, as with strings, the <code>+</code> operator concatenates
+lists. Similarly, the <code>*</code> operator repeats the items in a
+list a given number of times.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb11-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>]</span>
+<span id="cb11-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">+</span> [<span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb11-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit <span class="op">+</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>])</span>
+<span id="cb11-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([<span class="dv">0</span>] <span class="op">*</span> <span class="dv">4</span>)</span>
+<span id="cb11-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([<span class="dv">1</span>, <span class="dv">2</span>, [<span class="st">"hello"</span>, <span class="st">"goodbye"</span>]] <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>It is important to see that these operators create new lists from the
+elements of the operand lists. If you concatenate a list with 2 items
+and a list with 4 items, you will get a new list with 6 items (not a
+list with two sublists). Similarly, repetition of a list of 2 items 4
+times will give a list with 8 items.</p>
+<p>In Python, every object has a unique identification tag. Likewise,
+there is a built-in function that can be called on any object to return
+its unique id. The function is appropriately called <code>id</code> and
+takes a single parameter, the object that you are interested in knowing
+about. You can see in the example below that a real id is usually a very
+large integer value (corresponding to an address in memory).</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb12-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb12-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(alist)</span></code></pre></div>
+<h3 id="exercise-4">Exercise 4</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb13-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb13-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb13-2" aria-hidden="true" tabindex="-1"></a>blist <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>] </span>
+<span id="cb13-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist <span class="op">+</span> blist)</span></code></pre></div>
+<ul>
+<li>A. 6</li>
+<li>B. [1, 2, 3, 4, 5, 6]</li>
+<li>C. [1, 3, 5, 2, 4, 6]</li>
+<li>D. [3, 7, 11]</li>
+</ul>
+<h3 id="exercise-5">Exercise 5</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb14-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb14-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist <span class="op">*</span> <span class="dv">3</span>)</span></code></pre></div>
+<ul>
+<li>A. 9</li>
+<li>B. [3, 9, 15]</li>
+<li>C. [1, 1, 1, 3, 3, 3, 5, 5, 5]</li>
+<li>D. [1, 3, 5, 1, 3, 5, 1, 3, 5]</li>
+</ul>
+<h2 id="list-slices">List Slices</h2>
+<p>The slice operation we saw with strings also work on lists. Remember
+that the first index is the starting point for the slice and the second
+number is one index past the end of the slice (up to but not including
+that element). Recall also that if you omit the first index (before the
+colon), the slice starts at the beginning of the sequence. If you omit
+the second index, the slice goes to the end of the sequence.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb15-1" aria-hidden="true" tabindex="-1"></a>a_list <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>, <span class="st">'f'</span>]</span>
+<span id="cb15-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a_list[<span class="dv">1</span>:<span class="dv">3</span>])</span>
+<span id="cb15-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a_list[:<span class="dv">4</span>])</span>
+<span id="cb15-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a_list[<span class="dv">3</span>:])</span>
+<span id="cb15-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a_list[:])</span></code></pre></div>
+<h2 id="lists-are-mutable">Lists are Mutable</h2>
+<p>Unlike strings, lists are <strong>mutable</strong>. This means we can
+change an item in a list by accessing it directly as part of the
+assignment statement. Using the indexing operator (square brackets) on
+the left side of an assignment, we can update one of the list items.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb16-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="op">=</span> [<span class="st">"banana"</span>, <span class="st">"apple"</span>, <span class="st">"cherry"</span>]</span>
+<span id="cb16-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit)</span>
+<span id="cb16-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb16-4" aria-hidden="true" tabindex="-1"></a>fruit[<span class="dv">0</span>] <span class="op">=</span> <span class="st">"pear"</span></span>
+<span id="cb16-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb16-5" aria-hidden="true" tabindex="-1"></a>fruit[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="st">"orange"</span></span>
+<span id="cb16-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruit)</span></code></pre></div>
+<p>An assignment to an element of a list is called <strong>item
+assignment</strong>. Item assignment does not work for strings. Recall
+that strings are immutable.</p>
+<p>By combining assignment with the slice operator we can update several
+elements at once.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb17-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>, <span class="st">'f'</span>]</span>
+<span id="cb17-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb17-2" aria-hidden="true" tabindex="-1"></a>alist[<span class="dv">1</span>:<span class="dv">3</span>] <span class="op">=</span> [<span class="st">'x'</span>, <span class="st">'y'</span>]</span>
+<span id="cb17-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<p>We can also remove elements from a list by assigning the empty list
+to them.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb18-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>, <span class="st">'f'</span>]</span>
+<span id="cb18-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb18-2" aria-hidden="true" tabindex="-1"></a>alist[<span class="dv">1</span>:<span class="dv">3</span>] <span class="op">=</span> []</span>
+<span id="cb18-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<p>We can even insert elements into a list by squeezing them into an
+empty slice at the desired location.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb19-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'d'</span>, <span class="st">'f'</span>]</span>
+<span id="cb19-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb19-2" aria-hidden="true" tabindex="-1"></a>alist[<span class="dv">1</span>:<span class="dv">1</span>] <span class="op">=</span> [<span class="st">'b'</span>, <span class="st">'c'</span>]</span>
+<span id="cb19-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span>
+<span id="cb19-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb19-4" aria-hidden="true" tabindex="-1"></a>alist[<span class="dv">4</span>:<span class="dv">4</span>] <span class="op">=</span> [<span class="st">'e'</span>]</span>
+<span id="cb19-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<h3 id="exercise-6">Exercise 6</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb20-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">5</span>]</span>
+<span id="cb20-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb20-2" aria-hidden="true" tabindex="-1"></a>alist[<span class="dv">2</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb20-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<ul>
+<li>A. [4, 2, True, 8, 6, 5]</li>
+<li>B. [4, 2, True, 6, 5]</li>
+<li>C. Error, it is illegal to assign</li>
+</ul>
+<h2 id="list-deletion">List Deletion</h2>
+<p>Using slices to delete list elements can be awkward and therefore
+error-prone. Python provides an alternative that is more readable. The
+<code>del</code> statement removes an element from a list by using its
+position.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="st">'one'</span>, <span class="st">'two'</span>, <span class="st">'three'</span>]</span>
+<span id="cb21-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> a[<span class="dv">1</span>]</span>
+<span id="cb21-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)</span>
+<span id="cb21-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-5" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>, <span class="st">'f'</span>]</span>
+<span id="cb21-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> alist[<span class="dv">1</span>:<span class="dv">5</span>]</span>
+<span id="cb21-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<p>As you might expect, <code>del</code> handles negative indices and
+causes a runtime error if the index is out of range. In addition, you
+can use a slice as an index for <code>del</code>. As usual, slices
+select all the elements up to, but not including, the second index, but
+do not cause runtime errors if the index limits go too far.</p>
+<h2 id="objects-and-references">Objects and References</h2>
+<p>If we execute these assignment statements,</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb22-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">"banana"</span></span>
+<span id="cb22-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb22-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="st">"banana"</span></span></code></pre></div>
+<p>we know that <code>a</code> and <code>b</code> will refer to a string
+with the letters <code>"banana"</code>. But we don’t know yet whether
+they point to the <em>same</em> string.</p>
+<p>There are two possible ways the Python interpreter could arrange its
+internal states:</p>
+<figure>
+<img src="./Lists_files/refdiag1.png" alt="List illustration">
+<figcaption aria-hidden="true">List illustration</figcaption>
+</figure>
+<p>or</p>
+<figure>
+<img src="./Lists_files/refdiag2.png" alt="List illustration">
+<figcaption aria-hidden="true">List illustration</figcaption>
+</figure>
+<p>In one case, <code>a</code> and <code>b</code> refer to two different
+string objects that have the same value. In the second case, they refer
+to the same object. Remember that an object is something a variable can
+refer to.</p>
+<p>We already know that objects can be identified using their unique
+identifier. We can also test whether two names refer to the same object
+using the <em>is</em> operator. The <em>is</em> operator will return
+true if the two references are to the same object. In other words, the
+references are the same. Try our example from above.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb23-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">"banana"</span></span>
+<span id="cb23-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb23-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="st">"banana"</span></span>
+<span id="cb23-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="kw">is</span> b)</span></code></pre></div>
+<p>The answer is <code>True</code>. This tells us that both
+<code>a</code> and <code>b</code> refer to the same object, and that it
+is the second of the two reference diagrams that describes the
+relationship. Since strings are <em>immutable</em>, Python can optimize
+resources by making two names that refer to the same string literal
+value refer to the same object.</p>
+<p>This is not the case with lists. Consider the following example.
+Here, <code>a</code> and <code>b</code> refer to two different lists,
+each of which happens to have the same element values.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">81</span>, <span class="dv">82</span>, <span class="dv">83</span>]</span>
+<span id="cb24-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb24-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="dv">81</span>, <span class="dv">82</span>, <span class="dv">83</span>]</span>
+<span id="cb24-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="kw">is</span> b)</span>
+<span id="cb24-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">==</span> b)</span></code></pre></div>
+<p>The reference diagram for this example looks like this:</p>
+<figure>
+<img src="./Lists_files/refdiag3.png" alt="Reference diagram for this example looks like this">
+<figcaption aria-hidden="true">Reference diagram for this example looks
+like this</figcaption>
+</figure>
+<p><code>a</code> and <code>b</code> have the same value but do not
+refer to the same object.</p>
+<p>There is one other important thing to notice about this reference
+diagram. The variable <code>a</code> is a reference to a
+<strong>collection of references</strong>. Those references actually
+refer to the integer values in the list. In other words, a list is a
+collection of references to objects. Interestingly, even though
+<code>a</code> and <code>b</code> are two different lists (two different
+collections of references), the integer object <code>81</code> is shared
+by both. Like strings, integers are also immutable so Python optimizes
+and lets everyone share the same object for some commonly used small
+integers.</p>
+<h2 id="aliasing">Aliasing</h2>
+<p>Since variables refer to objects, if we assign one variable to
+another, both variables refer to the same object:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">81</span>, <span class="dv">82</span>, <span class="dv">83</span>]</span>
+<span id="cb25-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb25-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a</span>
+<span id="cb25-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="kw">is</span> b)</span></code></pre></div>
+<p>In this case, the reference diagram looks like this:</p>
+<figure>
+<img src="./Lists_files/refdiag4.png" alt="State snapshot for multiple references (aliases) to a list">
+<figcaption aria-hidden="true">State snapshot for multiple references
+(aliases) to a list</figcaption>
+</figure>
+<p>Because the same list has two different names, <code>a</code> and
+<code>b</code>, we say that it is <strong>aliased</strong>. Changes made
+with one alias affect the other.</p>
+<p>Although this behavior can be useful, it is sometimes unexpected or
+undesirable. In general, it is safer to avoid aliasing when you are
+working with mutable objects. Of course, for immutable objects, there’s
+no problem. That’s why Python is free to alias strings and integers when
+it sees an opportunity to economize.</p>
+<h3 id="exercise-7">Exercise 7</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb26-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">5</span>]</span>
+<span id="cb26-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb26-2" aria-hidden="true" tabindex="-1"></a>blist <span class="op">=</span> alist</span>
+<span id="cb26-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb26-3" aria-hidden="true" tabindex="-1"></a>blist[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">999</span></span>
+<span id="cb26-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<ul>
+<li>A. [4, 2, 8, 6, 5]</li>
+<li>B. [4, 2, 8, 999, 5]</li>
+</ul>
+<h2 id="cloning-lists">Cloning Lists</h2>
+<p>If we want to modify a list and also keep a copy of the original, we
+need to be able to make a copy of the list itself, not just the
+reference. This process is sometimes called <strong>cloning</strong>, to
+avoid the ambiguity of the word copy.</p>
+<p>The easiest way to clone a list is to use the slice operator.</p>
+<p>Taking any slice of <code>a</code> creates a new list. In this case
+the slice happens to consist of the whole list.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">81</span>, <span class="dv">82</span>, <span class="dv">83</span>]</span>
+<span id="cb27-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a[:]       <span class="co"># make a clone using slice</span></span>
+<span id="cb27-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="op">==</span> b)</span>
+<span id="cb27-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a <span class="kw">is</span> b)</span>
+<span id="cb27-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-7" aria-hidden="true" tabindex="-1"></a>b[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb27-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)</span>
+<span id="cb27-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code></pre></div>
+<p>Now we are free to make changes to <code>b</code> without worrying
+about <code>a</code>.</p>
+<h2 id="repetition-and-references">Repetition and References</h2>
+<p>We have already seen the repetition operator working on strings as
+well as lists. For example,</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb28-1" aria-hidden="true" tabindex="-1"></a>origlist <span class="op">=</span> [<span class="dv">45</span>, <span class="dv">76</span>, <span class="dv">34</span>, <span class="dv">55</span>]</span>
+<span id="cb28-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(origlist <span class="op">*</span> <span class="dv">3</span>)</span></code></pre></div>
+<p>With a list, the repetition operator creates copies of the
+references. Although this may seem simple enough, when we allow a list
+to refer to another list, a subtle problem can arise.</p>
+<p>Consider the following extension on the previous example.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb29-1" aria-hidden="true" tabindex="-1"></a>origlist <span class="op">=</span> [<span class="dv">45</span>, <span class="dv">76</span>, <span class="dv">34</span>, <span class="dv">55</span>]</span>
+<span id="cb29-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(origlist <span class="op">*</span> <span class="dv">3</span>)</span>
+<span id="cb29-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb29-4" aria-hidden="true" tabindex="-1"></a>newlist <span class="op">=</span> [origlist] <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb29-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newlist)</span></code></pre></div>
+<p><code>newlist</code> is a list of three references to
+<code>origlist</code> that were created by the repetition operator. The
+reference diagram is shown below.</p>
+<figure>
+<img src="./Lists_files/refrep1.png" alt="Repetition of a nested list">
+<figcaption aria-hidden="true">Repetition of a nested list</figcaption>
+</figure>
+<p>Now, what happens if we modify a value in <code>origlist</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-1" aria-hidden="true" tabindex="-1"></a>origlist <span class="op">=</span> [<span class="dv">45</span>, <span class="dv">76</span>, <span class="dv">34</span>, <span class="dv">55</span>]</span>
+<span id="cb30-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-3" aria-hidden="true" tabindex="-1"></a>newlist <span class="op">=</span> [origlist] <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb30-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newlist)</span>
+<span id="cb30-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-7" aria-hidden="true" tabindex="-1"></a>origlist[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb30-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newlist)</span></code></pre></div>
+<p><code>newlist</code> shows the change in three places. This can
+easily be seen by noting that in the reference diagram, there is only
+one <code>origlist</code>, so any changes to it appear in all three
+references from <code>newlist</code>.</p>
+<figure>
+<img src="./Lists_files/refrep2.png" alt="Same reference">
+<figcaption aria-hidden="true">Same reference</figcaption>
+</figure>
+<h3 id="exercise-8">Exercise 8</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb31-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">5</span>]</span>
+<span id="cb31-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb31-2" aria-hidden="true" tabindex="-1"></a>blist <span class="op">=</span> alist <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb31-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb31-3" aria-hidden="true" tabindex="-1"></a>blist[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">999</span></span>
+<span id="cb31-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alist)</span></code></pre></div>
+<ul>
+<li>A. [4, 2, 8, 999, 5, 4, 2, 8, 6, 5]</li>
+<li>B. [4, 2, 8, 999, 5]</li>
+<li>C. [4, 2, 8, 6, 5]</li>
+</ul>
+<h3 id="exercise-9">Exercise 9</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb32-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">5</span>]</span>
+<span id="cb32-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb32-2" aria-hidden="true" tabindex="-1"></a>blist <span class="op">=</span> [alist] <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb32-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb32-3" aria-hidden="true" tabindex="-1"></a>alist[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">999</span></span>
+<span id="cb32-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blist)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>[4, 2, 8, 999, 5, 4, 2, 8, 999, 5]</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>[[4, 2, 8, 999, 5], [4, 2, 8, 999, 5]]</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>[4, 2, 8, 6, 5]</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>[[4, 2, 8, 999, 5], [4, 2, 8, 6, 5]]</li>
+</ol></li>
+</ul>
+<h2 id="list-methods">List Methods</h2>
+<p>The dot operator can also be used to access built-in methods of list
+objects. <code>append</code> is a list method which adds the argument
+passed to it to the end of the list. Continuing with this example, we
+show several other list methods. Many of them are easy to
+understand.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="op">=</span> []</span>
+<span id="cb33-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-2" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">5</span>)</span>
+<span id="cb33-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-3" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">27</span>)</span>
+<span id="cb33-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-4" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">3</span>)</span>
+<span id="cb33-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-5" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">12</span>)</span>
+<span id="cb33-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span>
+<span id="cb33-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-8" aria-hidden="true" tabindex="-1"></a>mylist.insert(<span class="dv">1</span>, <span class="dv">12</span>)</span>
+<span id="cb33-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span>
+<span id="cb33-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist.count(<span class="dv">12</span>))</span>
+<span id="cb33-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist.index(<span class="dv">3</span>))</span>
+<span id="cb33-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist.count(<span class="dv">5</span>))</span>
+<span id="cb33-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-15" aria-hidden="true" tabindex="-1"></a>mylist.reverse()</span>
+<span id="cb33-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span>
+<span id="cb33-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-18" aria-hidden="true" tabindex="-1"></a>mylist.sort()</span>
+<span id="cb33-19"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span>
+<span id="cb33-20"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-21" aria-hidden="true" tabindex="-1"></a>mylist.remove(<span class="dv">5</span>)</span>
+<span id="cb33-22"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span>
+<span id="cb33-23"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-24"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-24" aria-hidden="true" tabindex="-1"></a>lastitem <span class="op">=</span> mylist.pop()</span>
+<span id="cb33-25"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lastitem)</span>
+<span id="cb33-26"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span></code></pre></div>
+<p>There are two ways to use the <code>pop</code> method. The first,
+with no parameter, will remove and return the last item of the list. If
+you provide a parameter for the position, <code>pop</code> will remove
+and return the item at that position. Either way the list is
+changed.</p>
+<p>The following table provides a summary of the list methods shown
+above. The column labeled <code>result</code> gives an explanation as to
+what the return value is as it relates to the new value of the list. The
+word <strong>mutator</strong> means that the list is changed by the
+method but nothing is returned (actually <code>None</code> is returned).
+A <strong>hybrid</strong> method is one that not only changes the list
+but also returns a value as its result. Finally, if the result is simply
+a return, then the list is unchanged by the method.</p>
+<p>Be sure to experiment with these methods to gain a better
+understanding of what they do.</p>
+<table>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Parameters</th>
+<th>Result</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>append</td>
+<td>item</td>
+<td>mutator</td>
+<td>Adds a new item to the end of a list</td>
+</tr>
+<tr class="even">
+<td>insert</td>
+<td>position, item</td>
+<td>mutator</td>
+<td>Inserts a new item at the position given</td>
+</tr>
+<tr class="odd">
+<td>pop</td>
+<td>none</td>
+<td>hybrid</td>
+<td>Removes and returns the last item</td>
+</tr>
+<tr class="even">
+<td>pop</td>
+<td>position</td>
+<td>hybrid</td>
+<td>Removes and returns the item at position</td>
+</tr>
+<tr class="odd">
+<td>sort</td>
+<td>none</td>
+<td>mutator</td>
+<td>Modifies a list to be sorted</td>
+</tr>
+<tr class="even">
+<td>reverse</td>
+<td>none</td>
+<td>mutator</td>
+<td>Modifies a list to be in reverse order</td>
+</tr>
+<tr class="odd">
+<td>index</td>
+<td>item</td>
+<td>return idx</td>
+<td>Returns the position of first occurrence of item</td>
+</tr>
+<tr class="even">
+<td>count</td>
+<td>item</td>
+<td>return ct</td>
+<td>Returns the number of occurrences of item</td>
+</tr>
+<tr class="odd">
+<td>remove</td>
+<td>item</td>
+<td>mutator</td>
+<td>Removes the first occurrence of item</td>
+</tr>
+</tbody>
+</table>
+<p>Details for these and others can be found in the <a href="http://docs.python.org/py3k/library/stdtypes.html#sequence-types-str-bytes-bytearray-list-tuple-range">Python
+Documentation</a>.</p>
+<p>It is important to remember that methods like <code>append</code>,
+<code>sort</code>, and <code>reverse</code> all return
+<code>None</code>. This means that re-assigning <code>mylist</code> to
+the result of sorting <code>mylist</code> will result in losing the
+entire list. Calls like these will likely never appear as part of an
+assignment statement (see line 8 below).</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="op">=</span> []</span>
+<span id="cb34-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-2" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">5</span>)</span>
+<span id="cb34-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-3" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">27</span>)</span>
+<span id="cb34-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-4" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">3</span>)</span>
+<span id="cb34-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-5" aria-hidden="true" tabindex="-1"></a>mylist.append(<span class="dv">12</span>)</span>
+<span id="cb34-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span>
+<span id="cb34-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-8" aria-hidden="true" tabindex="-1"></a>mylist <span class="op">=</span> mylist.sort()   <span class="co">#probably an error</span></span>
+<span id="cb34-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mylist)</span></code></pre></div>
+<h2 id="lists-and-for-loops">Lists and <code>for</code> loops</h2>
+<p>It is also possible to perform <strong>list traversal</strong> using
+iteration by item as well as iteration by index.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb35-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>]</span>
+<span id="cb35-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> afruit <span class="kw">in</span> fruits:     <span class="co"># by item</span></span>
+<span id="cb35-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(afruit)</span></code></pre></div>
+<p>It almost reads like natural language: For (every) fruit in (the list
+of) fruits, print (the name of the) fruit.</p>
+<p>We can also use the indices to access the items in an iterative
+fashion.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb36-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>]</span>
+<span id="cb36-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> position <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(fruits)):     <span class="co"># by index</span></span>
+<span id="cb36-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fruits[position])</span></code></pre></div>
+<p>In this example, each time through the loop, the variable
+<code>position</code> is used as an index into the list, printing the
+<code>position</code>-eth element. Note that we used <code>len</code> as
+the upper bound on the range so that we can iterate correctly no matter
+how many items are in the list.</p>
+<p>Any sequence expression can be used in a <code>for</code> loop. For
+example, the <code>range</code> function returns a sequence of
+integers.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> number <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb37-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb37-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(number)</span></code></pre></div>
+<p>This example prints all the multiples of 3 between 0 and 19.</p>
+<p>Since lists are mutable, it is often desirable to traverse a list,
+modifying each of its elements as you go. The following code squares all
+the numbers from <code>1</code> to <code>5</code> using iteration by
+position.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb38-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers)</span>
+<span id="cb38-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(numbers)):</span>
+<span id="cb38-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    numbers[i] <span class="op">=</span> numbers[i] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb38-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(numbers)</span></code></pre></div>
+<p>Take a moment to think about <code>range(len(numbers))</code> until
+you understand how it works. We are interested here in both the
+<em>value</em> and its <em>index</em> within the list, so that we can
+assign a new value to it.</p>
+<h2 id="using-lists-as-parameters">Using Lists as Parameters</h2>
+<p>Functions which take lists as arguments and change them during
+execution are called <strong>modifiers</strong> and the changes they
+make are called <strong>side effects</strong>.Passing a list as an
+argument actually passes a reference to the list, not a copy of the
+list. Since lists are mutable, changes made to the elements referenced
+by the parameter change the same list that the argument is referencing.
+For example, the function below takes a list as an argument and
+multiplies each element in the list by 2:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> doubleStuff(aList):</span>
+<span id="cb39-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Overwrite each element in aList with double its value. """</span></span>
+<span id="cb39-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> position <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(aList)):</span>
+<span id="cb39-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-4" aria-hidden="true" tabindex="-1"></a>        aList[position] <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> aList[position]</span>
+<span id="cb39-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-6" aria-hidden="true" tabindex="-1"></a>things <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>]</span>
+<span id="cb39-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(things)</span>
+<span id="cb39-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-8" aria-hidden="true" tabindex="-1"></a>doubleStuff(things)</span>
+<span id="cb39-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(things)</span></code></pre></div>
+<p>The parameter <code>aList</code> and the variable <code>things</code>
+are aliases for the same object.</p>
+<figure>
+<img src="./Lists_files/references4.png" alt="State snapshot for multiple references to a list as a parameter">
+<figcaption aria-hidden="true">State snapshot for multiple references to
+a list as a parameter</figcaption>
+</figure>
+<p>Since the list object is shared by two references, there is only one
+copy. If a function modifies the elements of a list parameter, the
+caller sees the change since the change is occurring to the
+original.</p>
+<p>A <strong>pure function</strong> does not produce side effects. It
+communicates with the calling program only through parameters (which it
+does not modify) and a return value. Here is the
+<code>doubleStuff</code> function from the previous section written as a
+pure function. To use the pure function version of
+<code>double_stuff</code> to modify <code>things</code>, you would
+assign the return value back to <code>things</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> doubleStuff(a_list):</span>
+<span id="cb40-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Return a new list in which contains doubles of the elements in a_list. """</span></span>
+<span id="cb40-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-3" aria-hidden="true" tabindex="-1"></a>    new_list <span class="op">=</span> []</span>
+<span id="cb40-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value <span class="kw">in</span> a_list:</span>
+<span id="cb40-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-5" aria-hidden="true" tabindex="-1"></a>        new_elem <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> value</span>
+<span id="cb40-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-6" aria-hidden="true" tabindex="-1"></a>        new_list.append(new_elem)</span>
+<span id="cb40-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> new_list</span>
+<span id="cb40-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-9" aria-hidden="true" tabindex="-1"></a>things <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>]</span>
+<span id="cb40-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(things)</span>
+<span id="cb40-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-11" aria-hidden="true" tabindex="-1"></a>things <span class="op">=</span> doubleStuff(things)</span>
+<span id="cb40-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(things)</span></code></pre></div>
+<p>Anything that can be done with modifiers can also be done with pure
+functions. In fact, some programming languages only allow pure
+functions. There is some evidence that programs that use pure functions
+are faster to develop and less error-prone than programs that use
+modifiers. Nevertheless, modifiers are convenient at times, and in some
+cases, functional programs are less efficient.</p>
+<p>In general, we recommend that you write pure functions whenever it is
+reasonable to do so and resort to modifiers only if there is a
+compelling advantage. This approach might be called a <em>functional
+programming style</em>.</p>
+<p>The pure version of <code>doubleStuff</code> above made use of an
+important <strong>pattern</strong> for your toolbox. Whenever you need
+to write a function that creates and returns a list, the pattern is
+usually::</p>
+<pre><code>initialize a result variable to be an empty list
+loop
+   create a new element 
+   append it to result
+return the result</code></pre>
+<p>Let us show another use of this pattern. Assume you already have a
+function <code>is_prime(x)</code> that can test if x is prime. Now,
+write a function to return a list of all prime numbers less than n::</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> primes_upto(n):</span>
+<span id="cb42-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">""" Return a list of all prime numbers less than n. """</span></span>
+<span id="cb42-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-3" aria-hidden="true" tabindex="-1"></a>   result <span class="op">=</span> []</span>
+<span id="cb42-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n):</span>
+<span id="cb42-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-5" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span> is_prime(i):</span>
+<span id="cb42-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-6" aria-hidden="true" tabindex="-1"></a>           result.append(i)</span>
+<span id="cb42-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb42-7" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> result</span></code></pre></div>
+<h2 id="list-comprehensions">List Comprehensions</h2>
+<p>The previous example creates a list from a sequence of values based
+on some selection criteria. An easy way to do this type of processing in
+Python is to use a <strong>list comprehension</strong>. List
+comprehensions are concise ways to create lists. The general syntax
+is::</p>
+<blockquote>
+<p>[<expression> for <item> in <sequence> if <condition>]</condition></sequence></item></expression></p>
+</blockquote>
+<p>where the if clause is optional. For example,</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb43-1" aria-hidden="true" tabindex="-1"></a>mylist <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]</span>
+<span id="cb43-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb43-3" aria-hidden="true" tabindex="-1"></a>yourlist <span class="op">=</span> [item <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> item <span class="kw">in</span> mylist]</span>
+<span id="cb43-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(yourlist)</span></code></pre></div>
+<p>The expression describes each element of the list that is being
+built. The <code>for</code> clause iterates through each item in a
+sequence. The items are filtered by the <code>if</code> clause if there
+is one. In the example above, the <code>for</code> statement lets
+<code>item</code> take on all the values in the list
+<code>mylist</code>. Each item is then squared before it is added to the
+list that is being built. The result is a list of squares of the values
+in <code>mylist</code>.</p>
+<p>To write the <code>primes_upto</code> function we will use the
+<code>is_prime</code> function to filter the sequence of integers coming
+from the <code>range</code> function. In other words, for every integer
+from 2 up to but not including <code>n</code>, if the integer is prime,
+keep it in the list.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> primes_upto(n):</span>
+<span id="cb44-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Return a list of all prime numbers less than n using a list comprehension. """</span></span>
+<span id="cb44-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb44-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> [num <span class="cf">for</span> num <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,n) <span class="cf">if</span> is_prime(num)]</span>
+<span id="cb44-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
+<h3 id="exercise-10">Exercise 10</h3>
+<p>What is printed by the following statements?</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb45-1" aria-hidden="true" tabindex="-1"></a>alist <span class="op">=</span> [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">5</span>]</span>
+<span id="cb45-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb45-2" aria-hidden="true" tabindex="-1"></a>blist <span class="op">=</span> [num<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> num <span class="kw">in</span> alist <span class="cf">if</span> num<span class="op">%</span><span class="dv">2</span><span class="op">==</span><span class="dv">1</span>]</span>
+<span id="cb45-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blist)</span></code></pre></div>
+<ul>
+<li>A. [4, 2, 8, 6, 5]</li>
+<li>B. [8, 4, 16, 12, 10]</li>
+<li>C. 10</li>
+<li>D. [10]</li>
+</ul>
+<h2 id="nested-lists">Nested Lists</h2>
+<p>A nested list is a list that appears as an element in another list.
+In this list, the element with index 3 is a nested list. If we
+print(<code>nested[3]</code>), we get <code>[10, 20]</code>. To extract
+an element from the nested list, we can proceed in two steps. First,
+extract the nested list, then extract the item of interest. It is also
+possible to combine those steps using bracket operators that evaluate
+from left to right.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-1" aria-hidden="true" tabindex="-1"></a>nested <span class="op">=</span> [<span class="st">"hello"</span>, <span class="fl">2.0</span>, <span class="dv">5</span>, [<span class="dv">10</span>, <span class="dv">20</span>]]</span>
+<span id="cb46-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-2" aria-hidden="true" tabindex="-1"></a>innerlist <span class="op">=</span> nested[<span class="dv">3</span>]</span>
+<span id="cb46-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(innerlist)</span>
+<span id="cb46-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-4" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> innerlist[<span class="dv">1</span>]</span>
+<span id="cb46-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(item)</span>
+<span id="cb46-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nested[<span class="dv">3</span>][<span class="dv">1</span>])</span></code></pre></div>
+<h2 id="strings-and-lists">Strings and Lists</h2>
+<p>Two of the most useful methods on strings involve lists of strings.
+The <code>split</code> method breaks a string into a list of words. By
+default, any number of whitespace characters is considered a word
+boundary.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb47-1" aria-hidden="true" tabindex="-1"></a>song <span class="op">=</span> <span class="st">"The rain in Spain..."</span></span>
+<span id="cb47-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb47-2" aria-hidden="true" tabindex="-1"></a>wds <span class="op">=</span> song.split()</span>
+<span id="cb47-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wds)</span></code></pre></div>
+<p>An optional argument called a <strong>delimiter</strong> can be used
+to specify which characters to use as word boundaries. The following
+example uses the string <code>ai</code> as the delimiter:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb48-1" aria-hidden="true" tabindex="-1"></a>song <span class="op">=</span> <span class="st">"The rain in Spain..."</span></span>
+<span id="cb48-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb48-2" aria-hidden="true" tabindex="-1"></a>wds <span class="op">=</span> song.split(<span class="st">'ai'</span>)</span>
+<span id="cb48-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wds)</span></code></pre></div>
+<p>Notice that the delimiter doesn’t appear in the result.</p>
+<p>The inverse of the <code>split</code> method is <code>join</code>.
+You choose a desired <strong>separator</strong> string, (often called
+the <em>glue</em>) and join the list with the glue between each of the
+elements.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-1" aria-hidden="true" tabindex="-1"></a>wds <span class="op">=</span> [<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span>]</span>
+<span id="cb49-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-2" aria-hidden="true" tabindex="-1"></a>glue <span class="op">=</span> <span class="st">';'</span></span>
+<span id="cb49-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-3" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> glue.join(wds)</span>
+<span id="cb49-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(s)</span>
+<span id="cb49-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wds)</span>
+<span id="cb49-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"***"</span>.join(wds))</span>
+<span id="cb49-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">""</span>.join(wds))</span></code></pre></div>
+<p>The list that you glue together (<code>wds</code> in this example) is
+not modified. Also, you can use empty glue or multi-character strings as
+glue.</p>
+<p><strong>List Type Conversion</strong></p>
+<p>Python has a built-in type conversion function called
+<code>list</code> that tries to turn whatever you give it into a list.
+For example, try the following:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb50-1" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> <span class="bu">list</span>(<span class="st">"Crunchy Frog"</span>)</span>
+<span id="cb50-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xs)</span></code></pre></div>
+<p>The string “Crunchy Frog” is turned into a list by taking each
+character in the string and placing it in a list. In general, any
+sequence can be turned into a list using this function. The result will
+be a list containing the elements in the original sequence. It is not
+legal to use the <code>list</code> conversion function on any argument
+that is not a sequence.</p>
+<p>It is also important to point out that the <code>list</code>
+conversion function will place each element of the original sequence in
+the new list. When working with strings, this is very different than the
+result of the <code>split</code> method. Whereas <code>split</code> will
+break a string into a list of “words”, <code>list</code> will always
+break it into a list of characters.</p>
+<h2 id="tuples-and-mutability">Tuples and Mutability</h2>
+<p>So far you have seen two types of sequential collections: strings,
+which are made up of characters; and lists, which are made up of
+elements of any type. One of the differences we noted is that the
+elements of a list can be modified, but the characters in a string
+cannot. In other words, strings are <strong>immutable</strong> and lists
+are <strong>mutable</strong>.</p>
+<p>A <strong>tuple</strong>, like a list, is a sequence of items of any
+type. Unlike lists, however, tuples are immutable. Syntactically, a
+tuple is a comma-separated sequence of values. Although it is not
+necessary, it is conventional to enclose tuples in parentheses:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb51-1" aria-hidden="true" tabindex="-1"></a>julia <span class="op">=</span> (<span class="st">"Julia"</span>, <span class="st">"Roberts"</span>, <span class="dv">1967</span>, <span class="st">"Duplicity"</span>, <span class="dv">2009</span>, <span class="st">"Actress"</span>, <span class="st">"Atlanta, Georgia"</span>)</span></code></pre></div>
+<p>Tuples are useful for representing what other languages often call
+<em>records</em> — some related information that belongs together, like
+your student record. There is no description of what each of these
+<em>fields</em> means, but we can guess. A tuple lets us “chunk”
+together related information and use it as a single thing.</p>
+<p>Tuples support the same sequence operations as strings and lists. For
+example, the index operator selects an element from a tuple. A tuple can
+be the sequence in a for-loop.</p>
+<p>As with strings, if we try to use item assignment to modify one of
+the elements of the tuple, we get an error.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb52-1" aria-hidden="true" tabindex="-1"></a>julia[<span class="dv">0</span>] <span class="op">=</span> <span class="st">'X'</span></span>
+<span id="cb52-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">'tuple'</span> <span class="bu">object</span> does <span class="kw">not</span> support item assignment</span></code></pre></div>
+<p>Of course, even if we can’t modify the elements of a tuple, we can
+make a variable reference a new tuple holding different information. To
+construct the new tuple, it is convenient that we can slice parts of the
+old tuple and join up the bits to make the new tuple. So
+<code>julia</code> has a new recent film, and we might want to change
+her tuple. We can easily slice off the parts we want and concatenate
+them with the new tuple.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-1" aria-hidden="true" tabindex="-1"></a>julia <span class="op">=</span> (<span class="st">"Julia"</span>, <span class="st">"Roberts"</span>, <span class="dv">1967</span>, <span class="st">"Duplicity"</span>, <span class="dv">2009</span>, <span class="st">"Actress"</span>, <span class="st">"Atlanta, Georgia"</span>)</span>
+<span id="cb53-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(julia[<span class="dv">2</span>])</span>
+<span id="cb53-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(julia[<span class="dv">2</span>:<span class="dv">6</span>])</span>
+<span id="cb53-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(julia))</span>
+<span id="cb53-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> field <span class="kw">in</span> julia:</span>
+<span id="cb53-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(field)</span>
+<span id="cb53-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-10" aria-hidden="true" tabindex="-1"></a>julia <span class="op">=</span> julia[:<span class="dv">3</span>] <span class="op">+</span> (<span class="st">"Eat Pray Love"</span>, <span class="dv">2010</span>) <span class="op">+</span> julia[<span class="dv">5</span>:]</span>
+<span id="cb53-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(julia)</span></code></pre></div>
+<p>To create a tuple with a single element (but you’re probably not
+likely to do that too often), we have to include the final comma,
+because without the final comma, Python treats the <code>(5)</code>
+below as an integer in parentheses:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb54-1" aria-hidden="true" tabindex="-1"></a>tup <span class="op">=</span> (<span class="dv">5</span>,)</span>
+<span id="cb54-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(tup))</span>
+<span id="cb54-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb54-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> (<span class="dv">5</span>)</span>
+<span id="cb54-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(x))</span></code></pre></div>
+<h2 id="tuple-assignment">Tuple Assignment</h2>
+<p>Python has a very powerful <strong>tuple assignment</strong> feature
+that allows a tuple of variables on the left of an assignment to be
+assigned values from a tuple on the right of the assignment.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb55-1" aria-hidden="true" tabindex="-1"></a>(name, surname, birth_year, movie, movie_year, profession, birth_place) <span class="op">=</span> julia</span></code></pre></div>
+<p>This does the equivalent of seven assignment statements, all on one
+easy line. One requirement is that the number of variables on the left
+must match the number of elements in the tuple.</p>
+<p>Once in a while, it is useful to swap the values of two variables.
+With conventional assignment statements, we have to use a temporary
+variable. For example, to swap <code>a</code> and <code>b</code>:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb56-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> a</span>
+<span id="cb56-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb56-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span>
+<span id="cb56-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb56-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> temp</span></code></pre></div>
+<p>Tuple assignment solves this problem neatly:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb57-1" aria-hidden="true" tabindex="-1"></a>(a, b) <span class="op">=</span> (b, a)</span></code></pre></div>
+<p>The left side is a tuple of variables; the right side is a tuple of
+values. Each value is assigned to its respective variable. All the
+expressions on the right side are evaluated before any of the
+assignments. This feature makes tuple assignment quite versatile.</p>
+<p>Naturally, the number of variables on the left and the number of
+values on the right have to be the same.</p>
+<pre><code>&gt;&gt;&gt; (a, b, c, d) = (1, 2, 3)
+ValueError: need more than 3 values to unpack</code></pre>
+<h2 id="tuples-as-return-values">Tuples as Return Values</h2>
+<p>Functions can return tuples as return values. This is very useful —
+we often want to know some batsman’s highest and lowest score, or we
+want to find the mean and the standard deviation, or we want to know the
+year, the month, and the day, or if we’re doing some ecological modeling
+we may want to know the number of rabbits and the number of wolves on an
+island at a given time. In each case, a function (which can only return
+a single value), can create a single tuple holding multiple
+elements.</p>
+<p>For example, we could write a function that returns both the area and
+the circumference of a circle of radius r.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> circleInfo(r):</span>
+<span id="cb59-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Return (circumference, area) of a circle of radius r """</span></span>
+<span id="cb59-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-3" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="fl">3.14159</span> <span class="op">*</span> r</span>
+<span id="cb59-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-4" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> <span class="fl">3.14159</span> <span class="op">*</span> r <span class="op">*</span> r</span>
+<span id="cb59-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (c, a)</span>
+<span id="cb59-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/7-Lists.html#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(circleInfo(<span class="dv">10</span>))</span></code></pre></div>
+<h3 id="exercise-11">Exercise 11</h3>
+<p>Write a Python function that will take a the list of 100 random
+integers between 0 and 1000 and return the maximum value. (Note: there
+is a builtin function named <code>max</code> but pretend you cannot use
+it.)</p>
+<h3 id="exercise-12">Exercise 12</h3>
+<p>Write a function to count how many odd numbers are in a list. Run it
+on your list of 100 random integers from Exercise 11.</p>
+<h3 id="exercise-13">Exercise 13</h3>
+<p>Sum all the elements in a list up to but not including the first even
+number.</p>
+
+
+</body></html>

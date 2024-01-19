@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Control Flow</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./Control Flow_files/github-like.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Control Flow</h1>
+</header>
+<h1 id="control-flow">Control Flow</h1>
+<p>Materials adapted from <em><a href="https://runestone.academy/runestone/static/thinkcspy/index.html">How
+to Think Like a Computer Scientist</a></em></p>
+<p>This page is paired with the Jupyter Notebook:
+Intro-Python-part5.ipynb</p>
+<h1 id="selection">Selection</h1>
+<h2 id="boolean-values-and-boolean-expressions">Boolean Values and
+Boolean Expressions</h2>
+<p>The Python type for storing true and false values is called
+<code>bool</code>, named after the British mathematician, George Boole.
+George Boole created <em>Boolean Algebra</em>, which is the basis of all
+modern computer arithmetic.</p>
+<p>There are only two <strong>boolean values</strong>. They are
+<code>True</code> and <code>False</code>. Capitalization is important,
+since <code>true</code> and <code>false</code> are not boolean values
+(remember Python is case sensitive).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="va">True</span>)</span>
+<span id="cb1-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="va">True</span>))</span>
+<span id="cb1-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="va">False</span>))</span></code></pre></div>
+<p><strong>Note</strong></p>
+<p>Boolean values are not strings!</p>
+<p>It is extremely important to realize that True and False are not
+strings. They are not surrounded by quotes. They are the only two values
+in the data type <code>bool</code>. Take a close look at the types shown
+below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="va">True</span>))</span>
+<span id="cb2-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="st">"True"</span>))</span></code></pre></div>
+<p>A <strong>boolean expression</strong> is an expression that evaluates
+to a boolean value. The equality operator, <code>==</code>, compares two
+values and produces a boolean value related to whether the two values
+are equal to one another.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">5</span> <span class="op">==</span> <span class="dv">6</span>)</span></code></pre></div>
+<p>In the first statement, the two operands are equal, so the expression
+evaluates to <code>True</code>. In the second statement, 5 is not equal
+to 6, so we get <code>False</code>.</p>
+<p>The <code>==</code> operator is one of six common <strong>comparison
+operators</strong>; the others are:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">!=</span> y               <span class="co"># x is not equal to y</span></span>
+<span id="cb4-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;</span> y                <span class="co"># x is greater than y</span></span>
+<span id="cb4-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb4-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">&lt;</span> y                <span class="co"># x is less than y</span></span>
+<span id="cb4-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;=</span> y               <span class="co"># x is greater than or equal to y</span></span>
+<span id="cb4-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb4-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">&lt;=</span> y               <span class="co"># x is less than or equal to y</span></span></code></pre></div>
+<p>Although these operations are probably familiar to you, the Python
+symbols are different from the mathematical symbols. A common error is
+to use a single equal sign (<code>=</code>) instead of a double equal
+sign (<code>==</code>). Remember that <code>=</code> is an assignment
+operator and <code>==</code> is a comparison operator. Also, there is no
+such thing as <code>=&lt;</code> or <code>=&gt;</code>.</p>
+<p>Note too that an equality test is symmetric, but assignment is not.
+For example, if <code>a == 7</code> then <code>7 == a</code>. But in
+Python, the statement <code>a = 7</code> is legal and <code>7 = a</code>
+is not. (Can you explain why?)</p>
+<h2 id="logical-operators">Logical Operators</h2>
+<p>There are three <strong>logical operators</strong>: <code>and</code>,
+<code>or</code>, and <code>not</code>. The semantics (meaning) of these
+operators is similar to their meaning in English. For example,
+<code>x &gt; 0 and x &lt; 10</code> is true only if <code>x</code> is
+greater than 0 <em>and</em> at the same time, x is less than 10. How
+would you describe this in words? You would say that x is between 0 and
+10, not including the endpoints.</p>
+<p><code>n % 2 == 0 or n % 3 == 0</code> is true if <em>either</em> of
+the conditions is true, that is, if the number is divisible by 2
+<em>or</em> divisible by 3. In this case, one, or the other, or both of
+the parts has to be true for the result to be true.</p>
+<p>Finally, the <code>not</code> operator negates a boolean expression,
+so <code>not  x &gt; y</code> is true if <code>x &gt; y</code> is false,
+that is, if <code>x</code> is less than or equal to <code>y</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb5-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> x <span class="op">&lt;</span> <span class="dv">10</span>)</span>
+<span id="cb5-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb5-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb5-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> n <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><strong>Common Mistake!</strong><br>
+There is a very common mistake that occurs when programmers try to write
+boolean expressions. For example, what if we have a variable
+<code>number</code> and we want to check to see if its value is 5,6, or
+7. In words we might say: “number equal to 5 or 6 or 7”. However, if we
+translate this into Python, <code>number == 5 or 6 or 7</code>, it will
+not be correct. The <code>or</code> operator must join the results of
+three equality checks. The correct way to write this is
+<code>number == 5 or number == 6 or number == 7</code>. This may seem
+like a lot of typing but it is absolutely necessary. You cannot take a
+shortcut.</p>
+<h2 id="precedence-of-operators">Precedence of Operators</h2>
+<p>We have now added a number of additional operators to those we
+learned in the previous chapters. It is important to understand how
+these operators relate to the others with respect to operator
+precedence. Python will always evaluate the arithmetic operators first
+(** is highest, then multiplication/division, then
+addition/subtraction). Next comes the relational operators. Finally, the
+logical operators are done last. This means that the expression
+<code>x*5 &gt;= 10 and y-6 &lt;= 20</code> will be evaluated so as to
+first perform the arithmetic and then check the relationships. The
+<code>and</code> will be done last. Although many programmers might
+place parenthesis around the two relational expressions, it is not
+necessary.</p>
+<p>The following table summarizes the precedence discussed so far from
+highest to lowest.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Category</th>
+<th>Operators</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>7(high)</td>
+<td>exponent</td>
+<td>**</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>multiplication</td>
+<td>*,/,//,%</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>addition</td>
+<td>+,-</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>relational</td>
+<td>==,!=,&lt;=,&gt;=,&gt;,&lt;</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>logical</td>
+<td>not</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>logical</td>
+<td>and</td>
+</tr>
+<tr class="odd">
+<td>1(low)</td>
+<td>logical</td>
+<td>or</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exercise-1">Exercise 1</h3>
+<p>Which of the following properly expresses the precedence of operators
+(using parentheses) in the following expression: 5*3 &gt; 10 and
+4+6==11</p>
+<ul>
+<li>A. ((5*3) &gt; 10) and ((4+6) == 11)</li>
+<li>B. (5*(3 &gt; 10)) and (4 + (6 == 11))</li>
+<li><ol start="3" type="A">
+<li>((((5*3) &gt; 10) and 4)+6) == 11</li>
+</ol></li>
+<li>D. ((5*3) &gt; (10 and (4+6))) == 11</li>
+</ul>
+<h2 id="conditional-execution-binary-selection">Conditional Execution:
+Binary Selection</h2>
+<p>In order to write useful programs, we almost always need the ability
+to check conditions and change the behavior of the program accordingly.
+<strong>Selection statements</strong>, sometimes also referred to as
+<strong>conditional statements</strong>, give us this ability. The
+simplest form of selection is the <strong>if statement</strong>. This is
+sometimes referred to as <strong>binary selection</strong> since there
+are two possible paths of execution.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb6-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">"is even"</span>)</span>
+<span id="cb6-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb6-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">"is odd"</span>)</span></code></pre></div>
+<p>The syntax for an <code>if</code> statement looks like this:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> BOOLEAN EXPRESSION:</span>
+<span id="cb7-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    STATEMENTS_1        <span class="co"># executed if condition evaluates to True</span></span>
+<span id="cb7-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    STATEMENTS_2        <span class="co"># executed if condition evaluates to False</span></span></code></pre></div>
+<p>The boolean expression after the <code>if</code> statement is called
+the <strong>condition</strong>. If it is true, then the immediately
+following indented statements get executed. If not, then the statements
+indented under the <code>else</code> clause get executed.</p>
+<figure>
+<img src="./Control Flow_files/flowchart_if_else.png" alt="Flowchart if else">
+<figcaption aria-hidden="true">Flowchart if else</figcaption>
+</figure>
+<p>As with the function definition from the last chapter and other
+compound statements like <code>for</code>, the <code>if</code> statement
+consists of a header line and a body. The header line begins with the
+keyword <code>if</code> followed by a <em>boolean expression</em> and
+ends with a colon (:).</p>
+<p>The more indented statements that follow are called a
+<strong>block</strong>.</p>
+<p>Each of the statements inside the first block of statements is
+executed in order if the boolean expression evaluates to
+<code>True</code>. The entire first block of statements is skipped if
+the boolean expression evaluates to <code>False</code>, and instead all
+the statements under the <code>else</code> clause are executed.</p>
+<p>There is no limit on the number of statements that can appear under
+the two clauses of an <code>if</code> statement, but there has to be at
+least one statement in each block.</p>
+<p>Each compound statement includes a heading and all the following
+further-indented statements in the block after the heading. The
+<code>if</code> - <code>else</code> statement is an unusual compound
+statement because it has more than one part at the same level of
+indentation as the <code>if</code> heading, (the <code>else</code>
+clause, with its own indented block).</p>
+<h2 id="omitting-the-else-clause-unary-selection">Omitting the
+<code>else</code> Clause: Unary Selection</h2>
+<p>Another form of the <code>if</code> statement is one in which the
+<code>else</code> clause is omitted entirely. This creates what is
+sometimes called <strong>unary selection</strong>. In this case, when
+the condition evaluates to <code>True</code>, the statements are
+executed. Otherwise the flow of execution continues to the statement
+after the body of the <code>if</code>.</p>
+<figure>
+<img src="./Control Flow_files/flowchart_if_only.png" alt="Flowchart if only">
+<figcaption aria-hidden="true">Flowchart if only</figcaption>
+</figure>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb8-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb8-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The negative number "</span>,  x, <span class="st">" is not valid here."</span>)</span>
+<span id="cb8-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This is always printed"</span>)</span></code></pre></div>
+<p>What would be printed if the value of <code>x</code> is negative? Try
+it.</p>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>What does the following code print?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb9-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb9-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The negative number "</span>,  x, <span class="st">" is not valid here."</span>)</span>
+<span id="cb9-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This is always printed"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-1" aria-hidden="true" tabindex="-1"></a>a.</span>
+<span id="cb10-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-2" aria-hidden="true" tabindex="-1"></a>This <span class="kw">is</span> always printed</span>
+<span id="cb10-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-4" aria-hidden="true" tabindex="-1"></a>b.</span>
+<span id="cb10-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-5" aria-hidden="true" tabindex="-1"></a>The negative number <span class="op">-</span><span class="dv">10</span> <span class="kw">is</span> <span class="kw">not</span> valid here</span>
+<span id="cb10-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-6" aria-hidden="true" tabindex="-1"></a>This <span class="kw">is</span> always printed</span>
+<span id="cb10-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-8" aria-hidden="true" tabindex="-1"></a>c.</span>
+<span id="cb10-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb10-9" aria-hidden="true" tabindex="-1"></a>The negative number <span class="op">-</span><span class="dv">10</span> <span class="kw">is</span> <span class="kw">not</span> valid here</span></code></pre></div>
+<h2 id="nested-conditionals">Nested Conditionals</h2>
+<p>One conditional can also be <strong>nested</strong> within another.
+For example, assume we have two integer variables, <code>x</code> and
+<code>y</code>. The following pattern of selection shows how we might
+decide how they are related to each other.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> y:</span>
+<span id="cb11-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x is less than y"</span>)</span>
+<span id="cb11-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;</span> y:</span>
+<span id="cb11-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"x is greater than y"</span>)</span>
+<span id="cb11-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"x and y must be equal"</span>)</span></code></pre></div>
+<p>The outer conditional contains two branches. The second branch (the
+else from the outer) contains another <code>if</code> statement, which
+has two branches of its own. Those two branches could contain
+conditional statements as well.</p>
+<p>The flow of control for this example can be seen in this flowchart
+illustration.</p>
+<figure>
+<img src="./Control Flow_files/flowchart_nested_conditional.png" alt="Flowchart nested conditionals">
+<figcaption aria-hidden="true">Flowchart nested
+conditionals</figcaption>
+</figure>
+<p>Here is a complete program that defines values for <code>x</code> and
+<code>y</code>. Run the program and see the result. Then change the
+values of the variables to change the flow of control.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb12-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb12-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> y:</span>
+<span id="cb12-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x is less than y"</span>)</span>
+<span id="cb12-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb12-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;</span> y:</span>
+<span id="cb12-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"x is greater than y"</span>)</span>
+<span id="cb12-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"x and y must be equal"</span>)</span></code></pre></div>
+<p><strong>Note</strong><br>
+In some programming languages, matching the if and the else is a
+problem. However, in Python this is not the case. The indentation
+pattern tells us exactly which else belongs to which if.</p>
+<h2 id="chained-conditionals">Chained conditionals</h2>
+<p>Python provides an alternative way to write nested selection such as
+the one shown in the previous section. This is sometimes referred to as
+a <strong>chained conditional</strong>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> y:</span>
+<span id="cb13-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x is less than y"</span>)</span>
+<span id="cb13-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> x <span class="op">&gt;</span> y:</span>
+<span id="cb13-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x is greater than y"</span>)</span>
+<span id="cb13-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb13-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x and y must be equal"</span>)</span></code></pre></div>
+<p>The flow of control can be drawn in a different orientation but the
+resulting pattern is identical to the one shown above.</p>
+<figure>
+<img src="./Control Flow_files/flowchart_chained_conditional.png" alt="Flowchart chained conditional">
+<figcaption aria-hidden="true">Flowchart chained
+conditional</figcaption>
+</figure>
+<p><code>elif</code> is an abbreviation of <code>else if</code>. Again,
+exactly one branch will be executed. There is no limit of the number of
+<code>elif</code> statements but only a single (and optional) final
+<code>else</code> statement is allowed and it must be the last branch in
+the statement.</p>
+<p>Each condition is checked in order. If the first is false, the next
+is checked, and so on. If one of them is true, the corresponding branch
+executes, and the statement ends. Even if more than one condition is
+true, only the first true branch executes.</p>
+<p>Here is the same program using <code>elif</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb14-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb14-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> y:</span>
+<span id="cb14-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x is less than y"</span>)</span>
+<span id="cb14-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> x <span class="op">&gt;</span> y:</span>
+<span id="cb14-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x is greater than y"</span>)</span>
+<span id="cb14-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb14-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x and y must be equal"</span>)</span></code></pre></div>
+<h3 id="exercise-3">Exercise 3</h3>
+<p>Which of I, II, and III below gives the same result as the following
+nested if?</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nested if-else statement</span></span>
+<span id="cb15-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb15-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb15-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The negative number "</span>,  x, <span class="st">" is not valid here."</span>)</span>
+<span id="cb15-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb15-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb15-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(x, <span class="st">" is a positive number"</span>)</span>
+<span id="cb15-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(x, <span class="st">" is 0"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-1" aria-hidden="true" tabindex="-1"></a>I.</span>
+<span id="cb16-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb16-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The negative number "</span>,  x, <span class="st">" is not valid here."</span>)</span>
+<span id="cb16-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> x <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb16-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">" is a positive number"</span>)</span>
+<span id="cb16-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb16-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">" is 0"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-1" aria-hidden="true" tabindex="-1"></a>II.</span>
+<span id="cb17-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb17-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The negative number "</span>,  x, <span class="st">" is not valid here."</span>)</span>
+<span id="cb17-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> x <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb17-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">" is a positive number"</span>)</span>
+<span id="cb17-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb17-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">" is 0"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-1" aria-hidden="true" tabindex="-1"></a>III.</span>
+<span id="cb18-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb18-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The negative number "</span>,  x, <span class="st">" is not valid here."</span>)</span>
+<span id="cb18-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb18-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">" is a positive number"</span>)</span>
+<span id="cb18-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb18-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">" is 0"</span>)</span></code></pre></div>
+<ul>
+<li>A. I only</li>
+<li>B. II only</li>
+<li>C. III only</li>
+<li>D. II and III</li>
+<li>E. I, II, and III</li>
+</ul>
+<p>Try answering without running the code. You can always check your
+understanding in the following code block.</p>
+<h2 id="boolean-functions">Boolean Functions</h2>
+<p>We have already seen that boolean values result from the evaluation
+of boolean expressions. Since the result of any expression evaluation
+can be returned by a function (using the <code>return</code> statement),
+functions can return boolean values. This turns out to be a very
+convenient way to hide the details of complicated tests. For
+example:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> isDivisible(x, y):</span>
+<span id="cb19-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">%</span> y <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb19-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-3" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb19-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb19-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-5" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb19-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb19-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isDivisible(<span class="dv">10</span>, <span class="dv">5</span>))</span></code></pre></div>
+<p>The name of this function is <code>isDivisible</code>. It is common
+to give <strong>boolean functions</strong> names that sound like yes/no
+questions. <code>isDivisible</code> returns either <code>True</code> or
+<code>False</code> to indicate whether the <code>x</code> is or is not
+divisible by <code>y</code>.</p>
+<p>We can make the function more concise by taking advantage of the fact
+that the condition of the <code>if</code> statement is itself a boolean
+expression. We can return it directly, avoiding the <code>if</code>
+statement altogether:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> isDivisible(x, y):</span>
+<span id="cb20-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> y <span class="op">==</span> <span class="dv">0</span></span></code></pre></div>
+<p>Boolean functions are often used in conditional statements:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> isDivisible(x, y):</span>
+<span id="cb21-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb21-2" aria-hidden="true" tabindex="-1"></a>    ... <span class="co"># do something ...</span></span>
+<span id="cb21-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb21-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb21-4" aria-hidden="true" tabindex="-1"></a>    ... <span class="co"># do something else ...</span></span></code></pre></div>
+<p>It might be tempting to write something like
+<code>if isDivisible(x, y) == True:</code> but the extra comparison is
+redundant. You only need an <code>==</code> expression if you are
+comparing some other type than boolean.
+(<code>isDivisible(x, y) == False</code> can also be made more concise
+as <code>not isDivisible(x, y)</code>). The following example shows the
+<code>isDivisible</code> function at work. Notice how descriptive the
+code is when we move the testing details into a boolean function. Try it
+with a few other actual parameters to see what is printed.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> isDivisible(x, y):</span>
+<span id="cb22-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> y <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb22-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> isDivisible(<span class="dv">10</span>, <span class="dv">5</span>):</span>
+<span id="cb22-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"That works"</span>)</span>
+<span id="cb22-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb22-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Those values are no good"</span>)</span></code></pre></div>
+<h3 id="exercise-4">Exercise 4</h3>
+<p>Write a function which is given an exam mark, and it returns a string
+— the grade for that mark — according to this scheme:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Mark</th>
+<th>Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&gt;=90</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td>[80-90)</td>
+<td>B</td>
+</tr>
+<tr class="odd">
+<td>[70-80)</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>[60-70)</td>
+<td>D</td>
+</tr>
+<tr class="odd">
+<td>&lt; 60</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<p>The square and round brackets denote closed and open intervals. A
+closed interval includes the number, and open interval excludes it. So
+79.99999 gets grade C , but 80 gets grade B.</p>
+<p>Test your function by printing the mark and the grade for a number of
+different marks.</p>
+<h1 id="iteration">Iteration</h1>
+<p>Computers are often used to automate repetitive tasks. Repeating
+identical or similar tasks without making errors is something that
+computers do well and people do poorly.</p>
+<p>Repeated execution of a sequence of statements is called
+<strong>iteration</strong>. Because iteration is so common, Python
+provides several language features to make it easier. One is the
+<code>for</code> statement. This is a very common form of iteration in
+Python. In this section, we are going to look at the <code>while</code>
+statement — another way to have your program do iteration.</p>
+<h2 id="the-for-loop">The <code>for</code> loop</h2>
+<p>In Python, the <strong>for</strong> statement allows us to write
+programs that implement iteration. As a simple example, let’s say we
+have some friends, and we’d like to send them each an email inviting
+them to our party. We don’t quite know how to send email yet, so for the
+moment we’ll just print a message for each friend.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> [<span class="st">"Joe"</span>, <span class="st">"Amy"</span>, <span class="st">"Brad"</span>, <span class="st">"Angelina"</span>, <span class="st">"Zuki"</span>, <span class="st">"Thandi"</span>, <span class="st">"Paris"</span>]:</span>
+<span id="cb23-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Hi"</span>, name, <span class="st">"Please come to my party on Saturday!"</span>)</span></code></pre></div>
+<p>Take a look at the output produced when you press the
+<code>run</code> button. There is one line printed for each friend.
+Here’s how it works:</p>
+<ul>
+<li><strong>name</strong> in this <code>for</code> statement is called
+the <strong>loop variable</strong>.</li>
+<li>The list of names in the square brackets is called a Python
+<strong>list</strong>. Lists are very useful. We will have much more to
+say about them later.</li>
+<li>Line 2 is the <strong>loop body</strong>. The loop body is always
+indented. The indentation determines exactly what statements are “in the
+loop”. The loop body is performed one time for each name in the
+list.</li>
+<li>On each <em>iteration</em> or <em>pass</em> of the loop, a check is
+done to see if there are still more items to be processed. If there are
+none left (this is called the <strong>terminating condition</strong> of
+the loop), the loop has finished. Program execution continues at the
+next statement after the loop body.</li>
+<li>If there are items still to be processed, the loop variable is
+updated to refer to the next item in the list. This means, in this case,
+that the loop body is executed here 7 times, and each time
+<code>name</code> will refer to a different friend.</li>
+<li>At the end of each execution of the body of the loop, Python returns
+to the <code>for</code> statement, to see if there are more items to be
+handled.</li>
+</ul>
+<h3 id="flow-of-execution-of-the-for-loop">Flow of Execution of the for
+Loop</h3>
+<p>As a program executes, the interpreter always keeps track of which
+statement is about to be executed. We call this the <strong>control
+flow</strong>, or the <strong>flow of execution</strong> of the program.
+When humans execute programs, they often use their finger to point to
+each statement in turn. So you could think of control flow as “Python’s
+moving finger”.</p>
+<p>Control flow until now has been strictly top to bottom, one statement
+at a time. We call this type of control <strong>sequential</strong>. In
+Python flow is sequential as long as successive statements are indented
+the <em>same</em> amount. The <code>for</code> statement introduces
+indented sub-statements after the for-loop heading.</p>
+<p>Flow of control is often easy to visualize and understand if we draw
+a flowchart. This flowchart shows the exact steps and logic of how the
+<code>for</code> statement executes.</p>
+<figure>
+<img src="./Control Flow_files/new_flowchart_for.png" alt="flowchart for loop">
+<figcaption aria-hidden="true">flowchart for loop</figcaption>
+</figure>
+<h3 id="exercise-5">Exercise 5</h3>
+<p>In the following code, what is the value of number the second time
+Python executes the loop?</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> number <span class="kw">in</span> [<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>]:</span>
+<span id="cb24-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I have"</span>, number, <span class="st">"cookies.  I'm going to eat one."</span>)</span></code></pre></div>
+<ul>
+<li>A. 2</li>
+<li>B. 4</li>
+<li>C. 5</li>
+<li>D. 1</li>
+</ul>
+<h2 id="the-range-function">The <code>range</code> function</h2>
+<p>In a simple example with the <code>for</code>, we can use a list of
+four integers to cause the iteration to happen four times.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]: </span>
+<span id="cb25-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<p>It turns out that generating lists with a specific number of integers
+is a very common thing to do, especially when you want to write simple
+<code>for loop</code> controlled iteration. Even though you can use any
+four items, or any four integers for that matter, the conventional thing
+to do is to use a list of integers starting with 0. In fact, these lists
+are so popular that Python gives us special built-in <code>range</code>
+objects that can deliver a sequence of values to the <code>for</code>
+loop. When called with one parameter, the sequence provided by
+<code>range</code> always starts with 0. If you ask for
+<code>range(4)</code>, then you will get 4 values starting with 0. In
+other words, 0, 1, 2, and finally 3. Notice that 4 is not included since
+we started with 0. Likewise, <code>range(10)</code> provides 10 values,
+0 through 9.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):</span>
+<span id="cb26-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Executes the body with i = 0, then 1, then 2, then 3</span></span>
+<span id="cb26-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb26-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sets x to each of ... [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span></span></code></pre></div>
+<p>The <a href="https://docs.python.org/3.7/library/functions.html#func-range">range</a>
+function is actually a very powerful function when it comes to creating
+sequences of integers. It can take one, two, or three parameters. We
+have seen the simplest case of one parameter such as
+<code>range(4)</code> which creates <code>[0, 1, 2, 3]</code>. But what
+if we really want to have the sequence <code>[1, 2, 3, 4]</code>? We can
+do this by using a two parameter version of <code>range</code> where the
+first parameter is the starting point and the second parameter is the
+ending point. The evaluation of <code>range(1,5)</code> produces the
+desired sequence. What happened to the 5? In this case we interpret the
+parameters of the range function to mean range(start,beyondLast), where
+beyondLast means an index past the last index we want. In the
+2-parameter version of range, that is the last index included + 1.</p>
+<p><strong>Note</strong><br>
+Why in the world would range not just work like range(start, stop)?
+Think about it like this. Because computer scientists like to start
+counting at 0 instead of 1, <code>range(N)</code> produces a sequence of
+things that is N long, but the consequence of this is that the final
+number of the sequence is N-1. In the case of start, stop it helps to
+simply think that the sequence begins with start and continues as long
+as the number is less than stop.</p>
+<p><strong>Note</strong><br>
+The range function is <em>lazy</em>: It produces the next element only
+when needed. With a regular Python 3 interpreter, printing a range does
+<em>not</em> calculate all the elements. To immediately calculate all
+the elements in a range, wrap the range in a list, like
+<code>list(range(4))</code>.</p>
+<p>Here are a two examples for you to run. Try them and then add another
+line below to create a sequence starting at 10 and going up to 20
+(including 20).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">4</span>)))</span>
+<span id="cb27-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span></code></pre></div>
+<p>Finally, suppose we want to have a sequence of even numbers. How
+would we do that? Easy, we add another parameter, a step, that tells
+range what to count by. For even numbers we want to start at 0 and count
+by 2’s. So if we wanted the first 10 even numbers we would use
+<code>range(0,19,2)</code>. The most general form of the range is
+<code>range(start, beyondLast, step)</code>. You can also create a
+sequence of numbers that starts big and gets smaller by using a negative
+value for the step parameter.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">19</span>, <span class="dv">2</span>)))</span>
+<span id="cb28-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">2</span>)))</span>
+<span id="cb28-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>)))</span></code></pre></div>
+<h3 id="exercise-6">Exercise 6</h3>
+<p>What command correctly generates the sequence 2, 5, 8?</p>
+<ul>
+<li>A. range(2, 5, 8)</li>
+<li>B. range(2, 8, 3)</li>
+<li>C. range(2, 10, 3)</li>
+<li>D. range(8, 1, -3)</li>
+</ul>
+<h2 id="the-for-loop-revisited">The <code>for</code> loop revisited</h2>
+<p>Recall that the <code>for</code> loop processes each item in a list.
+Each item in turn is (re-)assigned to the loop variable, and the body of
+the loop is executed. We saw this example in an earlier section.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> [<span class="st">"Joe"</span>, <span class="st">"Amy"</span>, <span class="st">"Brad"</span>, <span class="st">"Angelina"</span>, <span class="st">"Zuki"</span>, <span class="st">"Thandi"</span>, <span class="st">"Paris"</span>]:</span>
+<span id="cb29-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Hi"</span>, f, <span class="st">"Please come to my party on Saturday"</span>)</span></code></pre></div>
+<p>We can also use iteration paired with the update idea to form the
+accumulator pattern. For example, to compute the sum of the first n
+integers, we could create a for loop using the <code>range</code> to
+produce the numbers 1 through n.&nbsp;Using the accumulator pattern, we can
+start with a running total variable initialized to 0 and on each
+iteration, add the current value of the loop variable. A function to
+compute this sum is shown below.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sumTo(aBound):</span>
+<span id="cb30-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-2" aria-hidden="true" tabindex="-1"></a>    theSum <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb30-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> aNumber <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, aBound <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb30-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-4" aria-hidden="true" tabindex="-1"></a>        theSum <span class="op">=</span> theSum <span class="op">+</span> aNumber</span>
+<span id="cb30-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> theSum</span>
+<span id="cb30-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sumTo(<span class="dv">4</span>))</span>
+<span id="cb30-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sumTo(<span class="dv">1000</span>))</span></code></pre></div>
+<p>To review, the variable <code>theSum</code> is called the
+accumulator. It is initialized to zero before we start the loop. The
+loop variable, <code>aNumber</code> will take on the values produced by
+the <code>range(1, aBound + 1)</code> function call. Note that this
+produces all the integers from 1 up to the value of <code>aBound</code>.
+If we had not added 1 to <code>aBound</code>, the range would have
+stopped one value short since <code>range</code> does not include the
+upper bound.</p>
+<p>The assignment statement, <code>theSum = theSum + aNumber</code>,
+updates <code>theSum</code> each time through the loop. This accumulates
+the running total. Finally, we return the value of the accumulator.</p>
+<h2 id="the-while-statement">The <code>while</code> statement</h2>
+<p>There is another Python statement that can also be used to build an
+iteration. It is called the <code>while</code> statement. The
+<code>while</code> statement provides a much more general mechanism for
+iterating. Similar to the <code>if</code> statement, it uses a boolean
+expression to control the flow of execution. The body of while will be
+repeated as long as the controlling boolean expression evaluates to
+<code>True</code>.</p>
+<p>The following figure shows the flow of control.</p>
+<figure>
+<img src="./Control Flow_files/while_flow.png" alt="Flowchart while">
+<figcaption aria-hidden="true">Flowchart while</figcaption>
+</figure>
+<p>We can use the <code>while</code> loop to create any type of
+iteration we wish, including anything that we have previously done with
+a <code>for</code> loop. For example, the program in the previous
+section could be rewritten using <code>while</code>. Instead of relying
+on the <code>range</code> function to produce the numbers for our
+summation, we will need to produce them ourselves. To to this, we will
+create a variable called <code>aNumber</code> and initialize it to 1,
+the first number in the summation. Every iteration will add
+<code>aNumber</code> to the running total until all the values have been
+used. In order to control the iteration, we must create a boolean
+expression that evaluates to <code>True</code> as long as we want to
+keep adding values to our running total. In this case, as long as
+<code>aNumber</code> is less than or equal to the bound, we should keep
+going.</p>
+<p>Here is a summation program that uses a while statement.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sumTo(aBound):</span>
+<span id="cb31-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Return the sum of 1+2+3 ... n """</span></span>
+<span id="cb31-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-4" aria-hidden="true" tabindex="-1"></a>    theSum  <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb31-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-5" aria-hidden="true" tabindex="-1"></a>    aNumber <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb31-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> aNumber <span class="op">&lt;=</span> aBound:</span>
+<span id="cb31-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-7" aria-hidden="true" tabindex="-1"></a>        theSum <span class="op">=</span> theSum <span class="op">+</span> aNumber</span>
+<span id="cb31-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-8" aria-hidden="true" tabindex="-1"></a>        aNumber <span class="op">=</span> aNumber <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb31-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> theSum</span>
+<span id="cb31-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sumTo(<span class="dv">4</span>))</span>
+<span id="cb31-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sumTo(<span class="dv">1000</span>))</span></code></pre></div>
+<p>You can almost read the <code>while</code> statement as if it were in
+natural language. It means, while <code>aNumber</code> is less than or
+equal to <code>aBound</code>, continue executing the body of the loop.
+Within the body, each time, update <code>theSum</code> using the
+accumulator pattern and increment <code>aNumber</code>. After the body
+of the loop, we go back up to the condition of the <code>while</code>
+and reevaluate it. When <code>aNumber</code> becomes greater than
+<code>aBound</code>, the condition fails and flow of control continues
+to the <code>return</code> statement.</p>
+<p>More formally, here is the flow of execution for a <code>while</code>
+statement:</p>
+<ul>
+<li>Evaluate the condition, yielding <code>False</code> or
+<code>True</code>.</li>
+<li>If the condition is <code>False</code>, exit the <code>while</code>
+statement and continue execution at the next statement.</li>
+<li>If the condition is <code>True</code>, execute each of the
+statements in the body and then go back to step 1.</li>
+</ul>
+<p>The body consists of all of the statements below the header with the
+same indentation.</p>
+<p>This type of flow is called a <strong>loop</strong> because the third
+step loops back around to the top. Notice that if the condition is
+<code>False</code> the first time through the loop, the statements
+inside the loop are never executed.</p>
+<p><strong>Warning</strong><br>
+Though Python’s <code>while</code> is very close to the English “while”,
+there is an important difference: In English “while X, do Y”, we usually
+assume that immediately after X becomes false, we stop with Y. In Python
+there is <em>not</em> an immediate stop: After the initial test, any
+following tests come only after the execution of the <em>whole</em>
+body, even if the condition becomes false in the middle of the loop
+body.</p>
+<p>The body of the loop should change the value of one or more variables
+so that eventually the condition becomes <code>False</code> and the loop
+terminates. Otherwise the loop will repeat forever. This is called an
+<strong>infinite loop</strong>. An endless source of amusement for
+computer scientists is the observation that the directions written on
+the back of the shampoo bottle (lather, rinse, repeat) create an
+infinite loop.</p>
+<p>In the case shown above, we can prove that the loop terminates
+because we know that the value of <code>aBound</code> is finite, and we
+can see that the value of <code>aNumber</code> increments each time
+through the loop, so eventually it will have to exceed
+<code>aBound</code>. In other cases, it is not so easy to tell.</p>
+<p><strong>Note</strong><br>
+Introduction of the while statement causes us to think about the types
+of iteration we have seen. The <code>for</code> statement will always
+iterate through a sequence of values like the list of names for the
+party or the list of numbers created by <code>range</code>. Since we
+know that it will iterate once for each value in the collection, it is
+often said that a <code>for</code> loop creates a <strong>definite
+iteration</strong> because we definitely know how many times we are
+going to iterate. On the other hand, the <code>while</code> statement is
+dependent on a condition that needs to evaluate to <code>False</code> in
+order for the loop to terminate. Since we do not necessarily know when
+this will happen, it creates what we call <strong>indefinite
+iteration</strong>. Indefinite iteration simply means that we don’t know
+how many times we will repeat but eventually the condition controlling
+the iteration will fail and the iteration will stop. (Unless we have an
+infinite loop which is of course a problem.)</p>
+<p>What you will notice here is that the <code>while</code> loop is more
+work for you — the programmer — than the equivalent <code>for</code>
+loop. When using a <code>while</code> loop you have to control the loop
+variable yourself. You give it an initial value, test for completion,
+and then make sure you change something in the body so that the loop
+terminates.</p>
+<h3 id="exercise-7">Exercise 7</h3>
+<p>The following code contains an infinite loop. Which is the best
+explanation for why the loop does not terminate?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb32-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb32-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb32-2" aria-hidden="true" tabindex="-1"></a>answer <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb32-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb32-4" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> answer <span class="op">+</span> n</span>
+<span id="cb32-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb32-5" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb32-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(answer)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>n starts at 10 and is incremented by 1 each time through the loop,
+so it will always be positive</li>
+</ol></li>
+<li>B. answer starts at 1 and is incremented by n each time, so it will
+always be positive</li>
+<li>C. You cannot compare n to 0 in while loop. You must compare it to
+another variable.</li>
+<li>D. In the while loop body, we must set n to False, and this code
+does not do that.</li>
+</ul>
+<h3 id="exercise-8">Exercise 8</h3>
+<p>What is printed by the following code? Try to walk through the while
+statement, before running the code.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb33-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb33-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb33-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb33-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb33-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-6" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb33-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-7" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> n</span>
+<span id="cb33-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n, x)</span></code></pre></div>
+<ul>
+<li>A. 4 7</li>
+<li>B. 5 7</li>
+<li>C. 7 15</li>
+</ul>
+<h2 id="the-3n1-sequence">The 3n+1 Sequence</h2>
+<p>As an example of indefinite iteration, let’s look at a sequence that
+has fascinated mathematicians for many years. The rule for creating the
+sequence is to start from some positive integer, call it <code>n</code>,
+and to generate the next term of the sequence from <code>n</code>,
+either by halving <code>n</code>, whenever <code>n</code> is even, or
+else by multiplying it by three and adding 1 when it is odd. The
+sequence terminates when <code>n</code> reaches 1.</p>
+<p>This Python function captures that algorithm. Try running this
+program several times supplying different values for n.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> seq3np1(n):</span>
+<span id="cb34-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Print the 3n+1 sequence from n, terminating when it reaches 1."""</span></span>
+<span id="cb34-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> n <span class="op">!=</span> <span class="dv">1</span>:</span>
+<span id="cb34-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n)</span>
+<span id="cb34-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:        <span class="co"># n is even</span></span>
+<span id="cb34-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-6" aria-hidden="true" tabindex="-1"></a>            n <span class="op">=</span> n <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb34-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:                 <span class="co"># n is odd</span></span>
+<span id="cb34-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-8" aria-hidden="true" tabindex="-1"></a>            n <span class="op">=</span> n <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb34-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n)                  <span class="co"># the last print is 1</span></span>
+<span id="cb34-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb34-11" aria-hidden="true" tabindex="-1"></a>seq3np1(<span class="dv">3</span>)</span></code></pre></div>
+<p>The condition for this loop is <code>n != 1</code>. The loop will
+continue running until <code>n == 1</code> (which will make the
+condition false).</p>
+<p>Each time through the loop, the program prints the value of
+<code>n</code> and then checks whether it is even or odd using the
+remainder operator. If it is even, the value of <code>n</code> is
+divided by 2 using integer division. If it is odd, the value is replaced
+by <code>n * 3 + 1</code>. Try some other examples.</p>
+<p>Since <code>n</code> sometimes increases and sometimes decreases,
+there is no obvious proof that <code>n</code> will ever reach 1, or that
+the program terminates. For some particular values of <code>n</code>, we
+can prove termination. For example, if the starting value is a power of
+two, then the value of <code>n</code> will be even each time through the
+loop until it reaches 1.</p>
+<p>You might like to have some fun and see if you can find a small
+starting number that needs more than a hundred steps before it
+terminates.</p>
+<p>Particular values aside, the interesting question is whether we can
+prove that this sequence terminates for <em>all</em> positive values of
+<code>n</code>. So far, no one has been able to prove it <em>or</em>
+disprove it!</p>
+<p>Think carefully about what would be needed for a proof or disproof of
+the hypothesis <em>“All positive integers will eventually converge to
+1”</em>. With fast computers we have been able to test every integer up
+to very large values, and so far, they all eventually end up at 1. But
+this doesn’t mean that there might not be some as-yet untested number
+which does not reduce to 1.</p>
+<p>You’ll notice that if you don’t stop when you reach one, the sequence
+gets into its own loop: 1, 4, 2, 1, 4, 2, 1, 4, and so on. One
+possibility is that there might be other cycles that we just haven’t
+found.</p>
+<h3 id="choosing-between-for-and-while">Choosing between
+<code>for</code> and <code>while</code></h3>
+<p>Use a <code>for</code> loop if you know the maximum number of times
+that you’ll need to execute the body. For example, if you’re traversing
+a list of elements, or can formulate a suitable call to
+<code>range</code>, then choose the <code>for</code> loop.</p>
+<p>So any problem like “iterate this weather model run for 1000 cycles”,
+or “search this list of words”, “check all integers up to 10000 to see
+which are prime” suggest that a <code>for</code> loop is best.</p>
+<p>By contrast, if you are required to repeat some computation until
+some condition is met, as we did in this 3n + 1 problem, you’ll need a
+<code>while</code> loop.</p>
+<p>As we noted before, the first case is called <strong>definite
+iteration</strong> — we have some definite bounds for what is needed.
+The latter case is called <strong>indefinite iteration</strong> — we are
+not sure how many iterations we’ll need — we cannot even establish an
+upper bound!</p>
+<h2 id="other-uses-of-while">Other uses of <code>while</code></h2>
+<p><strong>Sentinel Values</strong></p>
+<p>Indefinite loops are much more common in the real world than definite
+loops.</p>
+<ul>
+<li>If you are selling tickets to an event, you don’t know in advance
+how many tickets you will sell. You keep selling tickets as long as
+people come to the door and there’s room in the hall.</li>
+<li>When the baggage crew unloads a plane, they don’t know in advance
+how many suitcases there are. They just keep unloading while there are
+bags left in the cargo hold. (Why <em>your</em> suitcase is always the
+last one is an entirely different problem.)</li>
+<li>When you go through the checkout line at the grocery, the clerks
+don’t know in advance how many items there are. They just keep ringing
+up items as long as there are more on the conveyor belt.</li>
+</ul>
+<p>Let’s implement the last of these in Python, by asking the user for
+prices and keeping a running total and count of items. When the last
+item is entered, the program gives the grand total, number of items, and
+average price. We’ll need these variables:</p>
+<ul>
+<li><code>total</code> - this will start at zero</li>
+<li><code>count</code> - the number of items, which also starts at
+zero</li>
+<li><code>moreItems</code> - a boolean that tells us whether more items
+are waiting; this starts as True</li>
+</ul>
+<p>The pseudocode (code written half in English, half in Python) for the
+body of the loop looks something like this::</p>
+<pre><code>while moreItems
+    ask for price
+    add price to total
+    add one to count</code></pre>
+<p>This pseudocode has no option to set <code>moreItems</code> to
+<code>False</code>, so it would run forever. In a grocery store, there’s
+a little plastic bar that you put after your last item to separate your
+groceries from those of the person behind you; that’s how the clerk
+knows you have no more items. We don’t have a “little plastic bar” data
+type in Python, so we’ll do the next best thing: we will use a
+<code>price</code> of zero to mean “this is my last item.” In this
+program, zero is a <strong>sentinel value</strong>, a value used to
+signal the end of the loop. Here’s the code:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> checkout():</span>
+<span id="cb36-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb36-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb36-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-4" aria-hidden="true" tabindex="-1"></a>    moreItems <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb36-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> moreItems:</span>
+<span id="cb36-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-6" aria-hidden="true" tabindex="-1"></a>        price <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Enter price of item (0 when done): '</span>))</span>
+<span id="cb36-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> price <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb36-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-8" aria-hidden="true" tabindex="-1"></a>            count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb36-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-9" aria-hidden="true" tabindex="-1"></a>            total <span class="op">=</span> total <span class="op">+</span> price</span>
+<span id="cb36-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'Subtotal: $'</span>, total)</span>
+<span id="cb36-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb36-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-12" aria-hidden="true" tabindex="-1"></a>            moreItems <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb36-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-13" aria-hidden="true" tabindex="-1"></a>    average <span class="op">=</span> total <span class="op">/</span> count</span>
+<span id="cb36-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Total items:'</span>, count)</span>
+<span id="cb36-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Total $'</span>, total)</span>
+<span id="cb36-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Average price per item: $'</span>, average)</span>
+<span id="cb36-17"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb36-18" aria-hidden="true" tabindex="-1"></a>checkout()</span></code></pre></div>
+<p>There are still a few problems with this program.</p>
+<ul>
+<li>If you enter a negative number, it will be added to the total and
+count. Modify the code so that negative numbers give an error message
+instead (but don’t end the loop) Hint: <code>elif</code> is your
+friend.</li>
+<li>If you enter zero the first time you are asked for a price, the loop
+will end, and the program will try to divide by zero. Use an
+<code>if</code>/<code>else</code> statement outside the loop to avoid
+the division by zero and tell the user that you can’t compute an average
+without data.</li>
+<li>This program doesn’t display the amounts to two decimal places.</li>
+</ul>
+<p><strong>Validating Input</strong></p>
+<p>You can also use a <code>while</code> loop when you want to
+<strong>validate</strong> input; when you want to make sure the user has
+entered valid input for a prompt. Let’s say you want a function that
+asks a yes-or-no question. In this case, you want to make sure that the
+person using your program enters either a Y for yes or N for no (in
+either upper or lower case). Here is a program that uses a
+<code>while</code> loop to keep asking until it receives a valid answer.
+As a preview of coming attractions, it uses the <code>upper()</code>
+method which is described in string method to convert a string to upper
+case. When you run the following code, try typing something other than Y
+or N to see how the code reacts:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_yes_or_no(message):</span>
+<span id="cb37-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-2" aria-hidden="true" tabindex="-1"></a>    valid_input <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb37-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="kw">not</span> valid_input:</span>
+<span id="cb37-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-4" aria-hidden="true" tabindex="-1"></a>        answer <span class="op">=</span> <span class="bu">input</span>(message)</span>
+<span id="cb37-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-5" aria-hidden="true" tabindex="-1"></a>        answer <span class="op">=</span> answer.upper() <span class="co"># convert to upper case</span></span>
+<span id="cb37-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> answer <span class="op">==</span> <span class="st">'Y'</span> <span class="kw">or</span> answer <span class="op">==</span> <span class="st">'N'</span>:</span>
+<span id="cb37-7"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-7" aria-hidden="true" tabindex="-1"></a>            valid_input <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb37-8"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb37-9"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'Please enter Y for yes or N for no.'</span>)</span>
+<span id="cb37-10"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span>
+<span id="cb37-11"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-12" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> get_yes_or_no(<span class="st">'Do you like lima beans? Y)es or N)o: '</span>)</span>
+<span id="cb37-13"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response <span class="op">==</span> <span class="st">'Y'</span>:</span>
+<span id="cb37-14"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Great! They are very healthy.'</span>)</span>
+<span id="cb37-15"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb37-16"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb37-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Too bad. If cooked right, they are quite tasty.'</span>)</span></code></pre></div>
+<h2 id="simple-tables">Simple Tables</h2>
+<p>One of the things loops are good for is generating tabular data.
+Before computers were readily available, people had to calculate
+logarithms, sines and cosines, and other mathematical functions by hand.
+To make that easier, mathematics books contained long tables listing the
+values of these functions. Creating the tables was slow and boring, and
+they tended to be full of errors.</p>
+<p>When computers appeared on the scene, one of the initial reactions
+was, <em>“This is great! We can use the computers to generate the
+tables, so there will be no errors.”</em> That turned out to be true
+(mostly) but shortsighted. Soon thereafter, computers and calculators
+were so pervasive that the tables became obsolete.</p>
+<p>Well, almost. For some operations, computers use tables of values to
+get an approximate answer and then perform computations to improve the
+approximation. In some cases, there have been errors in the underlying
+tables, most famously in the table the Intel Pentium processor chip used
+to perform floating-point division.</p>
+<p>Although a power of 2 table is not as useful as it once was, it still
+makes a good example of iteration. The following program outputs a
+sequence of values in the left column and 2 raised to the power of that
+value in the right column:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n"</span>, <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, <span class="st">"2**n"</span>)     <span class="co">#table column headings</span></span>
+<span id="cb38-2"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"---"</span>, <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, <span class="st">"-----"</span>)</span>
+<span id="cb38-3"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">13</span>):        <span class="co"># generate values for columns</span></span>
+<span id="cb38-5"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, <span class="dv">2</span> <span class="op">**</span> x)</span>
+<span id="cb38-6"><a href="https://pages.mtu.edu/~lebrown/cs4821-cs5831-s24/Intro2Python/5-Control-Flow.html#cb38-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p>The string <code>'\t'</code> represents a <strong>tab
+character</strong>. The backslash character in<code>'\t'</code>
+indicates the beginning of an <strong>escape sequence</strong>. Escape
+sequences are used to represent invisible characters like tabs and
+newlines. The sequence <code>\n</code> represents a
+<strong>newline</strong>.</p>
+<p>An escape sequence can appear anywhere in a string. In this example,
+the tab escape sequence is the only thing in the string. How do you
+think you represent a backslash in a string?</p>
+<p>As characters and strings are displayed on the screen, an invisible
+marker called the <strong>cursor</strong> keeps track of where the next
+character will go. After a <code>print</code> function is executed, the
+cursor normally goes to the beginning of the next line.</p>
+<p>The tab character shifts the cursor to the right until it reaches one
+of the tab stops. Tabs are useful for making columns of text line up, as
+in the output of the previous program. Because of the tab characters
+between the columns, the position of the second column does not depend
+on the number of digits in the first column.</p>
+
+
+</body></html>
